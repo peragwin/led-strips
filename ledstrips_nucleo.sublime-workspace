@@ -1,0 +1,542 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Life",
+				"LifePoint_List"
+			],
+			[
+				"LifePoint_Lis",
+				"LifePoint_ListNode"
+			],
+			[
+				"LifePoint_Li",
+				"LifePoint_ListNode"
+			],
+			[
+				"LifeP",
+				"LifePoint_List"
+			],
+			[
+				"NUM_",
+				"NUM_LIFE_POINTS"
+			],
+			[
+				"uint",
+				"uint8_t"
+			],
+			[
+				"LifePoint_List",
+				"LifePoint_List_Append"
+			],
+			[
+				"LifePo",
+				"LifePoint_Create"
+			],
+			[
+				"LifeGrid_",
+				"LifeGrid_add_random_life"
+			],
+			[
+				"add",
+				"addRandomLife"
+			],
+			[
+				"gradient",
+				"gradientField"
+			],
+			[
+				"gra",
+				"gradientField"
+			],
+			[
+				"food",
+				"foodList"
+			],
+			[
+				"LifePoint",
+				"LifePoint_List"
+			],
+			[
+				"NUM",
+				"NUM_LIFE_POINTS"
+			],
+			[
+				"int",
+				"int8_t"
+			],
+			[
+				"LifeGrid",
+				"LifeGrid_updateObjects"
+			],
+			[
+				"draw",
+				"drawOjects"
+			],
+			[
+				"LifeOb",
+				"lifeObj_a_t"
+			],
+			[
+				"GOL",
+				"GOL_Grid_iterate"
+			],
+			[
+				"LIFE",
+				"LIFEY"
+			],
+			[
+				"gmae",
+				"game_ptr"
+			],
+			[
+				"game_",
+				"game_obj"
+			],
+			[
+				"prt",
+				"game_ptr"
+			],
+			[
+				"life",
+				"lifeGrid"
+			],
+			[
+				"GOL_GRI",
+				"GOL_Grid_iterate"
+			],
+			[
+				"STM",
+				"STM32F4xx_StdPeriph_Driver"
+			],
+			[
+				"uin",
+				"uint8_t"
+			],
+			[
+				"socket",
+				"SocketIo"
+			],
+			[
+				"RED",
+				"REDIS_DB"
+			],
+			[
+				"RE",
+				"REDIS_SERVER"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Packages/Makefile/Make.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				],
+				[
+					"Packages/User/make burn.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/User/make burn.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 252.0,
+		"last_filter": ":w",
+		"selected_items":
+		[
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"pac con inst",
+				"Package Control: Install Package"
+			],
+			[
+				"vie me",
+				"View: Toggle Menu"
+			],
+			[
+				"view sid",
+				"View: Toggle Open Files in Side Bar"
+			],
+			[
+				"vien ",
+				"View: Toggle Menu"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/steven/projects/ledstrips_nucleo"
+	],
+	"file_history":
+	[
+		"/home/steven/.config/sublime-text-3/Packages/User/make burn.sublime-build",
+		"/home/steven/projects/stm_discovery_lcd/lcdcontrol.h",
+		"/home/steven/projects/stm_discovery_lcd/stm32f4xx_stddrivers.c",
+		"/home/steven/projects/stm_discovery_lcd/GameOfLife.c",
+		"/home/steven/projects/stm_discovery_lcd/AsciiLib.h",
+		"/home/steven/projects/stm_discovery_lcd/interrupts.c",
+		"/home/steven/projects/stm_discovery_lcd/init.c",
+		"/home/steven/projects/stm_discovery_lcd/lcdtimer.c",
+		"/home/steven/projects/stm_discovery_lcd/lcddrawing.c",
+		"/home/steven/projects/stm_discovery_lcd/TouchScreen/touch_7846.c",
+		"/home/steven/projects/stm_discovery_lcd/lcddrawing.h",
+		"/home/steven/projects/stm_discovery_lcd/config.h",
+		"/home/steven/projects/cyoa/cyoa/manage.py",
+		"/home/steven/projects/bootstrap-3.3.6/index.html",
+		"/home/steven/projects/cyoa/cyoa/static/css/default.css",
+		"/home/steven/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/steven/projects/cyoa/cyoa/requirements.txt",
+		"/home/steven/projects/cyoa/requirements.txt",
+		"/home/steven/Downloads/Timelapser.py",
+		"/home/steven/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			";\n",
+			"addRandomLife",
+			"NUM_LIFE_OBJ",
+			"NUM_LIFE_OBJECTS",
+			"iterate",
+			"GOL_Grid",
+			"**",
+			"lcdMask",
+			"digitMask",
+			"conf.h",
+			"GPIO_TypeDef",
+			"GPIO_Type",
+			"initADC",
+			"dispCount",
+			"RED",
+			"TIM_TimeBaseInitTypeDef",
+			"//#",
+			"Julija.h",
+			"as",
+			"LCD_Set",
+			"rand",
+			"Pen_Point",
+			"Pen_Poinnt"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"LifeGrid"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 112.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "ledstrips_nucleo",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"mainc",
+				"main.c"
+			],
+			[
+				"gam",
+				"GameOfLife.c"
+			],
+			[
+				"ma",
+				"Makefile"
+			],
+			[
+				"touch",
+				"TouchScreen/touch_7846.c"
+			],
+			[
+				"main",
+				"main.c"
+			],
+			[
+				"init",
+				"init.c"
+			],
+			[
+				"main.h",
+				"main.h"
+			],
+			[
+				"lcdtimer",
+				"lcdtimer.c"
+			],
+			[
+				"lcdtime",
+				"lcdtimer.c"
+			],
+			[
+				"inter",
+				"interrupts.h"
+			],
+			[
+				"int",
+				"interrupts.c"
+			],
+			[
+				"game",
+				"GameOfLife.h"
+			],
+			[
+				"in",
+				"interrupts.h"
+			],
+			[
+				"lcddra",
+				"lcddrawing.h"
+			],
+			[
+				"inte",
+				"interrupts.c"
+			],
+			[
+				"jul",
+				"julia.h"
+			],
+			[
+				"make",
+				"Makefile"
+			],
+			[
+				"juli",
+				"julia.h"
+			],
+			[
+				"j",
+				"julia.h"
+			],
+			[
+				"main.c",
+				"main.c"
+			],
+			[
+				"ssd12",
+				"SSD1289.c"
+			],
+			[
+				"lcddr",
+				"lcddrawing.c"
+			],
+			[
+				"mak",
+				"Makefile"
+			],
+			[
+				"lcdtim",
+				"lcdtimer.c"
+			],
+			[
+				"mk",
+				"Makefile"
+			],
+			[
+				"tou",
+				"TouchScreen/touch_7846.h"
+			],
+			[
+				"m",
+				"Makefile"
+			],
+			[
+				"lcdd",
+				"lcddrawing.h"
+			],
+			[
+				"lcddraw",
+				"lcddrawing.c"
+			],
+			[
+				"lcdcon",
+				"lcdcontrol.h"
+			],
+			[
+				"ssd",
+				"SSD1289.h"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 147.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

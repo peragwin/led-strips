@@ -23,8 +23,9 @@ CC=arm-none-eabi-gcc
 OBJCOPY=arm-none-eabi-objcopy
 LINKER=STM32F401RETx_FLASH.ld
 
-CFLAGS  = -g -O2 -Wall -T$(LINKER) --specs=linux.specs
+CFLAGS  = -g -O2 -Wall -T$(LINKER) --specs=nosys.specs
 CFLAGS += -D$(MCU_MODEL)
+CFLAGS += -lm #-lgloss
 CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork
 CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 CFLAGS += -I.

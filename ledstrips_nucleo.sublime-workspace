@@ -4,6 +4,294 @@
 		"selected_items":
 		[
 			[
+				"globa",
+				"globalBrightness"
+			],
+			[
+				"global",
+				"globalFrameDelay"
+			],
+			[
+				"ser",
+				"serialRxBuff_p"
+			],
+			[
+				"fram",
+				"frameCount"
+			],
+			[
+				"fra",
+				"frameCount"
+			],
+			[
+				"serialRx",
+				"serialRxBuff"
+			],
+			[
+				"serial",
+				"serialRxBuff"
+			],
+			[
+				"hu",
+				"huart2"
+			],
+			[
+				"HAL_U",
+				"HAL_UART_RxCpltCallback"
+			],
+			[
+				"uar",
+				"uartCharBuffer"
+			],
+			[
+				"HAL",
+				"HAL_BUSY"
+			],
+			[
+				"u",
+				"uartBuff"
+			],
+			[
+				"UART_H",
+				"UART_HandleTypeDef"
+			],
+			[
+				"ua",
+				"uartBuff"
+			],
+			[
+				"uart",
+				"uartBuffPtr"
+			],
+			[
+				"h",
+				"huart2"
+			],
+			[
+				"un",
+				"uint8_t"
+			],
+			[
+				"HAL_UAR",
+				"HAL_UART_Receive_IT"
+			],
+			[
+				"usa",
+				"usartCharBuffer"
+			],
+			[
+				"us",
+				"usartCharBuffer"
+			],
+			[
+				"a",
+				"amplitude"
+			],
+			[
+				"pixel",
+				"pixelBlockNext"
+			],
+			[
+				"set",
+				"setPixelBrightness"
+			],
+			[
+				"Pi",
+				"PixelBlock"
+			],
+			[
+				"NUMN",
+				"NUM_CHANNELS"
+			],
+			[
+				"pix",
+				"pixelIdx"
+			],
+			[
+				"NUM",
+				"NUM_LEDS_PER_CHANNEL"
+			],
+			[
+				"num",
+				"NUM_CHANNELS"
+			],
+			[
+				"_pix",
+				"_pixelBlockNow"
+			],
+			[
+				"return",
+				"returnBlock"
+			],
+			[
+				"uint",
+				"uint8_t"
+			],
+			[
+				"COlo",
+				"ColorTypeDef"
+			],
+			[
+				"bu",
+				"bufIdx"
+			],
+			[
+				"pi",
+				"pixelBlock"
+			],
+			[
+				"uin",
+				"uint16_t"
+			],
+			[
+				"LED",
+				"LED_CHANNEL0"
+			],
+			[
+				"frame",
+				"frameBuffer"
+			],
+			[
+				"DMA",
+				"DMA_IO_FrameBuffer"
+			],
+			[
+				"Fram",
+				"FrameBuffer_ShiftSetPixel"
+			],
+			[
+				"colorPro",
+				"colorPrevious0"
+			],
+			[
+				"__HAL_TIM",
+				"__HAL_TIM_DISABLE"
+			],
+			[
+				"DMA_IO",
+				"DMA_IO_SendBuffer"
+			],
+			[
+				"DAT",
+				"DATA_TIM_PERIOD_SC"
+			],
+			[
+				"TIM_CH",
+				"TIM_CHANNEL_2"
+			],
+			[
+				"TIM_CC",
+				"TIM_CCxChannelCmd"
+			],
+			[
+				"TIM_CHA",
+				"TIM_CHANNEL_1"
+			],
+			[
+				"hdma",
+				"hdma_tim2_ch1_gpio_low"
+			],
+			[
+				"hdm",
+				"hdma_tim2_ch1_gpio_low"
+			],
+			[
+				"De",
+				"Debug_Setup"
+			],
+			[
+				"GPIO",
+				"GPIO_TypeDef"
+			],
+			[
+				"Gp",
+				"GpioA"
+			],
+			[
+				"NVI",
+				"NVIC_CTRL_INTR_REG"
+			],
+			[
+				"Hal",
+				"HAL_Delay"
+			],
+			[
+				"LD2",
+				"LD2_Pin"
+			],
+			[
+				"LD2_P",
+				"LD2_GPIO_Port"
+			],
+			[
+				"DA",
+				"DATA_TIM_PERIOD_SC"
+			],
+			[
+				"hdma_tim2_",
+				"hdma_tim2_ch1_gpio_high"
+			],
+			[
+				"hdma_tim2_ch1_",
+				"hdma_tim2_ch1_gpio_low"
+			],
+			[
+				"HAL_",
+				"HAL_GPIO_WritePin"
+			],
+			[
+				"DM",
+				"DMA_IO_FrameBuffer"
+			],
+			[
+				"in",
+				"index"
+			],
+			[
+				"Color",
+				"ColorTypeDef"
+			],
+			[
+				"hd",
+				"hdma_tim3_ch1"
+			],
+			[
+				"TIM_DMA",
+				"TIM_DMA_ID_CC2"
+			],
+			[
+				"__HAL_TIM_DI",
+				"__HAL_TIM_DISABLE_DMA"
+			],
+			[
+				"W2",
+				"WS2812_transferComplete"
+			],
+			[
+				"TIM3",
+				"TIM3_IRQn"
+			],
+			[
+				"In",
+				"Instance"
+			],
+			[
+				"SRC",
+				"SRC_HAL"
+			],
+			[
+				"C",
+				"CFLAGS"
+			],
+			[
+				"SRC_",
+				"SRC_STARTUP"
+			],
+			[
+				"STM",
+				"STM32F4xx"
+			],
+			[
 				"Life",
 				"LifePoint_List"
 			],
@@ -22,10 +310,6 @@
 			[
 				"NUM_",
 				"NUM_LIFE_POINTS"
-			],
-			[
-				"uint",
-				"uint8_t"
 			],
 			[
 				"LifePoint_List",
@@ -58,10 +342,6 @@
 			[
 				"LifePoint",
 				"LifePoint_List"
-			],
-			[
-				"NUM",
-				"NUM_LIFE_POINTS"
 			],
 			[
 				"int",
@@ -108,14 +388,6 @@
 				"GOL_Grid_iterate"
 			],
 			[
-				"STM",
-				"STM32F4xx_StdPeriph_Driver"
-			],
-			[
-				"uin",
-				"uint8_t"
-			],
-			[
 				"socket",
 				"SocketIo"
 			],
@@ -131,8 +403,242 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "Makefile",
+			"settings":
+			{
+				"buffer_size": 2095,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Src/main.c",
+			"settings":
+			{
+				"buffer_size": 14113,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Inc/ControlRegisters.h",
+			"settings":
+			{
+				"buffer_size": 2169,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/steven/STM32CubeMX/ledstrips_nucleo/Inc/spi.h",
+			"settings":
+			{
+				"buffer_size": 2716,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/steven/STM32CubeMX/ledstrips_nucleo/Src/spi.c",
+			"settings":
+			{
+				"buffer_size": 5764,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Src/usart.c",
+			"settings":
+			{
+				"buffer_size": 4777,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Src/syscalls.c",
+			"settings":
+			{
+				"buffer_size": 2881,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Inc/usart.h",
+			"settings":
+			{
+				"buffer_size": 582,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Inc/stm32f4xx_hal_conf.h",
+			"settings":
+			{
+				"buffer_size": 17387,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Src/dma.c",
+			"settings":
+			{
+				"buffer_size": 3066,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Src/tim.c",
+			"settings":
+			{
+				"buffer_size": 11392,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Inc/tim.h",
+			"settings":
+			{
+				"buffer_size": 3185,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Src/gpio.c",
+			"settings":
+			{
+				"buffer_size": 4273,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Inc/gpio.h",
+			"settings":
+			{
+				"buffer_size": 2782,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Src/stm32f4xx_it.c",
+			"settings":
+			{
+				"buffer_size": 4106,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h",
+			"settings":
+			{
+				"buffer_size": 73835,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "colors.out",
+			"settings":
+			{
+				"buffer_size": 24060,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c",
+			"settings":
+			{
+				"buffer_size": 65373,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h",
+			"settings":
+			{
+				"buffer_size": 38364,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "colors.c",
+			"settings":
+			{
+				"buffer_size": 963,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "STM32F401RETx_FLASH.ld",
+			"settings":
+			{
+				"buffer_size": 5677,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c",
+			"settings":
+			{
+				"buffer_size": 174367,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h",
+			"settings":
+			{
+				"buffer_size": 13616,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h",
+			"settings":
+			{
+				"buffer_size": 317893,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Searching 16 files for \"IRQHandler\" (case sensitive)\n\n/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s:\n  173    \n  174    /* External Interrupts */\n  175:   .word     WWDG_IRQHandler                   /* Window WatchDog              */                                        \n  176:   .word     PVD_IRQHandler                    /* PVD through EXTI Line detection */                        \n  177:   .word     TAMP_STAMP_IRQHandler             /* Tamper and TimeStamps through the EXTI line */            \n  178:   .word     RTC_WKUP_IRQHandler               /* RTC Wakeup through the EXTI line */                      \n  179:   .word     FLASH_IRQHandler                  /* FLASH                        */                                          \n  180:   .word     RCC_IRQHandler                    /* RCC                          */                                            \n  181:   .word     EXTI0_IRQHandler                  /* EXTI Line0                   */                        \n  182:   .word     EXTI1_IRQHandler                  /* EXTI Line1                   */                          \n  183:   .word     EXTI2_IRQHandler                  /* EXTI Line2                   */                          \n  184:   .word     EXTI3_IRQHandler                  /* EXTI Line3                   */                          \n  185:   .word     EXTI4_IRQHandler                  /* EXTI Line4                   */                          \n  186:   .word     DMA1_Stream0_IRQHandler           /* DMA1 Stream 0                */                  \n  187:   .word     DMA1_Stream1_IRQHandler           /* DMA1 Stream 1                */                   \n  188:   .word     DMA1_Stream2_IRQHandler           /* DMA1 Stream 2                */                   \n  189:   .word     DMA1_Stream3_IRQHandler           /* DMA1 Stream 3                */                   \n  190:   .word     DMA1_Stream4_IRQHandler           /* DMA1 Stream 4                */                   \n  191:   .word     DMA1_Stream5_IRQHandler           /* DMA1 Stream 5                */                   \n  192:   .word     DMA1_Stream6_IRQHandler           /* DMA1 Stream 6                */                   \n  193:   .word     ADC_IRQHandler                    /* ADC1, ADC2 and ADC3s         */                   \n  194    .word     0               				  /* Reserved                      */                         \n  195    .word     0              					  /* Reserved                     */                          \n  196    .word     0                                 /* Reserved                     */                          \n  197    .word     0                                 /* Reserved                     */                          \n  198:   .word     EXTI9_5_IRQHandler                /* External Line[9:5]s          */                          \n  199:   .word     TIM1_BRK_TIM9_IRQHandler          /* TIM1 Break and TIM9          */         \n  200:   .word     TIM1_UP_TIM10_IRQHandler          /* TIM1 Update and TIM10        */         \n  201:   .word     TIM1_TRG_COM_TIM11_IRQHandler     /* TIM1 Trigger and Commutation and TIM11 */\n  202:   .word     TIM1_CC_IRQHandler                /* TIM1 Capture Compare         */                          \n  203:   .word     TIM2_IRQHandler                   /* TIM2                         */                   \n  204:   .word     TIM3_IRQHandler                   /* TIM3                         */                   \n  205:   .word     TIM4_IRQHandler                   /* TIM4                         */                   \n  206:   .word     I2C1_EV_IRQHandler                /* I2C1 Event                   */                          \n  207:   .word     I2C1_ER_IRQHandler                /* I2C1 Error                   */                          \n  208:   .word     I2C2_EV_IRQHandler                /* I2C2 Event                   */                          \n  209:   .word     I2C2_ER_IRQHandler                /* I2C2 Error                   */                            \n  210:   .word     SPI1_IRQHandler                   /* SPI1                         */                   \n  211:   .word     SPI2_IRQHandler                   /* SPI2                         */                   \n  212:   .word     USART1_IRQHandler                 /* USART1                       */                   \n  213:   .word     USART2_IRQHandler                 /* USART2                       */                   \n  214    .word     0               				  /* Reserved                       */                   \n  215:   .word     EXTI15_10_IRQHandler              /* External Line[15:10]s        */                          \n  216:   .word     RTC_Alarm_IRQHandler              /* RTC Alarm (A and B) through EXTI Line */                 \n  217:   .word     OTG_FS_WKUP_IRQHandler            /* USB OTG FS Wakeup through EXTI line */                       \n  218    .word     0                                 /* Reserved     				  */         \n  219    .word     0                                 /* Reserved       			  */         \n  220    .word     0                                 /* Reserved 					  */\n  221    .word     0                                 /* Reserved                     */                          \n  222:   .word     DMA1_Stream7_IRQHandler           /* DMA1 Stream7                 */                          \n  223    .word     0                                 /* Reserved                     */                   \n  224:   .word     SDIO_IRQHandler                   /* SDIO                         */                   \n  225:   .word     TIM5_IRQHandler                   /* TIM5                         */                   \n  226:   .word     SPI3_IRQHandler                   /* SPI3                         */                   \n  227    .word     0                                 /* Reserved                     */                   \n  228    .word     0                                 /* Reserved                     */                   \n  229    .word     0                                 /* Reserved                     */                   \n  230    .word     0                                 /* Reserved                     */\n  231:   .word     DMA2_Stream0_IRQHandler           /* DMA2 Stream 0                */                   \n  232:   .word     DMA2_Stream1_IRQHandler           /* DMA2 Stream 1                */                   \n  233:   .word     DMA2_Stream2_IRQHandler           /* DMA2 Stream 2                */                   \n  234:   .word     DMA2_Stream3_IRQHandler           /* DMA2 Stream 3                */                   \n  235:   .word     DMA2_Stream4_IRQHandler           /* DMA2 Stream 4                */                   \n  236    .word     0                    			  /* Reserved                     */                   \n  237    .word     0              					  /* Reserved                     */                     \n  ...\n  240    .word     0              					  /* Reserved                     */                          \n  241    .word     0              					  /* Reserved                     */                          \n  242:   .word     OTG_FS_IRQHandler                 /* USB OTG FS                   */                   \n  243:   .word     DMA2_Stream5_IRQHandler           /* DMA2 Stream 5                */                   \n  244:   .word     DMA2_Stream6_IRQHandler           /* DMA2 Stream 6                */                   \n  245:   .word     DMA2_Stream7_IRQHandler           /* DMA2 Stream 7                */                   \n  246:   .word     USART6_IRQHandler                 /* USART6                       */                    \n  247:   .word     I2C3_EV_IRQHandler                /* I2C3 event                   */                          \n  248:   .word     I2C3_ER_IRQHandler                /* I2C3 error                   */                          \n  249    .word     0                                 /* Reserved                     */                   \n  250    .word     0                                 /* Reserved                     */                   \n  ...\n  254    .word     0                                 /* Reserved                     */                   \n  255    .word     0                                 /* Reserved                     */\n  256:   .word     FPU_IRQHandler                    /* FPU                          */\n  257    .word     0                                 /* Reserved                     */                   \n  258    .word     0                                 /* Reserved                     */\n  259:   .word     SPI4_IRQHandler                   /* SPI4                         */     \n  260                      \n  261  /*******************************************************************************\n  ...\n  293     .thumb_set SysTick_Handler,Default_Handler              \n  294    \n  295:    .weak      WWDG_IRQHandler                   \n  296:    .thumb_set WWDG_IRQHandler,Default_Handler      \n  297                    \n  298:    .weak      PVD_IRQHandler      \n  299:    .thumb_set PVD_IRQHandler,Default_Handler\n  300                 \n  301:    .weak      TAMP_STAMP_IRQHandler            \n  302:    .thumb_set TAMP_STAMP_IRQHandler,Default_Handler\n  303              \n  304:    .weak      RTC_WKUP_IRQHandler                  \n  305:    .thumb_set RTC_WKUP_IRQHandler,Default_Handler\n  306              \n  307:    .weak      FLASH_IRQHandler         \n  308:    .thumb_set FLASH_IRQHandler,Default_Handler\n  309                    \n  310:    .weak      RCC_IRQHandler      \n  311:    .thumb_set RCC_IRQHandler,Default_Handler\n  312                    \n  313:    .weak      EXTI0_IRQHandler         \n  314:    .thumb_set EXTI0_IRQHandler,Default_Handler\n  315                    \n  316:    .weak      EXTI1_IRQHandler         \n  317:    .thumb_set EXTI1_IRQHandler,Default_Handler\n  318                       \n  319:    .weak      EXTI2_IRQHandler         \n  320:    .thumb_set EXTI2_IRQHandler,Default_Handler \n  321                   \n  322:    .weak      EXTI3_IRQHandler         \n  323:    .thumb_set EXTI3_IRQHandler,Default_Handler\n  324                          \n  325:    .weak      EXTI4_IRQHandler         \n  326:    .thumb_set EXTI4_IRQHandler,Default_Handler\n  327                    \n  328:    .weak      DMA1_Stream0_IRQHandler               \n  329:    .thumb_set DMA1_Stream0_IRQHandler,Default_Handler\n  330           \n  331:    .weak      DMA1_Stream1_IRQHandler               \n  332:    .thumb_set DMA1_Stream1_IRQHandler,Default_Handler\n  333                    \n  334:    .weak      DMA1_Stream2_IRQHandler               \n  335:    .thumb_set DMA1_Stream2_IRQHandler,Default_Handler\n  336                    \n  337:    .weak      DMA1_Stream3_IRQHandler               \n  338:    .thumb_set DMA1_Stream3_IRQHandler,Default_Handler \n  339                   \n  340:    .weak      DMA1_Stream4_IRQHandler              \n  341:    .thumb_set DMA1_Stream4_IRQHandler,Default_Handler\n  342                    \n  343:    .weak      DMA1_Stream5_IRQHandler               \n  344:    .thumb_set DMA1_Stream5_IRQHandler,Default_Handler\n  345                    \n  346:    .weak      DMA1_Stream6_IRQHandler               \n  347:    .thumb_set DMA1_Stream6_IRQHandler,Default_Handler\n  348                    \n  349:    .weak      ADC_IRQHandler      \n  350:    .thumb_set ADC_IRQHandler,Default_Handler\n  351              \n  352:    .weak      EXTI9_5_IRQHandler   \n  353:    .thumb_set EXTI9_5_IRQHandler,Default_Handler\n  354              \n  355:    .weak      TIM1_BRK_TIM9_IRQHandler            \n  356:    .thumb_set TIM1_BRK_TIM9_IRQHandler,Default_Handler\n  357              \n  358:    .weak      TIM1_UP_TIM10_IRQHandler            \n  359:    .thumb_set TIM1_UP_TIM10_IRQHandler,Default_Handler\n  360        \n  361:    .weak      TIM1_TRG_COM_TIM11_IRQHandler      \n  362:    .thumb_set TIM1_TRG_COM_TIM11_IRQHandler,Default_Handler\n  363        \n  364:    .weak      TIM1_CC_IRQHandler   \n  365:    .thumb_set TIM1_CC_IRQHandler,Default_Handler\n  366                    \n  367:    .weak      TIM2_IRQHandler            \n  368:    .thumb_set TIM2_IRQHandler,Default_Handler\n  369                    \n  370:    .weak      TIM3_IRQHandler            \n  371:    .thumb_set TIM3_IRQHandler,Default_Handler\n  372                    \n  373:    .weak      TIM4_IRQHandler            \n  374:    .thumb_set TIM4_IRQHandler,Default_Handler\n  375                    \n  376:    .weak      I2C1_EV_IRQHandler   \n  377:    .thumb_set I2C1_EV_IRQHandler,Default_Handler\n  378                       \n  379:    .weak      I2C1_ER_IRQHandler   \n  380:    .thumb_set I2C1_ER_IRQHandler,Default_Handler\n  381                       \n  382:    .weak      I2C2_EV_IRQHandler   \n  383:    .thumb_set I2C2_EV_IRQHandler,Default_Handler\n  384                    \n  385:    .weak      I2C2_ER_IRQHandler   \n  386:    .thumb_set I2C2_ER_IRQHandler,Default_Handler\n  387                             \n  388:    .weak      SPI1_IRQHandler            \n  389:    .thumb_set SPI1_IRQHandler,Default_Handler\n  390                          \n  391:    .weak      SPI2_IRQHandler            \n  392:    .thumb_set SPI2_IRQHandler,Default_Handler\n  393                    \n  394:    .weak      USART1_IRQHandler      \n  395:    .thumb_set USART1_IRQHandler,Default_Handler\n  396                       \n  397:    .weak      USART2_IRQHandler      \n  398:    .thumb_set USART2_IRQHandler,Default_Handler\n  399                                    \n  400:    .weak      EXTI15_10_IRQHandler               \n  401:    .thumb_set EXTI15_10_IRQHandler,Default_Handler\n  402                 \n  403:    .weak      RTC_Alarm_IRQHandler               \n  404:    .thumb_set RTC_Alarm_IRQHandler,Default_Handler\n  405              \n  406:    .weak      OTG_FS_WKUP_IRQHandler         \n  407:    .thumb_set OTG_FS_WKUP_IRQHandler,Default_Handler\n  408              \n  409:    .weak      DMA1_Stream7_IRQHandler               \n  410:    .thumb_set DMA1_Stream7_IRQHandler,Default_Handler\n  411                       \n  412:    .weak      SDIO_IRQHandler            \n  413:    .thumb_set SDIO_IRQHandler,Default_Handler\n  414                       \n  415:    .weak      TIM5_IRQHandler            \n  416:    .thumb_set TIM5_IRQHandler,Default_Handler\n  417                       \n  418:    .weak      SPI3_IRQHandler            \n  419:    .thumb_set SPI3_IRQHandler,Default_Handler\n  420                       \n  421:    .weak      DMA2_Stream0_IRQHandler               \n  422:    .thumb_set DMA2_Stream0_IRQHandler,Default_Handler\n  423                 \n  424:    .weak      DMA2_Stream1_IRQHandler               \n  425:    .thumb_set DMA2_Stream1_IRQHandler,Default_Handler\n  426                    \n  427:    .weak      DMA2_Stream2_IRQHandler               \n  428:    .thumb_set DMA2_Stream2_IRQHandler,Default_Handler\n  429              \n  430:    .weak      DMA2_Stream3_IRQHandler               \n  431:    .thumb_set DMA2_Stream3_IRQHandler,Default_Handler\n  432              \n  433:    .weak      DMA2_Stream4_IRQHandler               \n  434:    .thumb_set DMA2_Stream4_IRQHandler,Default_Handler\n  435              \n  436:    .weak      OTG_FS_IRQHandler      \n  437:    .thumb_set OTG_FS_IRQHandler,Default_Handler\n  438                       \n  439:    .weak      DMA2_Stream5_IRQHandler               \n  440:    .thumb_set DMA2_Stream5_IRQHandler,Default_Handler\n  441                    \n  442:    .weak      DMA2_Stream6_IRQHandler               \n  443:    .thumb_set DMA2_Stream6_IRQHandler,Default_Handler\n  444                    \n  445:    .weak      DMA2_Stream7_IRQHandler               \n  446:    .thumb_set DMA2_Stream7_IRQHandler,Default_Handler\n  447                    \n  448:    .weak      USART6_IRQHandler      \n  449:    .thumb_set USART6_IRQHandler,Default_Handler\n  450                          \n  451:    .weak      I2C3_EV_IRQHandler   \n  452:    .thumb_set I2C3_EV_IRQHandler,Default_Handler\n  453                          \n  454:    .weak      I2C3_ER_IRQHandler   \n  455:    .thumb_set I2C3_ER_IRQHandler,Default_Handler\n  456                          \n  457:    .weak      FPU_IRQHandler                  \n  458:    .thumb_set FPU_IRQHandler,Default_Handler  \n  459  \n  460:    .weak      SPI4_IRQHandler                  \n  461:    .thumb_set SPI4_IRQHandler,Default_Handler \n  462  \n  463  /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/\n\n/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h:\n  674  HAL_StatusTypeDef HAL_DMA_Abort_IT(DMA_HandleTypeDef *hdma);\n  675  HAL_StatusTypeDef HAL_DMA_PollForTransfer(DMA_HandleTypeDef *hdma, HAL_DMA_LevelCompleteTypeDef CompleteLevel, uint32_t Timeout);\n  676: void              HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma);\n  677  HAL_StatusTypeDef HAL_DMA_CleanCallbacks(DMA_HandleTypeDef *hdma);\n  678  HAL_StatusTypeDef HAL_DMA_RegisterCallback(DMA_HandleTypeDef *hdma, HAL_DMA_CallbackIDTypeDef CallbackID, void (* pCallback)(DMA_HandleTypeDef *_hdma));\n\n/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h:\n  255  void HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);\n  256  HAL_StatusTypeDef HAL_GPIO_LockPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);\n  257: void HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin);\n  258  void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);\n  259  \n\n/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:\n 1266    */\n 1267  /* Interrupt Handler functions  **********************************************/\n 1268: void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim);\n 1269  \n 1270  /**\n\n/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c:\n   44                Source address and destination address and the Length of data to be transferred. In this \n   45                case the DMA interrupt is configured \n   46:           (+) Use HAL_DMA_IRQHandler() called under DMA_IRQHandler() Interrupt subroutine\n   47:           (+) At the end of data transfer HAL_DMA_IRQHandler() function is executed and user can \n   48                add his own function by customization of function pointer XferCpltCallback and \n   49                XferErrorCallback (i.e a member of DMA handle structure).\n   ..\n  299  \n  300    /* Initialize StreamBaseAddress and StreamIndex parameters to be used to calculate\n  301:      DMA steam Base Address needed by HAL_DMA_IRQHandler() and HAL_DMA_PollForTransfer() */\n  302    regs = (DMA_Base_Registers *)DMA_CalcBaseAndBitshift(hdma);\n  303    \n  ...\n  738    * @retval None\n  739    */\n  740: void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)\n  741  {\n  742    uint32_t tmpisr;\n\n/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c:\n 2797    * @retval None\n 2798    */\n 2799: void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)\n 2800  {\n 2801    /* Capture compare 1 event */\n\n/home/steven/projects/ledstrips_nucleo/Src/stm32f4xx_it.c:\n   59    /* USER CODE END SysTick_IRQn 0 */\n   60    HAL_IncTick();\n   61:   HAL_SYSTICK_IRQHandler();\n   62    /* USER CODE BEGIN SysTick_IRQn 1 */\n   63  \n   ..\n   75  * @brief This function handles DMA2 stream1 global interrupt.\n   76  */\n   77: void DMA2_Stream1_IRQHandler(void)\n   78  {\n   79  \n   80:   HAL_DMA_IRQHandler(&hdma_timx_gpio_data);\n   81  \n   82  }\n   ..\n   85  * @brief This function handles DMA2 stream2 global interrupt.\n   86  */\n   87: void DMA2_Stream2_IRQHandler(void)\n   88  {\n   89  \n   90:   HAL_DMA_IRQHandler(&hdma_timx_gpio_low);\n   91  \n   92  }\n   ..\n   95  * @brief This function handles DMA2 stream5 global interrupt.\n   96  */\n   97: void DMA2_Stream5_IRQHandler(void)\n   98  {\n   99  \n  100:   HAL_DMA_IRQHandler(&hdma_timx_gpio_high);\n  101  \n  102  }\n  103  \n  104: void TIM1_IRQHandler(void)\n  105  {\n  106:   HAL_TIM_IRQHandler(&htimx);\n  107  }\n  108  \n\n186 matches across 7 files\n",
+			"settings":
+			{
+				"buffer_size": 20121,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "/home/steven/STM32Cube/Repository/STM32Cube_FW_F4_V1.12.0/Projects/STM32F429I-Discovery/Transmission/Src/main.c",
+			"settings":
+			{
+				"buffer_size": 25404,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h",
+			"settings":
+			{
+				"buffer_size": 37928,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c",
+			"settings":
+			{
+				"buffer_size": 40436,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s",
+			"settings":
+			{
+				"buffer_size": 22026,
+				"line_ending": "Windows"
+			}
+		}
 	],
-	"build_system": "",
+	"build_system": "Packages/Makefile/Make.sublime-build",
 	"build_system_choices":
 	[
 		[
@@ -152,6 +658,34 @@
 				[
 					"Packages/Makefile/Make.sublime-build",
 					"Clean"
+				]
+			],
+			[
+				"Packages/Makefile/Make.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				],
+				[
+					"Packages/User/make burn.sublime-build",
+					""
 				]
 			],
 			[
@@ -183,17 +717,29 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 252.0,
-		"last_filter": ":w",
+		"height": 392.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
-				":w",
-				":w - Save"
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: re",
+				"Package Control: Remove Package"
 			],
 			[
 				"install",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"insta",
 				"Package Control: Install Package"
+			],
+			[
+				":w",
+				":w - Save"
 			],
 			[
 				"pac con inst",
@@ -241,10 +787,56 @@
 	},
 	"expanded_folders":
 	[
-		"/home/steven/projects/ledstrips_nucleo"
+		"/home/steven/projects/ledstrips_nucleo",
+		"/home/steven/projects/ledstrips_nucleo/Inc",
+		"/home/steven/projects/ledstrips_nucleo/Lib",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Documentation",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/DSP_Lib/Examples/arm_convolution_example",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Device/ST/STM32F4xx",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32446E_EVAL/Examples",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32446E_EVAL/Examples/TIM/TIM_7PWMOutput/Src",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32446E_EVAL/Examples/TIM/TIM_DMABurst/Inc",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32446E_EVAL/Examples/TIM/TIM_DMABurst/Src",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32446E_EVAL/Examples/TIM/TIM_PWMOutput/Src",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo/Examples",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo/Examples/GPIO/GPIO_IOToggle/Src",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo/Examples/UART",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo/Examples/UART/UART_Printf",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo/Examples/UART/UART_Printf/SW4STM32",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo/Examples/UART/UART_Printf/Src",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F429I-Discovery",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F429I-Discovery/Demonstrations/SW4STM32/STM32F429I-Discovery",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F429I-Discovery/Examples/UART",
+		"/home/steven/projects/ledstrips_nucleo/Src"
 	],
 	"file_history":
 	[
+		"/home/steven/projects/ledstrips_nucleo/Inc/ControlRegisters.h",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Include/arm_math.h",
+		"/usr/arm-none-eabi/include/stdio.h",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_usart.c",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h",
+		"/home/steven/projects/ledstrips_nucleo/Inc/mxconstants.h",
+		"/home/steven/projects/ledstrips_nucleo/usart.c",
+		"/home/steven/projects/ledstrips_nucleo/usart.h",
+		"/home/steven/projects/ledstrips_nucleo/Inc/stm32f4xx_it.h",
+		"/home/steven/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/steven/projects/ledstrips_nucleo/ledstrips_nucleo.elf",
+		"/home/steven/.config/sublime-text-3/Packages/User/ClangAutoComplete.sublime-settings",
+		"/home/steven/projects/ledstrips_nucleo/Src/dma.c",
+		"/home/steven/projects/ledstrips_nucleo/Inc/stm32f4xx_hal_conf.h",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_wwdg.h",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c",
+		"/home/steven/projects/ledstrips_nucleo/Src/tim.c",
+		"/home/steven/projects/ledstrips_nucleo/ledstrips_nucleo.sublime-project",
 		"/home/steven/.config/sublime-text-3/Packages/User/make burn.sublime-build",
 		"/home/steven/projects/stm_discovery_lcd/lcdcontrol.h",
 		"/home/steven/projects/stm_discovery_lcd/stm32f4xx_stddrivers.c",
@@ -260,7 +852,6 @@
 		"/home/steven/projects/cyoa/cyoa/manage.py",
 		"/home/steven/projects/bootstrap-3.3.6/index.html",
 		"/home/steven/projects/cyoa/cyoa/static/css/default.css",
-		"/home/steven/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 		"/home/steven/projects/cyoa/cyoa/requirements.txt",
 		"/home/steven/projects/cyoa/requirements.txt",
 		"/home/steven/Downloads/Timelapser.py",
@@ -268,13 +859,22 @@
 	],
 	"find":
 	{
-		"height": 25.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
 		"height": 90.0,
 		"where_history":
 		[
+			"<selection>",
+			"<open files>",
+			"<open folders>",
+			"",
+			"<current file>, <open files>",
+			"<current file>",
+			"<current file>,<open files>",
+			"<selection>,<current file>",
+			"<selection>",
 			""
 		]
 	},
@@ -283,6 +883,85 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"sp",
+			"Frame ",
+			"TcCplt",
+			"huart->RxState",
+			"__HAL_UART_ENABLE_IT",
+			"__HAL_UART_ENABLE",
+			"__HAL_UART",
+			"__HAL",
+			"USART_Transmit",
+			"red",
+			"uint",
+			"ColorTypeDef",
+			"IRQHandler",
+			"TIM1_UP",
+			"hdma_tim2_ch1_gpio_low",
+			"hdma_tim2_ch2_gpio_data",
+			"hdma_tim2_ch1_gpio_high",
+			"TIM1",
+			"htim2",
+			"TIMx_DMA_CC",
+			"Hal_tim_pwm_start",
+			"Hal_tim_pwm",
+			"hdma_tim2_ch1_gpio_low.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;\n    // hdma_tim2_ch1_gpio_low.Init.MemBurst = DMA_MBURST_INC4;\n    ",
+			"memory",
+			"memburst",
+			"DMA_CHECKFIFo",
+			"HAL_DMA_INIT",
+			"DMA_Ty",
+			"DMA_FIFOMODE_ENABLE",
+			"FIFO",
+			"FIFOP",
+			"base_registers",
+			"DMA_base",
+			"ERror",
+			"ERrror",
+			"TIM_DMA_UPDATE",
+			"TIM_DIER_UDE",
+			"DIER",
+			"GPIO_SPEED",
+			"GPIOA_BASE",
+			"GPIO_TypeDef",
+			"GPIO",
+			"Tim_Typedef",
+			"stream5",
+			"stream6",
+			"Stream4",
+			"DBGMCU",
+			"NVIC",
+			"tim3",
+			"low_update",
+			"hdma_tim3_ch2",
+			"hdma_tim3_ch1",
+			"tim3",
+			"IRQn_T",
+			"while(1)",
+			"wwdg",
+			"WWDG",
+			"Hal_Delay",
+			"START_IT",
+			"_trig",
+			"TIM_ENABLE",
+			"__HAL_TIM_SET",
+			"TIM_FLAG",
+			"TIM_SR",
+			"TIM_DMA",
+			"DISABLE_DMA",
+			"DMA",
+			"HAL_TIM_PeriodElapsedCallback",
+			"__HAL_TIM_PeriodElapsedCallback",
+			"HAL_TIM_PeriodElapsedCallback",
+			"HandleTypedef",
+			"IRQ",
+			"IRQn",
+			"ClearIT",
+			"_trig",
+			"IRQHa",
+			"HandleTypeDef",
+			"HAL_DMA_Init",
+			"TIM_OC_Init",
 			";\n",
 			"addRandomLife",
 			"NUM_LIFE_OBJ",
@@ -313,6 +992,15 @@
 		"regex": false,
 		"replace_history":
 		[
+			"green",
+			"Pixel",
+			"hdma_timx_gpio_low",
+			"hdma_timx_gpio_data",
+			"hdma_timx_gpio_high",
+			"htimx",
+			"high",
+			"hdma_tim2_ch2_gpio_data",
+			"hdma_tim2_ch1_gpio_low",
 			"LifeGrid"
 		],
 		"reverse": false,
@@ -324,14 +1012,1645 @@
 	"groups":
 	[
 		{
+			"selected": 23,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "Makefile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2095,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1656,
+								1656
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 459.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Src/main.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 14113,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3291,
+								3291
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 570.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Inc/ControlRegisters.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2169,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								818,
+								818
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 17.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/steven/STM32CubeMX/ledstrips_nucleo/Inc/spi.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2716,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2457,
+								2457
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/home/steven/STM32CubeMX/ledstrips_nucleo/Src/spi.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5764,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4364,
+								4364
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1479.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Src/usart.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4777,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3011,
+								3011
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1802.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Src/syscalls.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2881,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1988,
+								1988
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1275.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Inc/usart.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 582,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								344,
+								344
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "Inc/stm32f4xx_hal_conf.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 17387,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3552,
+								3552
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 816.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "Src/dma.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3066,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2898,
+								2898
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 561.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 19,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "Src/tim.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11392,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5986,
+								5986
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1486.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "Inc/tim.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3185,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2348,
+								2348
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 816.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "Src/gpio.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4273,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2940,
+								2940
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 816.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "Inc/gpio.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2782,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2306,
+								2306
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 408.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 26,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "Src/stm32f4xx_it.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4106,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4019,
+								4019
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1475.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 73835,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								36181,
+								36181
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 14480.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "colors.out",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 24060,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								21655,
+								21655
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 8874.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 65373,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								60679,
+								60679
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 19890.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 38364,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14509,
+								14509
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5198.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 21,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "colors.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 963,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								774,
+								774
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 102.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "STM32F401RETx_FLASH.ld",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5677,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5435,
+								5435
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2924.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 174367,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								38047,
+								38047
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 18084.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 22,
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13616,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7470,
+								7470
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2002.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 24,
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 317893,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6001,
+								6001
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1479.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 24,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 20121,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										244,
+										254
+									],
+									[
+										371,
+										381
+									],
+									[
+										493,
+										503
+									],
+									[
+										606,
+										616
+									],
+									[
+										717,
+										727
+									],
+									[
+										845,
+										855
+									],
+									[
+										979,
+										989
+									],
+									[
+										1091,
+										1101
+									],
+									[
+										1205,
+										1215
+									],
+									[
+										1319,
+										1329
+									],
+									[
+										1433,
+										1443
+									],
+									[
+										1554,
+										1564
+									],
+									[
+										1660,
+										1670
+									],
+									[
+										1767,
+										1777
+									],
+									[
+										1874,
+										1884
+									],
+									[
+										1981,
+										1991
+									],
+									[
+										2088,
+										2098
+									],
+									[
+										2195,
+										2205
+									],
+									[
+										2293,
+										2303
+									],
+									[
+										2836,
+										2846
+									],
+									[
+										2956,
+										2966
+									],
+									[
+										3053,
+										3063
+									],
+									[
+										3155,
+										3165
+									],
+									[
+										3242,
+										3252
+									],
+									[
+										3353,
+										3363
+									],
+									[
+										3460,
+										3470
+									],
+									[
+										3567,
+										3577
+									],
+									[
+										3677,
+										3687
+									],
+									[
+										3791,
+										3801
+									],
+									[
+										3905,
+										3915
+									],
+									[
+										4019,
+										4029
+									],
+									[
+										4132,
+										4142
+									],
+									[
+										4239,
+										4249
+									],
+									[
+										4348,
+										4358
+									],
+									[
+										4455,
+										4465
+									],
+									[
+										4662,
+										4672
+									],
+									[
+										4776,
+										4786
+									],
+									[
+										4892,
+										4902
+									],
+									[
+										5375,
+										5385
+									],
+									[
+										5588,
+										5598
+									],
+									[
+										5695,
+										5705
+									],
+									[
+										5802,
+										5812
+									],
+									[
+										6326,
+										6336
+									],
+									[
+										6433,
+										6443
+									],
+									[
+										6540,
+										6550
+									],
+									[
+										6647,
+										6657
+									],
+									[
+										6754,
+										6764
+									],
+									[
+										7261,
+										7271
+									],
+									[
+										7374,
+										7384
+									],
+									[
+										7481,
+										7491
+									],
+									[
+										7588,
+										7598
+									],
+									[
+										7689,
+										7699
+									],
+									[
+										7798,
+										7808
+									],
+									[
+										7912,
+										7922
+									],
+									[
+										8437,
+										8447
+									],
+									[
+										8721,
+										8731
+									],
+									[
+										9015,
+										9025
+									],
+									[
+										9071,
+										9081
+									],
+									[
+										9155,
+										9165
+									],
+									[
+										9197,
+										9207
+									],
+									[
+										9279,
+										9289
+									],
+									[
+										9334,
+										9344
+									],
+									[
+										9411,
+										9421
+									],
+									[
+										9470,
+										9480
+									],
+									[
+										9544,
+										9554
+									],
+									[
+										9591,
+										9601
+									],
+									[
+										9669,
+										9679
+									],
+									[
+										9711,
+										9721
+									],
+									[
+										9791,
+										9801
+									],
+									[
+										9838,
+										9848
+									],
+									[
+										9918,
+										9928
+									],
+									[
+										9965,
+										9975
+									],
+									[
+										10048,
+										10058
+									],
+									[
+										10095,
+										10105
+									],
+									[
+										10175,
+										10185
+									],
+									[
+										10222,
+										10232
+									],
+									[
+										10308,
+										10318
+									],
+									[
+										10355,
+										10365
+									],
+									[
+										10442,
+										10452
+									],
+									[
+										10502,
+										10512
+									],
+									[
+										10580,
+										10590
+									],
+									[
+										10640,
+										10650
+									],
+									[
+										10727,
+										10737
+									],
+									[
+										10787,
+										10797
+									],
+									[
+										10874,
+										10884
+									],
+									[
+										10934,
+										10944
+									],
+									[
+										11021,
+										11031
+									],
+									[
+										11080,
+										11090
+									],
+									[
+										11167,
+										11177
+									],
+									[
+										11227,
+										11237
+									],
+									[
+										11314,
+										11324
+									],
+									[
+										11374,
+										11384
+									],
+									[
+										11452,
+										11462
+									],
+									[
+										11494,
+										11504
+									],
+									[
+										11570,
+										11580
+									],
+									[
+										11613,
+										11623
+									],
+									[
+										11695,
+										11705
+									],
+									[
+										11753,
+										11763
+									],
+									[
+										11835,
+										11845
+									],
+									[
+										11893,
+										11903
+									],
+									[
+										11974,
+										11984
+									],
+									[
+										12031,
+										12041
+									],
+									[
+										12101,
+										12111
+									],
+									[
+										12144,
+										12154
+									],
+									[
+										12223,
+										12233
+									],
+									[
+										12272,
+										12282
+									],
+									[
+										12351,
+										12361
+									],
+									[
+										12400,
+										12410
+									],
+									[
+										12479,
+										12489
+									],
+									[
+										12528,
+										12538
+									],
+									[
+										12610,
+										12620
+									],
+									[
+										12653,
+										12663
+									],
+									[
+										12738,
+										12748
+									],
+									[
+										12781,
+										12791
+									],
+									[
+										12866,
+										12876
+									],
+									[
+										12909,
+										12919
+									],
+									[
+										12991,
+										13001
+									],
+									[
+										13034,
+										13044
+									],
+									[
+										13122,
+										13132
+									],
+									[
+										13171,
+										13181
+									],
+									[
+										13256,
+										13266
+									],
+									[
+										13305,
+										13315
+									],
+									[
+										13386,
+										13396
+									],
+									[
+										13431,
+										13441
+									],
+									[
+										13515,
+										13525
+									],
+									[
+										13560,
+										13570
+									],
+									[
+										13660,
+										13670
+									],
+									[
+										13717,
+										13727
+									],
+									[
+										13798,
+										13808
+									],
+									[
+										13855,
+										13865
+									],
+									[
+										13935,
+										13945
+									],
+									[
+										13988,
+										13998
+									],
+									[
+										14069,
+										14079
+									],
+									[
+										14129,
+										14139
+									],
+									[
+										14211,
+										14221
+									],
+									[
+										14260,
+										14270
+									],
+									[
+										14342,
+										14352
+									],
+									[
+										14391,
+										14401
+									],
+									[
+										14473,
+										14483
+									],
+									[
+										14522,
+										14532
+									],
+									[
+										14612,
+										14622
+									],
+									[
+										14672,
+										14682
+									],
+									[
+										14756,
+										14766
+									],
+									[
+										14816,
+										14826
+									],
+									[
+										14903,
+										14913
+									],
+									[
+										14963,
+										14973
+									],
+									[
+										15044,
+										15054
+									],
+									[
+										15104,
+										15114
+									],
+									[
+										15185,
+										15195
+									],
+									[
+										15245,
+										15255
+									],
+									[
+										15320,
+										15330
+									],
+									[
+										15365,
+										15375
+									],
+									[
+										15455,
+										15465
+									],
+									[
+										15515,
+										15525
+									],
+									[
+										15602,
+										15612
+									],
+									[
+										15662,
+										15672
+									],
+									[
+										15749,
+										15759
+									],
+									[
+										15809,
+										15819
+									],
+									[
+										15890,
+										15900
+									],
+									[
+										15935,
+										15945
+									],
+									[
+										16023,
+										16033
+									],
+									[
+										16066,
+										16076
+									],
+									[
+										16154,
+										16164
+									],
+									[
+										16197,
+										16207
+									],
+									[
+										16281,
+										16291
+									],
+									[
+										16335,
+										16345
+									],
+									[
+										16398,
+										16408
+									],
+									[
+										16453,
+										16463
+									],
+									[
+										16913,
+										16923
+									],
+									[
+										17464,
+										17474
+									],
+									[
+										17775,
+										17785
+									],
+									[
+										18132,
+										18142
+									],
+									[
+										18162,
+										18172
+									],
+									[
+										18253,
+										18263
+									],
+									[
+										18640,
+										18650
+									],
+									[
+										18827,
+										18837
+									],
+									[
+										19052,
+										19062
+									],
+									[
+										19285,
+										19295
+									],
+									[
+										19463,
+										19473
+									],
+									[
+										19514,
+										19524
+									],
+									[
+										19675,
+										19685
+									],
+									[
+										19726,
+										19736
+									],
+									[
+										19886,
+										19896
+									],
+									[
+										19937,
+										19947
+									],
+									[
+										20013,
+										20023
+									],
+									[
+										20056,
+										20066
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								3049,
+								3049
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 102.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 25,
+					"type": "text"
+				},
+				{
+					"buffer": 25,
+					"file": "/home/steven/STM32Cube/Repository/STM32Cube_FW_F4_V1.12.0/Projects/STM32F429I-Discovery/Transmission/Src/main.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 25404,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12942,
+								12942
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4692.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 27,
+					"type": "text"
+				},
+				{
+					"buffer": 26,
+					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 37928,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								37375,
+								37375
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 12117.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 28,
+					"type": "text"
+				},
+				{
+					"buffer": 27,
+					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 40436,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								17398,
+								17398
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 7627.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 28,
+					"file": "Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22026,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3169,
+								3169
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/R/R.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 863.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 25.0
+		"height": 34.0
 	},
 	"input":
 	{
@@ -346,11 +2665,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.661526794742,
 			1.0
 		],
 		"rows":
@@ -362,7 +2688,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 112.0
+		"height": 302.0
 	},
 	"output.find_results":
 	{
@@ -381,6 +2707,94 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"con",
+				"Inc/ControlRegisters.h"
+			],
+			[
+				"hal_uart",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c"
+			],
+			[
+				"hal_usart",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h"
+			],
+			[
+				"uart",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c"
+			],
+			[
+				"it.h",
+				"Inc/stm32f4xx_it.h"
+			],
+			[
+				"stm",
+				"Src/stm32f4xx_it.c"
+			],
+			[
+				"hal_ua",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+			],
+			[
+				"hal_us",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_usart.c"
+			],
+			[
+				"usar",
+				"usart.h"
+			],
+			[
+				"color",
+				"colors.c"
+			],
+			[
+				"colors",
+				"colors.out"
+			],
+			[
+				"dma.c",
+				"Src/dma.c"
+			],
+			[
+				"stm32f4xx_hal_tim",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c"
+			],
+			[
+				"stm32f401xe",
+				"Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
+			],
+			[
+				"stm32",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+			],
+			[
+				"stm32f4xx_hal_ww",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_wwdg.h"
+			],
+			[
+				"stm32f401xe.s",
+				"Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s"
+			],
+			[
+				"stm32f4xx_hal_gpi",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+			],
+			[
+				"stm32f4xx_hal.c",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c"
+			],
+			[
+				"stm32f4xx_hal.",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+			],
+			[
+				"tim.c",
+				"Src/tim.c"
+			],
+			[
+				"stm32f4xx_hal_dma",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+			],
 			[
 				"mainc",
 				"main.c"
@@ -510,12 +2924,12 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{
@@ -533,8 +2947,8 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": false,
-	"side_bar_width": 147.0,
+	"side_bar_visible": true,
+	"side_bar_width": 302.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

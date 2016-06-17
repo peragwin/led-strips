@@ -34,54 +34,66 @@
 #include "stm32f4xx_hal.h"
 #include "dma.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
+#include "ControlRegisters.h"
+
 /* USER CODE BEGIN Includes */
+#include "stdlib.h"
+#include "string.h"
 #include "math.h"
 #define PI 3.1415926
 /* USER CODE END Includes */
+
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 
+#define MAJOR_REV 0
+#define MINOR_REV 1
+
 // buffer size is num_leds * 24 bits/led
 // 60 * 24 = 1440
-#define LEDS_PER_STRIP 60
 #define BUFFSIZE 1440
-  //0
+#define NUM_CHANNELS 8
+#define NUM_LEDS_PER_CHANNEL 60
+#define MAX_NUM_CHANNELS 8
+
+#define DEFAULT_BRIGHTNESS 50
+#define DEFAULT_FRAMERATE  10
+
+
+#include "FrameBuffer.h"
 
 // put these in memory so they can be copied via DMA
-volatile uint8_t DMA_IO_FrameBuffer[BUFFSIZE];
-volatile uint32_t DMA_IO_High = 0xFFFFFFFFU;
-volatile uint32_t DMA_IO_Low  = 0x00000000U;
+uint32_t _rawBuffer[BUFFSIZE/4];  //make aligned
+buf      DMA_IO_FrameBuffer = (buf) &_rawBuffer;
+uint32_t DMA_IO_High = 0xFFFFFFFFU;
+uint32_t DMA_IO_Low  = 0x00000000U;
 
 volatile uint8_t WS2812_TransferComplete = 1;
+
 
 extern TIM_HandleTypeDef htimx;
 extern DMA_HandleTypeDef hdma_timx_gpio_low;     // DMA1_stream4 sets data gpios low
 extern DMA_HandleTypeDef hdma_timx_gpio_data;    // DMA1_stream5 sets data gpios to buffer value
 extern DMA_HandleTypeDef hdma_timx_gpio_high;    // DMA1_stream6 sets data gpios high
+extern UART_HandleTypeDef huart2;
 
 
-typedef struct
-{
-  uint8_t red;
-  uint8_t green;
-  uint8_t blue;
-} ColorTypeDef;
 
-#include "colors.out"
 
-const ColorTypeDef CBlack      = {0x00, 0x00, 0x00};
-const ColorTypeDef CRed        = {0xFF, 0x00, 0x00};
-const ColorTypeDef CGreen      = {0x00, 0xFF, 0x00};
-const ColorTypeDef CBlue       = {0x00, 0x00, 0xFF};
-const ColorTypeDef CCyan       = {0x00, 0xFF, 0xFF};
-const ColorTypeDef CMagenta    = {0xFF, 0x00, 0xFF};
-const ColorTypeDef CYellow     = {0xFF, 0xFF, 0x00};
-const ColorTypeDef CWhite      = {0xFF, 0xFF, 0xFF};
+
+volatile int showFrameDebug = 1;
+volatile int serialEchoEnabled = 1;
+int globalBrightness = 50;
+int globalFrameDelay = 100;
+
+
+
 
 
 /* USER CODE END PV */
@@ -89,22 +101,32 @@ const ColorTypeDef CWhite      = {0xFF, 0xFF, 0xFF};
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void Error_Handler(void);
-
-/* USER CODE BEGIN PFP */
-/* Private function prototypes -----------------------------------------------*/
-
-void DMA_IO_SendBuffer(uint8_t* frameData, uint16_t buffsize);
-
+void DebugGood_Handler(void);
 void Debug_Setup(void);
 
-void DebugGood_Handler(void);
+
+void DMA_IO_SendBuffer(buf frameData, uint16_t buffsize);
+
+
+void DisplayLedDemo(void);
+
 
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
 
 
-void DMA_IO_SendBuffer(uint8_t* frameBuffer, uint16_t buffsize)
+GPIO_TypeDef *GpioC;
+
+void Debug_Setup(void)
+{
+  GpioC = (GPIO_TypeDef*)GPIOC;
+
+  // enable usasge error handler status reg
+  *((uint32_t*)0xe000ed24) = 0x70000;
+}
+
+void DMA_IO_SendBuffer(buf frameBuffer, uint16_t buffsize)
 {
   while(!WS2812_TransferComplete) HAL_Delay(1);
   WS2812_TransferComplete = 0;
@@ -117,7 +139,7 @@ void DMA_IO_SendBuffer(uint8_t* frameBuffer, uint16_t buffsize)
       != HAL_OK) Error_Handler();
 
   if (HAL_DMA_Start_IT(&hdma_timx_gpio_data,
-                       (uint32_t)&DMA_IO_FrameBuffer,
+                       (uint32_t)frameBuffer,
                        (uint32_t)&(GPIOC->ODR),
                        buffsize)
       != HAL_OK) Error_Handler();
@@ -140,33 +162,96 @@ void DMA_IO_SendBuffer(uint8_t* frameBuffer, uint16_t buffsize)
 
   // Enable the timer to kick things off
   __HAL_TIM_ENABLE(&htimx);
+
 }
 
-void FrameBuffer_SetPixel(uint8_t* frameBuffer, uint8_t channel, uint16_t index, ColorTypeDef c)
-{
-  uint8_t i;
-  for (i = 0; i < 8; i++)
-  {
-    // clear
-    frameBuffer[(index*24)+i]    &= ~(0x01<<channel);
-    frameBuffer[(index*24)+8+i]  &= ~(0x01<<channel);
-    frameBuffer[(index*24)+16+i] &= ~(0x01<<channel);
 
-    // set
-    frameBuffer[(index*24)+i]    |= ((c.green<<i) & 0x80) >> (7-channel);
-    frameBuffer[(index*24)+8+i]  |= (  (c.red<<i) & 0x80) >> (7-channel);
-    frameBuffer[(index*24)+16+i] |= ( (c.blue<<i) & 0x80) >> (7-channel);
+float triangleWave(int period, float amplitude, int phase, int d)
+{
+  int p = phase % 360;
+  float t = (360.0/period * d) - p;
+
+  if (t>=180) return amplitude * (-1 + (t-180)/90);
+  else        return amplitude * (1 - t/90);
+}
+
+void RainbowShiftIterateFrame(buf fb, int d)
+{
+    int i;
+    float w;
+    Pixel c;
+    static PixelBlock pixelBlockNext;
+
+    c = ColorTable[(4*d)%COLOR_TABLE_LEN];
+    for (i=0; i<NUM_CHANNELS; i++) {
+     /* w = triangleWave(450, 4.0, 0, d+80*i);
+      if (w > 1) w = 1.0/w;
+        else if (w < -1) w = -w;
+        else w = 1.0; */
+      //w = (float)globalBrightness / 100.0;
+
+      pixelBlockNext[i] = setPixelBrightness(c, globalBrightness);
+    }
+
+    for(i = 0; i < NUM_LEDS_PER_CHANNEL; i++)
+      FB_ShiftSetPixel(fb, pixelBlockNext, i);
+
+}
+
+int frameCount = 0;
+
+void DisplayLedDemo(void)
+{
+  // go for cycle period of 10 sec, or 300 frames
+  //const float w = PI/300;
+
+  buf fb = DMA_IO_FrameBuffer;
+
+  while(frameCount++)
+  {
+    int d = frameCount;
+    if (!(d%30) || d%30==6) HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+
+    RainbowShiftIterateFrame(fb, d);
+
+    DMA_IO_SendBuffer(fb, BUFFSIZE);
+    HAL_Delay(globalFrameDelay);
+
   }
 }
 
-GPIO_TypeDef *GpioC;
-
-void Debug_Setup(void)
+void ShowPrompt(void)
 {
-  GpioC = (GPIO_TypeDef*)GPIOC;
+  char *prompt = "#\r\n%s> ";
+  char *frame = "Frame %d ";
+  if (showFrameDebug) {
+    sprintf(frame, frame, frameCount);
+    printf(prompt, frame);
+  }
+  else printf(prompt, "");
+}
 
-  // enable usasge error handler status reg
-  *((uint32_t*)0xe000ed24) = 0x70000;
+
+void ParseCommands(char *cmdStr)
+{
+  char cmd[16], value[8];
+  char *csep, *cend;
+  int cmdLen;
+
+  csep = strchr(cmdStr, ' ');
+  cend = strchr(cmdStr, '\r');
+  if (!cend) cend = strchr(cmdStr, '\n');
+  if (csep == NULL || cend == NULL) return;
+
+  cmdLen = csep - cmdStr;
+  strncpy(cmd, cmdStr, cmdLen);
+  strncpy(value, csep+1, cend-csep-1);
+
+  if (cmd[0] == 'b')
+    globalBrightness = atoi(value);
+
+  if (cmd[0] == 'r')
+    globalFrameDelay = atoi(value);
 }
 
 /* USER CODE END 0 */
@@ -190,24 +275,24 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_TIM1_Init();
+  USART2_Init();
+  HAL_UART_RxCpltCallback(&huart2); // begin rx for loopback
 
   Debug_Setup();
 
   /* USER CODE BEGIN 2 */
 
-  for (uint8_t i = 0; i < BUFFSIZE/24; i++)
+  for (uint16_t i = 0; i < NUM_LEDS_PER_CHANNEL; i++)
   {
-    FrameBuffer_SetPixel(&DMA_IO_FrameBuffer, 0, i, CWhite);
+    FB_SetPixel(DMA_IO_FrameBuffer, 0, i, CWhite);
   }
 
   uint16_t size = BUFFSIZE;
   while(0);
-  DMA_IO_SendBuffer(&DMA_IO_FrameBuffer, size);
+  DMA_IO_SendBuffer(DMA_IO_FrameBuffer, size);
 
-  /* USER CODE END 2 */
+  ShowPrompt();
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
   while (1)
   {
 
@@ -217,7 +302,7 @@ int main(void)
       HAL_Delay(500);
     }
     DebugGood_Handler();
-    //DMA_IO_SendBuffer(&DMA_IO_FrameBuffer, BUFFSIZE);
+    //DMA_IO_SendBuffer(DMA_IO_FrameBuffer, BUFFSIZE);
 
   }
   /* USER CODE END 3 */
@@ -294,38 +379,9 @@ void Error_Handler(void)
 
 void DebugGood_Handler(void)
 {
-  // go for cycle period of 10 sec, or 300 frames
-  const float w = PI/300;
-  //uint8_t rval, gval, bval; 
-  ColorTypeDef c;
 
-  int i, d = 0;
-  while(1)
-  {
+  DisplayLedDemo();
 
-    if (!(d%30) || d%30==6) HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-
-    HAL_Delay(33); // try for 30 fps
-    
-    /*
-    c.red   = (uint8_t)(128.0f + 120.0f*sin(w*d));
-    c.green = (uint8_t)(128.0f + 120.0f*sin(w*(d+200)));
-    c.blue  = (uint8_t)(128.0f + 120.0f*sin(w*(d+400)));
-    */
-
-    c = ColorTable[d%COLOR_TABLE_LEN];
-
-    for(i = 0; i < BUFFSIZE/24; i++)
-    {
-      FrameBuffer_SetPixel(&DMA_IO_FrameBuffer, 0, i, c);
-      FrameBuffer_SetPixel(&DMA_IO_FrameBuffer, 1, i, c);
-    }
-
-    DMA_IO_SendBuffer(&DMA_IO_FrameBuffer, BUFFSIZE);
-
-    d++;
-    d %= 3000;
-  }
 }
 
 #ifdef USE_FULL_ASSERT

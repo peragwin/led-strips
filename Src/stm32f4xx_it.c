@@ -44,6 +44,7 @@ extern DMA_HandleTypeDef hdma_timx_gpio_low;
 extern DMA_HandleTypeDef hdma_timx_gpio_data;
 extern DMA_HandleTypeDef hdma_timx_gpio_high;
 extern TIM_HandleTypeDef htimx;
+extern UART_HandleTypeDef huart2;
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
@@ -104,6 +105,11 @@ void DMA2_Stream5_IRQHandler(void)
 void TIM1_UP_TIM10_IRQHandler(void)
 {
   HAL_TIM_IRQHandler(&htimx);
+}
+
+void USART2_IRQHandler(void)
+{
+  HAL_UART_IRQHandler(&huart2);
 }
 
 

@@ -42,6 +42,8 @@
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htimx;
+TIM_HandleTypeDef htim_dead;
+TIM_HandleTypeDef htimFrame;
 DMA_HandleTypeDef hdma_timx_gpio_low;
 DMA_HandleTypeDef hdma_timx_gpio_high;
 DMA_HandleTypeDef hdma_timx_gpio_data;
@@ -114,30 +116,127 @@ void MX_TIM1_Init(void)
   HAL_NVIC_SetPriority(TIM1_UP_TIM10_IRQn, 0, 2);
   HAL_NVIC_EnableIRQ(TIM1_UP_TIM10_IRQn);
 
+
   HAL_TIM_MspPostInit(&htimx);
 
 }
+
+// used as a one-shot timer to assert dead period
+void TIM2_Init(void)
+{
+  TIM_ClockConfigTypeDef sClockSourceConfig;
+
+  htim_dead.Instance = TIM2;
+  htim_dead.Init.Prescaler = 0;
+  htim_dead.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim_dead.Init.Period = WS2812_DEADPERIOD;
+  htim_dead.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  if (HAL_TIM_Base_Init(&htim_dead) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim_dead, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+
+  HAL_TIM_MspPostInit(&htim_dead);
+}
+
+void MX_TIM_FRAME_Init(void)
+{
+  TIM_ClockConfigTypeDef sClockSourceConfig;
+  TIM_MasterConfigTypeDef sMasterConfig;
+  TIM_OC_InitTypeDef sConfigOC;
+
+  htimFrame.Instance = TIM4;
+  htimFrame.Init.Prescaler = 80000; // for ms time
+  htimFrame.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htimFrame.Init.Period = 0;
+  htimFrame.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  if (HAL_TIM_Base_Init(&htimFrame) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htimFrame, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  if (HAL_TIM_OC_Init(&htimFrame) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htimFrame, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  sConfigOC.OCMode = TIM_OCMODE_TIMING;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_OC_ConfigChannel(&htimFrame, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+}
+
+
+
 
 volatile uint8_t timDeadCycleCount = 0;
 extern volatile uint8_t WS2812_TransferComplete;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* tim_baseHandle)
 {
-  // callback handles UPDATE interrupts for TIM1
+  // callback handles UPDATE interrupts for TIM
+
   if(tim_baseHandle->Instance==TIM1)
   {
+    
+    // // make sure to wait 50us after any transfer completes
+    // if (timDeadCycleCount < (uint8_t)WS2812_DEADPERIOD) timDeadCycleCount++;
+    // else
+    // {
+    //   timDeadCycleCount = 0;
+    //   __HAL_TIM_DISABLE(tim_baseHandle);
+    //   __HAL_TIM_DISABLE_IT(tim_baseHandle, TIM_IT_UPDATE);
+    //   WS2812_TransferComplete = 1;
 
-    // make sure to wait 50us after any transfer completes
-    if (timDeadCycleCount < (uint8_t)WS2812_DEADPERIOD) timDeadCycleCount++;
-    else
-    {
-      timDeadCycleCount = 0;
-      __HAL_TIM_DISABLE(tim_baseHandle);
-      __HAL_TIM_DISABLE_IT(tim_baseHandle, TIM_IT_UPDATE);
-    }
+    // }
+
+    //           GPIOC->ODR = 0xFFFF;
+  }
+
+  else if (tim_baseHandle->Instance==TIM2)
+  {
+    __HAL_TIM_DISABLE(&htim_dead);
     WS2812_TransferComplete = 1;
   }
+
+  else if (tim_baseHandle->Instance==TIM4)
+  {
+    FrameUpdater();
+  }
 }
+
+// void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
+// {
+//   if (htim->Instance == TIM1 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_2)
+//   {
+//     GPIOC->ODR = 0x0000;
+//   }
+// }
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
 {
@@ -198,10 +297,10 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
     hdma_timx_gpio_low.Init.PeriphInc =             DMA_PINC_DISABLE;
     hdma_timx_gpio_low.Init.MemInc =                DMA_MINC_DISABLE;
     hdma_timx_gpio_low.Init.PeriphDataAlignment =   DMA_PDATAALIGN_BYTE;
-    hdma_timx_gpio_low.Init.MemDataAlignment =      DMA_MDATAALIGN_WORD;
+    hdma_timx_gpio_low.Init.MemDataAlignment =      DMA_MDATAALIGN_BYTE;
     hdma_timx_gpio_low.Init.Mode =                  DMA_NORMAL;
-    hdma_timx_gpio_low.Init.Priority =              DMA_PRIORITY_HIGH;
-    hdma_timx_gpio_low.Init.FIFOMode =              DMA_FIFOMODE_DISABLE;
+    hdma_timx_gpio_low.Init.Priority =              DMA_PRIORITY_LOW;
+    hdma_timx_gpio_low.Init.FIFOMode =              DMA_FIFOMODE_ENABLE;
     hdma_timx_gpio_low.Init.FIFOThreshold =         DMA_FIFO_THRESHOLD_FULL;
     hdma_timx_gpio_low.Init.MemBurst =              DMA_MBURST_INC4;
     hdma_timx_gpio_low.Init.PeriphBurst =           DMA_PBURST_SINGLE;
@@ -211,24 +310,52 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
     __HAL_LINKDMA(tim_baseHandle,hdma[TIM_DMA_ID_CC2],hdma_timx_gpio_low);     //think this is on falling edge
     __HAL_DMA_ENABLE_IT(&hdma_timx_gpio_low, DMA_IT_TC);                       //flag it when transfer complete
     
-    if (HAL_DMA_RegisterCallback(&hdma_timx_gpio_low,
+
+
+    // register callbacks
+
+    if (HAL_DMA_RegisterCallback(&hdma_timx_gpio_data,
                                  HAL_DMA_XFER_CPLT_CB_ID,
                                  &FrameXferCompleteCallback)
         != HAL_OK) Error_Handler();
     
-    if (HAL_DMA_RegisterCallback(&hdma_timx_gpio_low,
+    if (HAL_DMA_RegisterCallback(&hdma_timx_gpio_data,
                                  HAL_DMA_XFER_ERROR_CB_ID,
                                  &FrameXferErrorCallback)
         != HAL_OK) Error_Handler();
 
+  }
+
+
+
+  else if(tim_baseHandle->Instance==TIM4)
+  {
+    __HAL_RCC_TIM4_CLK_ENABLE();
+
+    HAL_NVIC_SetPriority(TIM4_IRQn, 1, 1);
+    HAL_NVIC_EnableIRQ(TIM4_IRQn);
+  }
+  else if (tim_baseHandle->Instance==TIM2)
+  {
+    __HAL_RCC_TIM2_CLK_ENABLE();
+
+
+    HAL_NVIC_SetPriority(TIM2_IRQn, 1, 2);
+    HAL_NVIC_EnableIRQ(TIM2_IRQn);
   }
 }
 
 void FrameXferCompleteCallback(DMA_HandleTypeDef *hdma){
   if (1) //(hdma->Instance==DMA2_Stream2)
   {
-    //__HAL_TIM_DISABLE(&htimx);
+    int once = 0;
+    while((htimx.Instance->CNT < DATA_TIM_PULSE2) || once<20) once++; //wait for clock to trigger gpios LOW
+
+    // a full __HAL_TIM_DISABLE takes too long!
     (htimx.Instance)->CR1 &= ~(TIM_CR1_CEN);
+    __HAL_TIM_DISABLE(&htimx);
+    GPIOC->ODR = 0x0000;
+
 
     // Disable DMA
     __HAL_DMA_DISABLE(&hdma_timx_gpio_low);
@@ -238,9 +365,9 @@ void FrameXferCompleteCallback(DMA_HandleTypeDef *hdma){
     __HAL_TIM_DISABLE_DMA(&htimx, TIM_DMA_CC1);
     __HAL_TIM_DISABLE_DMA(&htimx, TIM_DMA_CC2);
 
-    // todo use another TIMer
-    __HAL_TIM_ENABLE_IT(&htimx, TIM_IT_UPDATE); // enable TIM2 UPDATE interrupt to ensure wait 50us
-    __HAL_TIM_ENABLE(&htimx);
+    // enable TIM2 UPDATE interrupt to ensure wait 50us
+    __HAL_TIM_ENABLE_IT(&htim_dead, TIM_IT_UPDATE); 
+    __HAL_TIM_ENABLE(&htim_dead);
   }
 }
 
@@ -291,9 +418,13 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
     HAL_DMA_DeInit(tim_baseHandle->hdma[TIM_DMA_ID_UPDATE]);
     HAL_DMA_DeInit(tim_baseHandle->hdma[TIM_DMA_ID_CC2]);
   }
-  /* USER CODE BEGIN TIM2_MspDeInit 1 */
 
-  /* USER CODE END TIM2_MspDeInit 1 */
+  else if(tim_baseHandle->Instance==TIM4)
+  {
+    __HAL_RCC_TIM4_CLK_DISABLE();
+
+    HAL_NVIC_DisableIRQ(TIM4_IRQn);
+  }
 } 
 
 /* USER CODE BEGIN 1 */

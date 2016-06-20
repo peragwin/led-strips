@@ -9,6 +9,7 @@ SRCS =  $(wildcard ./Src/*.c)
 PROJ_NAME=ledstrips_nucleo
 
 OTHER_INCLUDES = -I./Inc
+OTHER_INCLUDES += -L./Lib/Drivers/CMSIS/Lib/GCC -larm_cortexM4lf_math
 
 # Put your STM32F4 library code directory here
 STM_COMMON=./Lib
@@ -23,7 +24,7 @@ CC=arm-none-eabi-gcc
 OBJCOPY=arm-none-eabi-objcopy
 LINKER=STM32F401RETx_FLASH.ld
 
-CFLAGS  = -g -O2 -Wall -T$(LINKER) --specs=nosys.specs
+CFLAGS  = -g -O0 -Wall -T$(LINKER) --specs=nosys.specs
 CFLAGS += -D$(MCU_MODEL)
 CFLAGS += -lm #-lgloss
 CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork

@@ -47,11 +47,11 @@
 #define DATA_TIM_FREQ 800000
 #endif
 */
-#define DATA_TIM_PERIOD    125 // want to approximate cycle in ns.. (1250)
-#define DATA_TIM_PULSE1     40
-#define DATA_TIM_PULSE2     80
+#define DATA_TIM_PERIOD    100 // want to approximate cycle in ns.. (1250)
+#define DATA_TIM_PULSE1     30//40
+#define DATA_TIM_PULSE2     80//80
 
-#define WS2812_DEADPERIOD   39 // 40 800kHz cycles should be 50us
+#define WS2812_DEADPERIOD   400 // in system cycles
 
 /* USER CODE END Includes */
 
@@ -65,8 +65,11 @@ void FrameXferErrorCallback(DMA_HandleTypeDef *hdma);
 /* USER CODE END Private defines */
 
 extern void Error_Handler(void);
+extern void FrameUpdater(void);
 
 void MX_TIM1_Init(void);
+void TIM2_Init(void);
+void MX_TIM_FRAME_Init(void);
                     
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
                 

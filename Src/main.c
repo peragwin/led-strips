@@ -42,8 +42,12 @@
 /* USER CODE BEGIN Includes */
 #include "stdlib.h"
 #include "string.h"
-#include "math.h"
-#define PI 3.1415926
+
+#define ARM_MATH_CM4
+
+#include "arm_math.h"
+  #include "math.h"
+//#define PI 3.1415926
 /* USER CODE END Includes */
 
 
@@ -57,9 +61,9 @@
 
 // buffer size is num_leds * 24 bits/led
 // 60 * 24 = 1440
-#define BUFFSIZE 1440
+#define BUFFSIZE 2*1440
 #define NUM_CHANNELS 8
-#define NUM_LEDS_PER_CHANNEL 60
+#define NUM_LEDS_PER_CHANNEL 2*60
 #define MAX_NUM_CHANNELS 8
 
 #define DEFAULT_BRIGHTNESS 50
@@ -69,8 +73,10 @@
 #include "FrameBuffer.h"
 
 // put these in memory so they can be copied via DMA
-uint32_t _rawBuffer[BUFFSIZE/4];  //make aligned
-buf      DMA_IO_FrameBuffer = (buf) &_rawBuffer;
+uint32_t _rawBuffer[2 * BUFFSIZE/4];  //make aligned
+buf      DMA_IO_FrameBuffer = (buf) (&_rawBuffer);
+buf      FrameBufferZero = (buf) (&_rawBuffer);
+buf      FrameBufferOne = (buf)((uint8_t*)&_rawBuffer + BUFFSIZE);
 uint32_t DMA_IO_High = 0xFFFFFFFFU;
 uint32_t DMA_IO_Low  = 0x00000000U;
 
@@ -78,6 +84,7 @@ volatile uint8_t WS2812_TransferComplete = 1;
 
 
 extern TIM_HandleTypeDef htimx;
+extern TIM_HandleTypeDef htimFrame;
 extern DMA_HandleTypeDef hdma_timx_gpio_low;     // DMA1_stream4 sets data gpios low
 extern DMA_HandleTypeDef hdma_timx_gpio_data;    // DMA1_stream5 sets data gpios to buffer value
 extern DMA_HandleTypeDef hdma_timx_gpio_high;    // DMA1_stream6 sets data gpios high
@@ -89,10 +96,11 @@ extern UART_HandleTypeDef huart2;
 
 volatile int showFrameDebug = 1;
 volatile int serialEchoEnabled = 1;
-int globalBrightness = 50;
-int globalFrameDelay = 100;
 
-
+uint globalFrameDelay = 100;
+uint globalBrightness = 100;
+uint globalLedsPerChannel = NUM_LEDS_PER_CHANNEL;
+int globalSubBrightness = 0;
 
 
 
@@ -110,10 +118,25 @@ void DMA_IO_SendBuffer(buf frameData, uint16_t buffsize);
 
 void DisplayLedDemo(void);
 
+int serialDoRawRegisterRead(char* args);
+int serialDoRawRegisterWrite(char* args);
+
 
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 GPIO_TypeDef *GpioC;
@@ -131,6 +154,18 @@ void DMA_IO_SendBuffer(buf frameBuffer, uint16_t buffsize)
   while(!WS2812_TransferComplete) HAL_Delay(1);
   WS2812_TransferComplete = 0;
 
+  static int subBrightCn;
+  subBrightCn++;
+  uint32_t frameBufferOrZeros = (uint32_t) frameBuffer;
+  int g = globalSubBrightness;
+  if (g > 0 && g <= 8)
+      if (!(subBrightCn % g))
+          frameBufferOrZeros = &DMA_IO_Low;
+  if (g < 0 && g >= -8)
+      if (subBrightCn % g)
+          frameBufferOrZeros = &DMA_IO_Low;
+
+
   // Enable DMA
   if (HAL_DMA_Start_IT(&hdma_timx_gpio_high,
                        (uint32_t)&DMA_IO_High,
@@ -139,7 +174,7 @@ void DMA_IO_SendBuffer(buf frameBuffer, uint16_t buffsize)
       != HAL_OK) Error_Handler();
 
   if (HAL_DMA_Start_IT(&hdma_timx_gpio_data,
-                       (uint32_t)frameBuffer,
+                       frameBufferOrZeros,
                        (uint32_t)&(GPIOC->ODR),
                        buffsize)
       != HAL_OK) Error_Handler();
@@ -158,12 +193,63 @@ void DMA_IO_SendBuffer(buf frameBuffer, uint16_t buffsize)
 
   __HAL_TIM_CLEAR_FLAG(&htimx, (uint16_t)0xFFFFU); // clear all
   // Start counter at max value so UPDATE IT is generated immediately
-  __HAL_TIM_SET_COUNTER(&htimx, (uint16_t)(DATA_TIM_PERIOD - 1));
+  __HAL_TIM_SET_COUNTER(&htimx, (uint16_t)(DATA_TIM_PULSE2+1));
 
   // Enable the timer to kick things off
+  // __HAL_TIM_ENABLE_IT(&htimx, TIM_IT_UPDATE|TIM_IT_CC2); // ??
   __HAL_TIM_ENABLE(&htimx);
 
 }
+
+
+void (*frameUpdateFn)(void) = NULL;
+
+void FrameUpdater()
+{
+  if (frameUpdateFn != NULL)
+    frameUpdateFn();
+
+  if(WS2812_TransferComplete)
+    DMA_IO_SendBuffer(DMA_IO_FrameBuffer, BUFFSIZE);
+}
+
+void setFrameDelay(uint d)
+{
+  globalFrameDelay = d;
+  __HAL_TIM_SET_AUTORELOAD(&htimFrame, d);
+}
+
+void frameDelay(void)
+{
+  //for(int i = 0; i < 40000*globalFrameDelay; i++);
+  HAL_Delay(globalFrameDelay);
+}
+
+void enableFrameUpdates(void)
+{
+  __HAL_TIM_ENABLE_IT(&htimFrame, TIM_IT_UPDATE);
+  __HAL_TIM_ENABLE(&htimFrame);
+}
+
+void disableFrameUpdates(void)
+{
+  __HAL_TIM_DISABLE(&htimFrame);
+  __HAL_TIM_DISABLE_IT(&htimFrame, TIM_IT_UPDATE);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 float triangleWave(int period, float amplitude, int phase, int d)
@@ -175,55 +261,237 @@ float triangleWave(int period, float amplitude, int phase, int d)
   else        return amplitude * (1 - t/90);
 }
 
-void RainbowShiftIterateFrame(buf fb, int d)
-{
-    int i;
-    float w;
-    Pixel c;
-    static PixelBlock pixelBlockNext;
 
-    c = ColorTable[(4*d)%COLOR_TABLE_LEN];
-    for (i=0; i<NUM_CHANNELS; i++) {
-     /* w = triangleWave(450, 4.0, 0, d+80*i);
-      if (w > 1) w = 1.0/w;
-        else if (w < -1) w = -w;
-        else w = 1.0; */
-      //w = (float)globalBrightness / 100.0;
 
-      pixelBlockNext[i] = setPixelBrightness(c, globalBrightness);
-    }
 
-    for(i = 0; i < NUM_LEDS_PER_CHANNEL; i++)
-      FB_ShiftSetPixel(fb, pixelBlockNext, i);
 
-}
+
+
+
+
 
 int frameCount = 0;
 
-void DisplayLedDemo(void)
+struct DemoOneConfig {
+  uint16_t frameDelay;
+  uint16_t period[MAX_NUM_CHANNELS];
+  uint16_t phase[MAX_NUM_CHANNELS];
+  uint16_t brightness[MAX_NUM_CHANNELS];
+};
+
+struct DemoOneConfig *demoOneConfig;
+
+
+
+void rainbowShiftIterateFrame(buf fb, struct DemoOneConfig *config)
 {
-  // go for cycle period of 10 sec, or 300 frames
-  //const float w = PI/300;
+    int ch, period, phase;
+    float brightness, w, red_, green_, blue_, s;
+    uint8_t red, green, blue;
+    Pixel c;
+    static int d;
+    static PixelBlock pixelBlockNext;
 
-  buf fb = DMA_IO_FrameBuffer;
+    //c = ColorTable[d%COLOR_TABLE_LEN];
+    for (ch=0; ch < 3; ch++)
+    {
+      
+      brightness = (float)config->brightness[ch];
+      period =  config->period[ch];
+      phase = config->phase[ch];
+      w = PI / period;
 
-  while(frameCount++)
-  {
-    int d = frameCount;
-    if (!(d%30) || d%30==6) HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+      red_   = 128.0f + 120.0f*sinf((float32_t)w*(d + phase));
+      green_ = 128.0f + 120.0f*sinf(w*(d + phase + 2*period/3));
+      blue_  = 128.0f + 120.0f*sinf(w*(d + phase - 2*period/3));
+      s = red_ + green_ + blue_;
+      red = (uint8_t)round(red_ * brightness/s);
+      green = (uint8_t)round(blue_ * brightness/s);
+      blue = (uint8_t)round(green_ * brightness/s);
 
-    RainbowShiftIterateFrame(fb, d);
+      c = (Pixel) { red, green, blue };
+      //printf("%2x %2x %2x\r\n", c.red, c.blue, c.green); */
+      pixelBlockNext[ch] = AdjustPixelBrightness(c);
+    }
 
-    DMA_IO_SendBuffer(fb, BUFFSIZE);
-    HAL_Delay(globalFrameDelay);
+    FB_FastSetPixel(fb, pixelBlockNext, globalLedsPerChannel-1);
+    FB_FastSetPixel(fb, pixelBlockNext, -1);
+    //for(ibnt i = 0; i < globalLedsPerChannel; i++)
+    //  FB_ShiftSetPixel(fb, pixelBlockNext, i);
 
+    d++;
+}
+
+static volatile int frameReady = 1;
+
+void doRainbowShiftIterateFrame(int fbOffset)
+{
+
+    rainbowShiftIterateFrame(FrameBufferZero+fbOffset, demoOneConfig);
+
+
+}
+
+
+void DisplayLedDemoOne(void)
+{
+  int fbOffset = 0;
+  int buffsize;
+  static struct DemoOneConfig config =  { 600, {100, 100, 100}, {0}, {80, 80, 80} };
+  demoOneConfig = &config;
+  setFrameDelay(config.frameDelay);
+  //frameUpdateFn = doRainbowShiftIterateFrame;
+  //enableFrameUpdates();
+  while(1){
+    buffsize = globalLedsPerChannel*24;
+    fbOffset %= buffsize;
+    fbOffset+=24;
+    frameDelay();
+    doRainbowShiftIterateFrame(fbOffset);
+    DMA_IO_SendBuffer(FrameBufferZero+fbOffset, globalLedsPerChannel*24);
   }
 }
 
+
+int serialDoDemoOneSetBrightness(struct DemoOneConfig *config, char *args){
+  char *bp;
+  long bVal;
+  long chVal;
+  bVal = strtol(args, &bp, 10);
+  if (*bp != 0) chVal = strtol(bp, &bp, 10);
+  else chVal = -1;
+
+  printf("DemoOne, set brightness[%d]: %d", chVal, bVal);
+
+  if (chVal >= 0 && chVal < NUM_CHANNELS)
+    config->brightness[chVal] = bVal;
+
+  else
+    for (int c = 0; c < NUM_CHANNELS; c++) config->brightness[c] = bVal;
+  return 0;
+}
+int serialDoDemoOneSetPeriod(struct DemoOneConfig *config, char *args){
+  char *bp;
+  long bVal;
+  long chVal;
+  bVal = strtol(args, &bp, 10);
+  if (*bp != 0) chVal = strtol(bp, &bp, 10);
+  else chVal = -1;
+
+  printf("DemoOne, set period[%d]: %d", chVal, bVal);
+
+  if (chVal >= 0 && chVal < NUM_CHANNELS)
+    config->period[chVal] = bVal;
+
+  else
+    for (int c = 0; c < NUM_CHANNELS; c++) config->period[c] = bVal;
+  return 0;
+}
+int serialDoDemoOneSetPhase(struct DemoOneConfig *config, char *args){
+  char *bp;
+  long bVal;
+  long chVal;
+  bVal = strtol(args, &bp, 10);
+  if (*bp != 0) chVal = strtol(bp, &bp, 10);
+  else chVal = -1;
+
+  printf("DemoOne, set phase[%d]: %d", chVal, bVal);
+
+  if (chVal >= 0 && chVal < NUM_CHANNELS)
+    config->phase[chVal] = bVal;
+
+  else
+    for (int c = 0; c < NUM_CHANNELS; c++) config->phase[c] = bVal;
+  return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+uint verifyAddress(char *args, char **sp)
+{
+  long addrL = strtol(args, sp, 16);
+  if (addrL < 0 || addrL > 0xffffu) {
+    printf("Error: address out of range (%x)\n", (uint)addrL);
+    return -1;
+  }
+  return (uint)addrL;
+}
+
+int serialDoRawRegisterRead(char* args)
+{
+  RawRegReadValue regRead;
+  uint address;
+
+  if ((address = verifyAddress(args, NULL)) == -1)
+    return -1;
+
+  RawRegisterRead(address, &regRead);
+  if (regRead.flag == invalidAccess)
+  {
+    printf("Error: address %4x returned 'invalidAccess'\n", address);
+    return 2;
+  }
+
+  printf("Read: %8x (%4x)\n", (uint)regRead.reg, address);
+  return 0;
+}
+
+int serialDoRawRegisterWrite(char *args)
+{
+  char *sp;
+  uint address;
+  long wrVal;
+  HandleRegAccessFlag f;
+
+  if ((address = verifyAddress(args, &sp)) == -1)
+    return -1;
+
+  wrVal = strtol(sp, &sp, 16);
+
+  f = RawRegisterWrite(address, (uint32_t)wrVal);
+  switch (f)
+  {
+    case readOnlyAccess:
+      printf("Error: address %4x returned 'readOnlyAccess'\n", address);
+      return 4;
+    case invalidAccess:
+      printf("Error: address %4x returned 'invalidAccess'\n", address);
+      return 2;
+    default:
+      printf("Wrote: %8x (%4x)\n", (uint)wrVal, address);
+      return 0;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 void ShowPrompt(void)
 {
-  char *prompt = "#\r\n%s> ";
-  char *frame = "Frame %d ";
+  char prompt[32] = { 0 };
+  char frame[16] = { 0 };
+
+  strncpy(prompt, "\r\n%s> ", sizeof(prompt));
+  strncpy(frame, "Frame %d ", sizeof(frame));
+
   if (showFrameDebug) {
     sprintf(frame, frame, frameCount);
     printf(prompt, frame);
@@ -234,9 +502,10 @@ void ShowPrompt(void)
 
 void ParseCommands(char *cmdStr)
 {
-  char cmd[16], value[8];
+  char cmd[16], args[32];
   char *csep, *cend;
-  int cmdLen;
+  int cmdLen, fd;
+  int rv = 0;
 
   csep = strchr(cmdStr, ' ');
   cend = strchr(cmdStr, '\r');
@@ -245,14 +514,80 @@ void ParseCommands(char *cmdStr)
 
   cmdLen = csep - cmdStr;
   strncpy(cmd, cmdStr, cmdLen);
-  strncpy(value, csep+1, cend-csep-1);
+  strncpy(args, csep+1, cend-csep-1);
 
-  if (cmd[0] == 'b')
-    globalBrightness = atoi(value);
+  switch (cmd[0])
+  {
 
-  if (cmd[0] == 'r')
-    globalFrameDelay = atoi(value);
+    case 's':
+      if (cmd[1] == 'u' && cmd[2] == 'b')
+      { // sub brightness
+        int g = atoi(args);
+        if (!(g < -8 || g > 8))
+          globalSubBrightness = g;
+      }
+      else
+        // here 'args' should be a valid "addr value"
+        rv = serialDoRawRegisterWrite(args);
+      break;
+
+    case 'g':
+      rv = serialDoRawRegisterRead(args); break;
+
+    // these cases to be customized by __current_demo__
+
+    case 'b':
+      rv = serialDoDemoOneSetBrightness(demoOneConfig, args); break;
+
+    case 'c':
+      if (cmd[1] == 'h' && cmd[2] == 'a')
+      {
+        int g = atoi(args);
+        if (g >= 0 && g <= 240)
+          globalLedsPerChannel = g;
+      }
+      break;
+
+    case 'f':
+      fd = atoi(args);
+      printf("Set frameDelay: %d", fd);
+      setFrameDelay((uint)fd);
+      break;
+
+    case 'p':
+      if (cmd[1] == 'h') serialDoDemoOneSetPhase(demoOneConfig, args);
+      else serialDoDemoOneSetPeriod(demoOneConfig, args);
+      break;
+
+    default:
+      rv = -1;
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* USER CODE END 0 */
 
@@ -275,6 +610,8 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_TIM1_Init();
+  TIM2_Init();
+  //MX_TIM_FRAME_Init();
   USART2_Init();
   HAL_UART_RxCpltCallback(&huart2); // begin rx for loopback
 
@@ -291,6 +628,7 @@ int main(void)
   while(0);
   DMA_IO_SendBuffer(DMA_IO_FrameBuffer, size);
 
+  InitControlRegisters();
   ShowPrompt();
 
   while (1)
@@ -380,7 +718,8 @@ void Error_Handler(void)
 void DebugGood_Handler(void)
 {
 
-  DisplayLedDemo();
+  DisplayLedDemoOne();
+  for(;;);
 
 }
 

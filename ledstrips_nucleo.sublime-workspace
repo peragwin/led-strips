@@ -4,16 +4,160 @@
 		"selected_items":
 		[
 			[
-				"globa",
-				"globalBrightness"
+				"x",
+				"x08"
 			],
 			[
-				"global",
+				"glob",
 				"globalFrameDelay"
 			],
 			[
-				"ser",
+				"global",
+				"globalBrightness"
+			],
+			[
+				"serialRx",
 				"serialRxBuff_p"
+			],
+			[
+				"ser",
+				"serialTxBuff"
+			],
+			[
+				"addr",
+				"address"
+			],
+			[
+				"serial",
+				"serialDoRawRegisterWrite"
+			],
+			[
+				"fi",
+				"filter-out"
+			],
+			[
+				"uint",
+				"uint32_t"
+			],
+			[
+				"Raw",
+				"RawRegReadValue"
+			],
+			[
+				"clearOnReaD",
+				"clearOnReadAccess"
+			],
+			[
+				"Buff",
+				"BufferAddress"
+			],
+			[
+				"Bu",
+				"BufferStatus"
+			],
+			[
+				"Dis",
+				"DisplayStatus"
+			],
+			[
+				"Re",
+				"Revision"
+			],
+			[
+				"buffer",
+				"bufferError"
+			],
+			[
+				"buff",
+				"bufferAddress"
+			],
+			[
+				"dis",
+				"displayControl"
+			],
+			[
+				"en",
+				"environStatus"
+			],
+			[
+				"scra",
+				"scratchPad"
+			],
+			[
+				"control",
+				"controlRegisters"
+			],
+			[
+				"read",
+				"readOnlyAccess"
+			],
+			[
+				"valid",
+				"validAccess"
+			],
+			[
+				"inv",
+				"invalidAccess"
+			],
+			[
+				"vali",
+				"validAccess"
+			],
+			[
+				"uin",
+				"uint32_t"
+			],
+			[
+				"cont",
+				"controlRegisters"
+			],
+			[
+				"regDis",
+				"regDisplayStatus"
+			],
+			[
+				"regDispl",
+				"regDisplayControl"
+			],
+			[
+				"num",
+				"numberOfStrips"
+			],
+			[
+				"displ",
+				"displayControl"
+			],
+			[
+				"numb",
+				"numberLedsPerStrip"
+			],
+			[
+				"pixel",
+				"pixelId"
+			],
+			[
+				"bu",
+				"bufferAddress"
+			],
+			[
+				"con",
+				"controlRegisters"
+			],
+			[
+				"rea",
+				"readControlRegister"
+			],
+			[
+				"DIS",
+				"DISPLAYERROR_BR"
+			],
+			[
+				"NUM",
+				"NUM_CHANNELS"
+			],
+			[
+				"globa",
+				"globalBrightness"
 			],
 			[
 				"fram",
@@ -22,14 +166,6 @@
 			[
 				"fra",
 				"frameCount"
-			],
-			[
-				"serialRx",
-				"serialRxBuff"
-			],
-			[
-				"serial",
-				"serialRxBuff"
 			],
 			[
 				"hu",
@@ -88,10 +224,6 @@
 				"amplitude"
 			],
 			[
-				"pixel",
-				"pixelBlockNext"
-			],
-			[
 				"set",
 				"setPixelBrightness"
 			],
@@ -108,14 +240,6 @@
 				"pixelIdx"
 			],
 			[
-				"NUM",
-				"NUM_LEDS_PER_CHANNEL"
-			],
-			[
-				"num",
-				"NUM_CHANNELS"
-			],
-			[
 				"_pix",
 				"_pixelBlockNow"
 			],
@@ -124,24 +248,12 @@
 				"returnBlock"
 			],
 			[
-				"uint",
-				"uint8_t"
-			],
-			[
 				"COlo",
 				"ColorTypeDef"
 			],
 			[
-				"bu",
-				"bufIdx"
-			],
-			[
 				"pi",
 				"pixelBlock"
-			],
-			[
-				"uin",
-				"uint16_t"
 			],
 			[
 				"LED",
@@ -404,27 +516,31 @@
 	"buffers":
 	[
 		{
-			"file": "Makefile",
-			"settings":
-			{
-				"buffer_size": 2095,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Src/main.c",
-			"settings":
-			{
-				"buffer_size": 14113,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "Inc/ControlRegisters.h",
 			"settings":
 			{
-				"buffer_size": 2169,
+				"buffer_size": 2164,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "// ControlRegisters.c\n\n#include \"ControlRegisters.h\"\n\n\nstruct Revision // read only\n  {\n    //struct RegSpec regSpec;\n    u16 majorRev;\n    u16 minorRev;\n  };\n\n\n// this stores the actual data in RAM\n\nstruct ControlRegisters\n{\n\n  struct Revision // read only\n    revision;\n\n  u32 scratchPad;\n\n  struct EnvironStatus // reserved, read-only\n  {\n    u32 temperature[16];\n    u32 voltage[16];      // +0x0040\n    u32 current[16];      // +0x0080\n    u32 power[16];        // +0x00c0\n    u8 faults[16];       //  +0x0100\n  } environStatus;\n\n  struct DisplayControl\n  {\n    //struct RegSpec regSpec;\n    u8 softReset;\n    u8 numberLedsPerChannel;\n    u8 numberOfChannels;\n    u8 maxNumberOfChannels; // read-only\n    //struct MaxNumberOfStrips { struct RegSpec regSpec; u32 number; } maxNumberOfStrips;\n  } displayControl;\n\n  struct DisplayStatus\n  {\n    //struct RegSpec regSpec;\n    u16 brightness;\n    uint frameRate:15;\n    uint paused:1;\n  } displayStatus;\n\n  u8 displayMode;\n    // 0 -> raw\n    // 1 -> repeat\n    // >=2 -> demo_n\n\n  u8 displayError; // clear-on-read, read-only\n    // 0x1 -> invalid numberLedsPerStrip\n    // 0x2 -> invalid numberOfStrips\n    // 0x4 -> invalid brightness\n    // 0x8 -> invalid frameRate\n    // 0x10 -> unknown/invalid displayMode\n\n  struct BufferStatus\n  {\n    u8 numberOfFrames;\n    u8 currentFrame;\n  } bufferStatus;\n\n  struct BufferAddress\n  {\n    u8 frameId;\n    u8 channelId;\n    u8 pixelId;\n    uint increment:1;\n  } bufferAddress;\n\n  Pixel bufferValue;\n\n  u8 bufferError; // clear-on-read, read-only\n    // 0x1 -> frame id out-of-range\n    // 0x2 -> strip id out-of-range\n    // 0x4 -> pixel id out-of-range\n    // reserved\n    // 0x80 -> last valid pixel written\n\n  u8 accessStatus;\n\n};\n\nenum RegType\n{\n  reg8,\n  reg16,\n  reg32,\n  regRevision,\n  regDisplayControl,\n  regDisplayStatus,\n  regBufferStatus,\n  regBufferAddress,\n  regPixel,\n  invalid,\n\n} regTypes;\n\nenum RegAction\n{\n	noRegAction,\n\n  clear_on_read,\n\n  funcSetBrightness,\n\n  funcSetDemo1Brightness,\n  funcSetDemo1Phase,\n  funcSetDemo1Period,\n  \n  funcBufferAccess,\n};\n\nenum RegAccess\n{\n	rwRegAccess,\n  read_only,\n};\n\ntypedef struct {\n  enum RegType type;\n  enum RegAccess access;\n  enum RegAction action;\n  union _register\n  {\n    uint8_t  *reg8;\n    uint16_t *reg16;\n    uint32_t *reg32;\n    struct Revision *revision;\n    struct DisplayControl *displayControl;\n    struct DisplayStatus *displayStatus;\n    struct BufferStatus *bufferStatus;\n    struct BufferAddress *bufferAddress;\n    Pixel *pixel;\n  } r;\n} Register;\n\n\n\n\nextern buf DMA_IO_FrameBuffer;\nstruct ControlRegisters controlRegisters;\n\nvoid InitControlRegisters()\n{\n	struct ControlRegisters *cr = &controlRegisters;\n\n	cr->revision = (struct Revision) { MAJOR_REV, MINOR_REV }; // revision\n	cr->scratchPad = 0; //scratch\n	cr->environStatus = (struct EnvironStatus) {}; //env status\n\n	cr->displayControl = \n			(struct DisplayControl) { 0, NUM_LEDS_PER_CHANNEL, NUM_CHANNELS, MAX_NUM_CHANNELS }; // display control\n	cr->displayStatus =\n			(struct DisplayStatus) { DEFAULT_BRIGHTNESS, DEFAULT_FRAMERATE, 0};                 // display status\n	cr->displayMode = DISPLAYMODE_DEMO1;                                           // display mode\n	cr->displayError = 0;                                                           // display error\n\n	cr->bufferStatus = (struct BufferStatus) { 1, 1 };    // buffer status\n	cr->bufferAddress = (struct BufferAddress) { 0, 0, 0, 1 };  // buffer address\n	cr->bufferValue = CBlack;           // buffer value\n	cr->bufferError = 0;           // buffer error\n\n	frameBuffer = DMA_IO_FrameBuffer;\n}\n\n\n\nvoid readControlRegister(struct ControlRegisters *cr, Register *reg, uint32_t address)\n{\n	int invalidAccess = 0;\n	// default\n	reg->action = noRegAction;\n	reg->access = rwRegAccess;\n\n	if (address == REVISION_OFFSET){\n		reg->type = regRevision;\n		reg->r.revision = &cr->revision;\n	}\n	\n	else if (address == SCRATCHPAD_OFFSET) {\n		reg->type = reg32;\n		reg->r.reg32 = &cr->scratchPad;\n	}\n	\n	else if (address < ENVIRONSTATUS_OFFSET + 0x110)\n	{\n		uint32_t subaddr = address - 0x100;\n		if (subaddr < 0x100 && (subaddr % 4 == 0)) {\n			reg->type = reg32;\n			reg->r.reg32 = (uint32_t*)((uint32_t)&cr->environStatus + subaddr);\n		}\n\n		else if (subaddr < 0x110) {\n			reg->type = reg8;\n			reg->r.reg8 = &cr->environStatus.faults[subaddr - 0x110];\n		}\n		else invalidAccess = 1;\n	}\n	\n	else if (address <= DISPLAY_ERROR_OFFSET)\n	{\n		if (address == DISPLAYCONTROL_OFFSET) {\n			reg->type = regDisplayControl;\n			reg->r.displayControl = &cr->displayControl;\n		}\n\n		else if (address == DISPLAYSTATUS_OFFSET) {\n			reg->type = regDisplayStatus;\n			reg->r.displayStatus = &cr->displayStatus;\n		}\n\n		else if (address == DISPLAYMODE_OFFSET) {\n			reg->type = reg8;\n			reg->r.reg8 = &cr->displayMode;\n		}\n		else if (address == DISPLAY_ERROR_OFFSET) {\n			reg->type = reg8;\n			reg->action = clear_on_read;\n			reg->r.reg8 = &cr->displayError;\n		}\n\n		else invalidAccess = 1;\n	}\n\n	else if (address <= BUFFERERROR_OFFSET)\n	{\n		if (address == BUFFERSTATUS_OFFSET) {\n			reg->type = regBufferStatus;\n			reg->r.bufferStatus = &cr->bufferStatus;\n		}\n	\n		else if (address == BUFFERADDRESS_OFFSET) {\n			reg->type = regBufferAddress;\n			reg->r.bufferAddress = &cr->bufferAddress;\n		}\n	\n		else if (address == BUFFERVALUE_OFFSET) {\n			reg->type = regPixel;\n			reg->action = funcBufferAccess;\n			reg->r.pixel = &cr->bufferValue;\n		}\n	\n		else if (address == BUFFERERROR_OFFSET) {\n			reg->type = reg8;\n			reg->action = clear_on_read;\n			reg->r.reg8 = &cr->bufferError;\n		}\n	\n		else invalidAccess = 1;\n	}\n\n	else invalidAccess = 1;\n\n	if (invalidAccess) {\n		cr->accessStatus |= INVALID_ACCESS;\n		reg->type = invalid;\n		return;\n	}\n	else\n	{\n		cr->accessStatus |= UPDATE_VALID_ACCESS;\n		return;\n	}\n}\n\n\nHandleRegAccessFlag handleRegReadAction(struct ControlRegisters *cr, Register reg)\n{\n	int valid = 1;\n\n	if (reg.action == clear_on_read)\n		if (reg.type == reg8) // only valid case for now\n			return clearOnReadAccess;\n\n	/* begin buffer access handler */\n	if (reg.action == funcBufferAccess)\n	{ \n		uint8_t pixelId = cr->bufferAddress.pixelId;\n		uint8_t chanId = cr->bufferAddress.channelId;\n		uint8_t frameId = cr->bufferAddress.frameId;\n		\n		uint8_t maxLed = cr->displayControl.numberLedsPerChannel;\n		uint8_t maxCh  = cr->displayControl.numberOfChannels;\n		uint8_t maxFrame = cr->bufferStatus.numberOfFrames;\n\n		if (cr->bufferAddress.increment)\n		{\n			pixelId++;\n\n			if (pixelId == maxLed)\n			{\n				pixelId = 0;\n				chanId++;\n			}\n			if (chanId == maxCh)\n			{\n				chanId = 0;\n				frameId++;\n			}\n			if (frameId == maxFrame)\n			{\n				// flag last valid pixel written\n				cr->bufferError |= BUFFER_ERROR_LASTPIXEL;\n				frameId = 0;\n			}\n\n			cr->bufferAddress.pixelId = pixelId;\n			cr->bufferAddress.channelId = chanId;\n			cr->bufferAddress.frameId = frameId;\n		}\n\n		if (pixelId >= maxLed) {\n			valid = 0;\n			cr->bufferError |= BUFFER_ERROR_PIXELID;\n		}\n\n		if (chanId >= maxCh) {\n			valid = 0;\n			cr->bufferError |= BUFFER_ERROR_CHANNELID;\n		}\n\n		if (frameId >= maxFrame) {\n			valid = 0;\n			cr->bufferError |= BUFFER_ERROR_FRAMEID;\n		}\n\n		if (valid)\n			// actually grab data from the buffer\n			*reg.r.pixel = FB_GetPixel(frameBuffer, chanId, pixelId);\n	}\n	/* end buffer access handler */\n\n	return valid ? validAccess : invalidAccess;\n}\n\n\n\nHandleRegAccessFlag handleRegWriteAction(struct ControlRegisters *cr, Register reg)\n{\n	int valid = 1;\n\n	if (reg.access == read_only)\n		return readOnlyAccess;\n\n	/* begin buffer access handler */\n	if (reg.action == funcBufferAccess)\n	{ \n		uint8_t pixelId = cr->bufferAddress.pixelId;\n		uint8_t chanId = cr->bufferAddress.channelId;\n		uint8_t frameId = cr->bufferAddress.frameId;\n		\n		uint8_t maxLed = cr->displayControl.numberLedsPerChannel;\n		uint8_t maxCh  = cr->displayControl.numberOfChannels;\n		uint8_t maxFrame = cr->bufferStatus.numberOfFrames;\n\n		if (pixelId >= maxLed) {\n			valid = 0;\n			cr->bufferError |= BUFFER_ERROR_PIXELID;\n		}\n\n		if (chanId >= maxCh) {\n			valid = 0;\n			cr->bufferError |= BUFFER_ERROR_CHANNELID;\n		}\n\n		if (frameId >= maxFrame) {\n			valid = 0;\n			cr->bufferError |= BUFFER_ERROR_FRAMEID;\n		}\n\n		if (valid)\n			// actually set data in the buffer\n			FB_SetPixel(frameBuffer, chanId, pixelId, *reg.r.pixel);\n		else\n			return invalidAccess;\n\n		if (cr->bufferAddress.increment)\n		{\n			pixelId++;\n\n			if (pixelId == maxLed)\n			{\n				pixelId = 0;\n				chanId++;\n			}\n			if (chanId == maxCh)\n			{\n				chanId = 0;\n				frameId++;\n			}\n			if (frameId == maxFrame)\n			{\n				// flag last valid pixel written\n				cr->bufferError |= BUFFER_ERROR_LASTPIXEL;\n				frameId = 0;\n			}\n\n			cr->bufferAddress.pixelId = pixelId;\n			cr->bufferAddress.channelId = chanId;\n			cr->bufferAddress.frameId = frameId;\n		}\n	}\n	/* end buffer access handler */\n\n	if (reg.action == funcSetDemo1Brightness)\n\n	return valid ? validAccess : invalidAccess;\n}\n\n\nvoid RawRegisterRead(uint address, RawRegReadValue *rv)\n{	\n	Register reg = {};\n	readControlRegister(&controlRegisters, &reg, address);\n	\n	rv->flag = handleRegReadAction(&controlRegisters, reg);\n	\n	if (rv->flag == invalidAccess)\n		rv->reg = 0;\n	\n	else // valid or clearOnRead\n		switch (reg.type)\n		{\n			case reg8: rv->reg = (uint32_t) *reg.r.reg8; break;\n			case reg16: rv->reg = (uint32_t) *reg.r.reg16; break;\n			case reg32: rv->reg = *reg.r.reg32; break;\n			case regRevision: rv->reg = *(uint32_t*)reg.r.revision; break;\n			case regDisplayControl: rv->reg = *(uint32_t*)reg.r.displayControl; break;\n			case regDisplayStatus: rv->reg = *(uint32_t*)reg.r.displayStatus; break;\n			case regBufferStatus: rv->reg = *(uint32_t*)reg.r.bufferStatus & 0x0000ffFF; break;\n			case regBufferAddress: rv->reg = *(uint32_t*)reg.r.bufferAddress; break;\n			case regPixel: rv->reg = *(uint32_t*)reg.r.pixel & 0x00ffFFff; break;\n			case invalid:\n			default:\n				rv->reg = 0; break;\n		}\n\n	if (rv->flag == clearOnReadAccess)\n		*reg.r.reg8 = 0; // only have this type now, so no need for switch on type\n\n	return;\n}\n\n\nHandleRegAccessFlag RawRegisterWrite(uint address, uint32_t value)\n{\n	Register reg = {};\n	readControlRegister(&controlRegisters, &reg, address);\n\n	if (reg.access != read_only)\n		switch (reg.type)\n		{\n			case reg8: *reg.r.reg8 = (uint8_t) value; break;\n			case reg16: *reg.r.reg16 = (uint16_t) value; break;\n			case reg32: *reg.r.reg32 = value; break;\n			case regRevision: *(uint32_t*)reg.r.revision = value; break;\n			case regDisplayControl: *(uint32_t*)reg.r.displayControl = value; break;\n			case regDisplayStatus: *(uint32_t*)reg.r.displayStatus = value; break;\n			case regBufferStatus:\n					*(uint16_t*)reg.r.bufferStatus = value;\n					break;\n			case regBufferAddress: *(uint32_t*)reg.r.bufferAddress = value; break;\n			case regPixel:\n					*(uint32_t*)reg.r.pixel &= ~0x00ffFFff;\n					*(uint32_t*)reg.r.pixel |= (value & 0x00ffFFff);\n					break;\n			case invalid: return invalidAccess;\n			default: return invalidAccess;\n		}\n\n	return handleRegWriteAction(&controlRegisters, reg);\n}",
+			"file": "Src/ControlRegisters.c",
+			"file_size": 10860,
+			"file_write_time": 131106908880946348,
+			"settings":
+			{
+				"buffer_size": 10904,
+				"line_ending": "Unix",
+				"name": "// ControlRegisters.c"
+			}
+		},
+		{
+			"file": "Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s",
+			"settings":
+			{
+				"buffer_size": 22026,
+				"line_ending": "Windows"
 			}
 		},
 		{
@@ -433,22 +549,6 @@
 			{
 				"buffer_size": 2716,
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/home/steven/STM32CubeMX/ledstrips_nucleo/Src/spi.c",
-			"settings":
-			{
-				"buffer_size": 5764,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Src/usart.c",
-			"settings":
-			{
-				"buffer_size": 4777,
-				"line_ending": "Unix"
 			}
 		},
 		{
@@ -630,11 +730,64 @@
 			}
 		},
 		{
-			"file": "Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s",
+			"file": "Src/FrameBuffer.c",
 			"settings":
 			{
-				"buffer_size": 22026,
+				"buffer_size": 3466,
+				"line_ending": "Unix",
+				"name": "// FrameBuffer.c"
+			}
+		},
+		{
+			"file": "Makefile",
+			"settings":
+			{
+				"buffer_size": 2095,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "/**\n  ******************************************************************************\n  * File Name          : main.c\n  * Description        : Main program body\n  ******************************************************************************\n  *\n  * COPYRIGHT(c) 2016 STMicroelectronics\n  *\n  * Redistribution and use in source and binary forms, with or without modification,\n  * are permitted provided that the following conditions are met:\n  *   1. Redistributions of source code must retain the above copyright notice,\n  *      this list of conditions and the following disclaimer.\n  *   2. Redistributions in binary form must reproduce the above copyright notice,\n  *      this list of conditions and the following disclaimer in the documentation\n  *      and/or other materials provided with the distribution.\n  *   3. Neither the name of STMicroelectronics nor the names of its contributors\n  *      may be used to endorse or promote products derived from this software\n  *      without specific prior written permission.\n  *\n  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n  *\n  ******************************************************************************\n  */\n/* Includes ------------------------------------------------------------------*/\n#include \"stm32f4xx_hal.h\"\n#include \"dma.h\"\n#include \"tim.h\"\n#include \"usart.h\"\n#include \"gpio.h\"\n\n#include \"ControlRegisters.h\"\n\n/* USER CODE BEGIN Includes */\n#include \"stdlib.h\"\n#include \"string.h\"\n#include \"math.h\"\n#define PI 3.1415926\n/* USER CODE END Includes */\n\n\n/* Private variables ---------------------------------------------------------*/\n\n/* USER CODE BEGIN PV */\n/* Private variables ---------------------------------------------------------*/\n\n#define MAJOR_REV 0\n#define MINOR_REV 1\n\n// buffer size is num_leds * 24 bits/led\n// 60 * 24 = 1440\n#define BUFFSIZE 1440*2\n#define NUM_CHANNELS 8\n#define NUM_LEDS_PER_CHANNEL 60*2\n#define MAX_NUM_CHANNELS 8\n\n#define DEFAULT_BRIGHTNESS 50\n#define DEFAULT_FRAMERATE  10\n\n\n#include \"FrameBuffer.h\"\n\n// put these in memory so they can be copied via DMA\nuint32_t _rawBuffer[BUFFSIZE/4];  //make aligned\nbuf      DMA_IO_FrameBuffer = (buf) &_rawBuffer;\nuint32_t DMA_IO_High = 0xFFFFFFFFU;\nuint32_t DMA_IO_Low  = 0x00000000U;\n\nvolatile uint8_t WS2812_TransferComplete = 1;\n\n\nextern TIM_HandleTypeDef htimx;\nextern DMA_HandleTypeDef hdma_timx_gpio_low;     // DMA1_stream4 sets data gpios low\nextern DMA_HandleTypeDef hdma_timx_gpio_data;    // DMA1_stream5 sets data gpios to buffer value\nextern DMA_HandleTypeDef hdma_timx_gpio_high;    // DMA1_stream6 sets data gpios high\nextern UART_HandleTypeDef huart2;\n\n\n\n\n\nvolatile int showFrameDebug = 1;\nvolatile int serialEchoEnabled = 1;\nint globalBrightness = 50;\nint globalFrameDelay = 100;\n\n\n\n\n\n/* USER CODE END PV */\n\n/* Private function prototypes -----------------------------------------------*/\nvoid SystemClock_Config(void);\nvoid Error_Handler(void);\nvoid DebugGood_Handler(void);\nvoid Debug_Setup(void);\n\n\nvoid DMA_IO_SendBuffer(buf frameData, uint16_t buffsize);\n\n\nvoid DisplayLedDemo(void);\n\nint serialDoRawRegisterRead(char* args);\nint serialDoRawRegisterWrite(char* args);\n\n\n/* USER CODE END PFP */\n\n/* USER CODE BEGIN 0 */\n\n\nGPIO_TypeDef *GpioC;\n\nvoid Debug_Setup(void)\n{\n  GpioC = (GPIO_TypeDef*)GPIOC;\n\n  // enable usasge error handler status reg\n  *((uint32_t*)0xe000ed24) = 0x70000;\n}\n\nvoid DMA_IO_SendBuffer(buf frameBuffer, uint16_t buffsize)\n{\n  while(!WS2812_TransferComplete) HAL_Delay(1);\n  WS2812_TransferComplete = 0;\n\n  // Enable DMA\n  if (HAL_DMA_Start_IT(&hdma_timx_gpio_high,\n                       (uint32_t)&DMA_IO_High,\n                       (uint32_t)&(GPIOC->ODR),\n                       buffsize)\n      != HAL_OK) Error_Handler();\n\n  if (HAL_DMA_Start_IT(&hdma_timx_gpio_data,\n                       (uint32_t)frameBuffer,\n                       (uint32_t)&(GPIOC->ODR),\n                       buffsize)\n      != HAL_OK) Error_Handler();\n  \n  if (HAL_DMA_Start_IT(&hdma_timx_gpio_low,\n                       (uint32_t)&DMA_IO_Low,\n                       (uint32_t)&(GPIOC->ODR),\n                       buffsize)\n     != HAL_OK) Error_Handler();\n\n\n\n  __HAL_TIM_ENABLE_DMA(&htimx, TIM_DMA_UPDATE);\n  __HAL_TIM_ENABLE_DMA(&htimx, TIM_DMA_CC1);\n  __HAL_TIM_ENABLE_DMA(&htimx, TIM_DMA_CC2);\n\n  __HAL_TIM_CLEAR_FLAG(&htimx, (uint16_t)0xFFFFU); // clear all\n  // Start counter at max value so UPDATE IT is generated immediately\n  __HAL_TIM_SET_COUNTER(&htimx, (uint16_t)(DATA_TIM_PERIOD - 1));\n\n  // Enable the timer to kick things off\n  __HAL_TIM_ENABLE(&htimx);\n\n}\n\n\nfloat triangleWave(int period, float amplitude, int phase, int d)\n{\n  int p = phase % 360;\n  float t = (360.0/period * d) - p;\n\n  if (t>=180) return amplitude * (-1 + (t-180)/90);\n  else        return amplitude * (1 - t/90);\n}\n\nvoid rainbowShiftIterateFrame(buf fb, int d)\n{\n    int i;\n    float w;\n    Pixel c;\n    static PixelBlock pixelBlockNext;\n\n    c = ColorTable[d%COLOR_TABLE_LEN];\n    for (i=0; i<NUM_CHANNELS; i++) {\n     /* w = triangleWave(450, 4.0, 0, d+80*i);\n      if (w > 1) w = 1.0/w;\n        else if (w < -1) w = -w;\n        else w = 1.0; */\n      //w = (float)globalBrightness / 100.0;\n\n      pixelBlockNext[i] = setPixelBrightness(c, demo1_Brightness);\n    }\n\n    for(i = 0; i < NUM_LEDS_PER_CHANNEL; i++)\n      FB_ShiftSetPixel(fb, pixelBlockNext, i);\n\n}\n\nint frameCount = 0;\n\nstruct DemoOneConfig {\n  uint16_t period[MAX_NUM_CHANNELS];\n  uint16_t phase[MAX_NUM_CHANNELS];\n  uint16_t brightness[MAX_NUM_CHANNELS];\n} demoOneConfig;\n\nvoid DisplayLedDemoOne(void)\n{\n  // go for cycle period of 10 sec, or 300 frames\n  //const float w = PI/300;\n\n  demoOneConfig = (struct DemoOneConfig) { {1200}, {0}, {80} };\n\n\n  buf fb = DMA_IO_FrameBuffer;\n\n  while(frameCount++)\n  {\n    //int d = frameCount;\n    //if (!(d%30) || d%30==6) HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);\n\n    rainbowShiftIterateFrame(fb, frameCount);\n\n    DMA_IO_SendBuffer(fb, BUFFSIZE);\n    HAL_Delay(globalFrameDelay);\n\n  }\n}\n\n\nvoid ShowPrompt(void)\n{\n  char prompt[32] = { 0 };\n  char frame[16] = { 0 };\n\n  strncpy(prompt, \"\\r\\n%s> \", sizeof(prompt));\n  strncpy(frame, \"Frame %d \", sizeof(frame));\n\n  if (showFrameDebug) {\n    sprintf(frame, frame, frameCount);\n    printf(prompt, frame);\n  }\n  else printf(prompt, \"\");\n}\n\n\nvoid ParseCommands(char *cmdStr)\n{\n  char cmd[16], args[32];\n  char *csep, *cend;\n  int cmdLen;\n  int rv = 0;\n\n  csep = strchr(cmdStr, ' ');\n  cend = strchr(cmdStr, '\\r');\n  if (!cend) cend = strchr(cmdStr, '\\n');\n  if (csep == NULL || cend == NULL) return;\n\n  cmdLen = csep - cmdStr;\n  strncpy(cmd, cmdStr, cmdLen);\n  strncpy(args, csep+1, cend-csep-1);\n\n  switch (cmd[0])\n  {\n    case 'b':\n      globalBrightness = atoi(args);\n      printf(\"Set brightness: %d\", globalBrightness); break;\n\n    case 'r':\n      globalFrameDelay = atoi(args);\n      printf(\"Set frameDelay: %d\", globalFrameDelay); break;\n\n    case 's':\n      // here 'args' should be a valid \"addr value\"\n      rv = serialDoRawRegisterWrite(args); break;\n\n    case 'g':\n      rv = serialDoRawRegisterRead(args); break;\n\n    default:\n      rv = -1;\n  }\n\n}\n\nuint verifyAddress(char *args, char **sp)\n{\n  long addrL = strtol(args, sp, 16);\n  if (addrL < 0 || addrL > 0xffffu) {\n    printf(\"Error: address out of range (%x)\\n\", (uint)addrL);\n    return -1;\n  }\n  return (uint)addrL;\n}\n\nint serialDoRawRegisterRead(char* args)\n{\n  RawRegReadValue regRead;\n  uint address;\n\n  if ((address = verifyAddress(args, NULL)) == -1)\n    return -1;\n\n  RawRegisterRead(address, &regRead);\n  if (regRead.flag == invalidAccess)\n  {\n    printf(\"Error: address %4x returned 'invalidAccess'\\n\", address);\n    return 2;\n  }\n\n  printf(\"Read: %8x (%4x)\\n\", (uint)regRead.reg, address);\n  return 0;\n}\n\nint serialDoRawRegisterWrite(char *args)\n{\n  char *sp;\n  uint address;\n  long wrVal;\n  HandleRegAccessFlag f;\n\n  if ((address = verifyAddress(args, &sp)) == -1)\n    return -1;\n\n  wrVal = strtol(sp, &sp, 16);\n\n  f = RawRegisterWrite(address, (uint32_t)wrVal);\n  switch (f)\n  {\n    case readOnlyAccess:\n      printf(\"Error: address %4x returned 'readOnlyAccess'\\n\", address);\n      return 4;\n    case invalidAccess:\n      printf(\"Error: address %4x returned 'invalidAccess'\\n\", address);\n      return 2;\n    default:\n      printf(\"Wrote: %8x (%4x)\\n\", (uint)wrVal, address);\n      return 0;\n  }\n}\n\n/* USER CODE END 0 */\n\nint main(void)\n{\n\n  /* USER CODE BEGIN 1 */\n\n  /* USER CODE END 1 */\n\n  /* MCU Configuration----------------------------------------------------------*/\n\n  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */\n  HAL_Init();\n\n  /* Configure the system clock */\n  SystemClock_Config();\n\n  /* Initialize all configured peripherals */\n  MX_GPIO_Init();\n  MX_DMA_Init();\n  MX_TIM1_Init();\n  USART2_Init();\n  HAL_UART_RxCpltCallback(&huart2); // begin rx for loopback\n\n  Debug_Setup();\n\n  /* USER CODE BEGIN 2 */\n\n  for (uint16_t i = 0; i < NUM_LEDS_PER_CHANNEL; i++)\n  {\n    FB_SetPixel(DMA_IO_FrameBuffer, 0, i, CWhite);\n  }\n\n  uint16_t size = BUFFSIZE;\n  while(0);\n  DMA_IO_SendBuffer(DMA_IO_FrameBuffer, size);\n\n  InitControlRegisters();\n  ShowPrompt();\n\n  while (1)\n  {\n\n    while(!WS2812_TransferComplete)\n    {\n      HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);\n      HAL_Delay(500);\n    }\n    DebugGood_Handler();\n    //DMA_IO_SendBuffer(DMA_IO_FrameBuffer, BUFFSIZE);\n\n  }\n  /* USER CODE END 3 */\n\n}\n\n/** System Clock Configuration\n*/\nvoid SystemClock_Config(void)\n{\n\n  RCC_OscInitTypeDef RCC_OscInitStruct;\n  RCC_ClkInitTypeDef RCC_ClkInitStruct;\n\n  __HAL_RCC_PWR_CLK_ENABLE();\n\n  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);\n\n  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;\n  RCC_OscInitStruct.HSIState = RCC_HSI_ON;\n  RCC_OscInitStruct.HSICalibrationValue = 16;\n  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;\n  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;\n  RCC_OscInitStruct.PLL.PLLM = 16;\n  RCC_OscInitStruct.PLL.PLLN = 336;\n  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;\n  RCC_OscInitStruct.PLL.PLLQ = 7;\n  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)\n  {\n    Error_Handler();\n  }\n\n  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK\n                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;\n  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;\n  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;\n  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;\n  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;\n  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)\n  {\n    Error_Handler();\n  }\n\n  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);\n\n  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);\n\n  /* SysTick_IRQn interrupt configuration */\n  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);\n}\n\n/* USER CODE BEGIN 4 */\n\n/* USER CODE END 4 */\n\n/**\n  * @brief  This function is executed in case of error occurrence.\n  * @param  None\n  * @retval None\n  */\nvoid Error_Handler(void)\n{\n  /* USER CODE BEGIN Error_Handler */\n  /* User can add his own implementation to report the HAL error return state */\n  while(1) \n  {\n    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);\n    \n    /* Insert delay 100 ms */\n    HAL_Delay(100);\n  }\n  /* USER CODE END Error_Handler */ \n}\n\nvoid DebugGood_Handler(void)\n{\n\n  DisplayLedDemo();\n\n}\n\n#ifdef USE_FULL_ASSERT\n\n/**\n   * @brief Reports the name of the source file and the source line number\n   * where the assert_param error has occurred.\n   * @param file: pointer to the source file name\n   * @param line: assert_param error line source number\n   * @retval None\n   */\nvoid assert_failed(uint8_t* file, uint32_t line)\n{\n  /* USER CODE BEGIN 6 */\n  /* User can add his own implementation to report the file name and line number,\n    ex: printf(\"Wrong parameters value: file %s on line %d\\r\\n\", file, line) */\n  /* USER CODE END 6 */\n\n}\n\n#endif\n\n/**\n  * @}\n  */ \n\n/**\n  * @}\n*/ \n\n/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/\n",
+			"file": "Src/main.c",
+			"file_size": 13195,
+			"file_write_time": 131106915424595901,
+			"settings":
+			{
+				"buffer_size": 12685,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Src/usart.c",
+			"settings":
+			{
+				"buffer_size": 5220,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/steven/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+			"settings":
+			{
+				"buffer_size": 264,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/steven/STM32CubeMX/ledstrips_nucleo/Src/spi.c",
+			"settings":
+			{
+				"buffer_size": 5764,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Inc/FrameBuffer.h",
+			"settings":
+			{
+				"buffer_size": 1269,
+				"line_ending": "Unix",
+				"name": "// FrameBuffer.h"
 			}
 		}
 	],
@@ -696,6 +849,66 @@
 		[
 			[
 				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/User/make burn.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/User/make burn.sublime-build",
+					""
+				],
+				[
+					"Packages/User/make.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/User/make.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Packages/Makefile/Make.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
 					"Packages/Makefile/Make.sublime-build",
 					""
 				],
@@ -718,9 +931,17 @@
 	"command_palette":
 	{
 		"height": 392.0,
-		"last_filter": "",
+		"last_filter": "orig",
 		"selected_items":
 		[
+			[
+				"orig",
+				"Origami: Destroy Current Pane"
+			],
+			[
+				"open file",
+				"View: Toggle Open Files in Side Bar"
+			],
 			[
 				"Package Control: in",
 				"Package Control: Install Package"
@@ -780,41 +1001,18 @@
 	{
 		"menu_visible": true,
 		"show_minimap": false,
-		"show_open_files": false,
+		"show_open_files": true,
 		"show_tabs": false,
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
-	"expanded_folders":
-	[
-		"/home/steven/projects/ledstrips_nucleo",
-		"/home/steven/projects/ledstrips_nucleo/Inc",
-		"/home/steven/projects/ledstrips_nucleo/Lib",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Documentation",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/DSP_Lib/Examples/arm_convolution_example",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Device/ST/STM32F4xx",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32446E_EVAL/Examples",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32446E_EVAL/Examples/TIM/TIM_7PWMOutput/Src",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32446E_EVAL/Examples/TIM/TIM_DMABurst/Inc",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32446E_EVAL/Examples/TIM/TIM_DMABurst/Src",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32446E_EVAL/Examples/TIM/TIM_PWMOutput/Src",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo/Examples",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo/Examples/GPIO/GPIO_IOToggle/Src",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo/Examples/UART",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo/Examples/UART/UART_Printf",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo/Examples/UART/UART_Printf/SW4STM32",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo/Examples/UART/UART_Printf/Src",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F429I-Discovery",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F429I-Discovery/Demonstrations/SW4STM32/STM32F429I-Discovery",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F429I-Discovery/Examples/UART",
-		"/home/steven/projects/ledstrips_nucleo/Src"
-	],
 	"file_history":
 	[
+		"/home/steven/projects/ledstrips_nucleo/Src/usart.c",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Middlewares/Third_Party/FreeRTOS/Source/tasks.c",
+		"/home/steven/foo",
+		"/home/steven/.config/sublime-text-3/Packages/User/make.sublime-build",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s",
 		"/home/steven/projects/ledstrips_nucleo/Inc/ControlRegisters.h",
 		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Include/arm_math.h",
 		"/usr/arm-none-eabi/include/stdio.h",
@@ -859,7 +1057,7 @@
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 27.0
 	},
 	"find_in_files":
 	{
@@ -883,6 +1081,11 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"sb",
+			"normal",
+			"monospace",
+			"liberation",
+			"out",
 			"sp",
 			"Frame ",
 			"TcCplt",
@@ -1012,82 +1215,24 @@
 	"groups":
 	[
 		{
-			"selected": 23,
+			"selected": 25,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Makefile",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2095,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1656,
-								1656
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Makefile/Makefile.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 459.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Src/main.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 14113,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3291,
-								3291
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 570.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "Inc/ControlRegisters.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2169,
+						"buffer_size": 2164,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								818,
-								818
+								164,
+								164
 							]
 						],
 						"settings":
@@ -1097,10 +1242,103 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 17.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Src/ControlRegisters.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10904,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1725,
+								1725
+							]
+						],
+						"settings":
+						{
+							"auto_name": "// ControlRegisters.c",
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1235.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Src/ControlRegisters.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10904,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1806,
+								1806
+							]
+						],
+						"settings":
+						{
+							"auto_name": "// ControlRegisters.c",
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1102.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22026,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3956,
+								3956
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/R/R.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 969.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
@@ -1116,8 +1354,8 @@
 						"selection":
 						[
 							[
-								2457,
-								2457
+								336,
+								336
 							]
 						],
 						"settings":
@@ -1130,71 +1368,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "/home/steven/STM32CubeMX/ledstrips_nucleo/Src/spi.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5764,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4364,
-								4364
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1479.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "Src/usart.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4777,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3011,
-								3011
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1802.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
 					"file": "Src/syscalls.c",
 					"semi_transient": false,
 					"settings":
@@ -1216,14 +1394,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1275.0,
+						"translation.y": 1425.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 5,
 					"file": "Inc/usart.h",
 					"semi_transient": false,
 					"settings":
@@ -1248,11 +1426,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 25,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 6,
 					"file": "Inc/stm32f4xx_hal_conf.h",
 					"semi_transient": false,
 					"settings":
@@ -1276,14 +1454,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 816.0,
+						"translation.y": 912.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 33,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 7,
 					"file": "Src/dma.c",
 					"semi_transient": false,
 					"settings":
@@ -1306,14 +1484,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 561.0,
+						"translation.y": 627.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 32,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 8,
 					"file": "Src/tim.c",
 					"semi_transient": false,
 					"settings":
@@ -1336,14 +1514,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1486.0,
+						"translation.y": 1660.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 30,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 9,
 					"file": "Inc/tim.h",
 					"semi_transient": false,
 					"settings":
@@ -1366,14 +1544,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 816.0,
+						"translation.y": 912.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 31,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 10,
 					"file": "Src/gpio.c",
 					"semi_transient": false,
 					"settings":
@@ -1396,14 +1574,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 816.0,
+						"translation.y": 912.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 23,
+					"stack_index": 36,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 11,
 					"file": "Inc/gpio.h",
 					"semi_transient": false,
 					"settings":
@@ -1426,14 +1604,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 408.0,
+						"translation.y": 456.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 26,
+					"stack_index": 39,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 12,
 					"file": "Src/stm32f4xx_it.c",
 					"semi_transient": false,
 					"settings":
@@ -1456,14 +1634,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1475.0,
+						"translation.y": 1653.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 29,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 13,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h",
 					"semi_transient": false,
 					"settings":
@@ -1486,14 +1664,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 14480.0,
+						"translation.y": 16188.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 23,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 14,
 					"file": "colors.out",
 					"semi_transient": false,
 					"settings":
@@ -1514,14 +1692,14 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 8874.0,
+						"translation.y": 9918.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 24,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 15,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c",
 					"semi_transient": false,
 					"settings":
@@ -1545,14 +1723,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 19890.0,
+						"translation.y": 22230.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 28,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 16,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h",
 					"semi_transient": false,
 					"settings":
@@ -1575,14 +1753,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5198.0,
+						"translation.y": 5814.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 34,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
+					"buffer": 17,
 					"file": "colors.c",
 					"semi_transient": false,
 					"settings":
@@ -1606,14 +1784,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 102.0,
+						"translation.y": 114.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 27,
 					"type": "text"
 				},
 				{
-					"buffer": 20,
+					"buffer": 18,
 					"file": "STM32F401RETx_FLASH.ld",
 					"semi_transient": false,
 					"settings":
@@ -1636,14 +1814,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2924.0,
+						"translation.y": 4237.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 26,
 					"type": "text"
 				},
 				{
-					"buffer": 21,
+					"buffer": 19,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c",
 					"semi_transient": false,
 					"settings":
@@ -1667,14 +1845,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 18084.0,
+						"translation.y": 20216.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 22,
+					"stack_index": 35,
 					"type": "text"
 				},
 				{
-					"buffer": 22,
+					"buffer": 20,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h",
 					"semi_transient": false,
 					"settings":
@@ -1697,14 +1875,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2002.0,
+						"translation.y": 2242.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 24,
+					"stack_index": 37,
 					"type": "text"
 				},
 				{
-					"buffer": 23,
+					"buffer": 21,
 					"file": "Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h",
 					"semi_transient": false,
 					"settings":
@@ -1716,8 +1894,8 @@
 						"selection":
 						[
 							[
-								6001,
-								6001
+								7155,
+								7155
 							]
 						],
 						"settings":
@@ -1727,14 +1905,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1479.0,
+						"translation.y": 1311.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
-					"buffer": 24,
+					"buffer": 22,
 					"semi_transient": false,
 					"settings":
 					{
@@ -2513,14 +2691,14 @@
 							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 102.0,
+						"translation.y": 3422.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 25,
+					"stack_index": 38,
 					"type": "text"
 				},
 				{
-					"buffer": 25,
+					"buffer": 23,
 					"file": "/home/steven/STM32Cube/Repository/STM32Cube_FW_F4_V1.12.0/Projects/STM32F429I-Discovery/Transmission/Src/main.c",
 					"semi_transient": false,
 					"settings":
@@ -2532,8 +2710,8 @@
 						"selection":
 						[
 							[
-								12942,
-								12942
+								8777,
+								8777
 							]
 						],
 						"settings":
@@ -2543,14 +2721,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4692.0,
+						"translation.y": 3781.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 27,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 26,
+					"buffer": 24,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h",
 					"semi_transient": false,
 					"settings":
@@ -2562,8 +2740,8 @@
 						"selection":
 						[
 							[
-								37375,
-								37375
+								34841,
+								34841
 							]
 						],
 						"settings":
@@ -2573,14 +2751,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 12117.0,
+						"translation.y": 13547.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 28,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 27,
+					"buffer": 25,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c",
 					"semi_transient": false,
 					"settings":
@@ -2603,10 +2781,283 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 7627.0,
+						"translation.y": 8531.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 22,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"file": "Src/ControlRegisters.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10904,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8343,
+								8343
+							]
+						],
+						"settings":
+						{
+							"auto_name": "// ControlRegisters.c",
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5531.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 26,
+					"file": "Src/FrameBuffer.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3466,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								694,
+								694
+							]
+						],
+						"settings":
+						{
+							"auto_name": "// FrameBuffer.c",
+							"syntax": "Packages/C Improved/C Improved.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 27,
+					"file": "Makefile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2095,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								128,
+								128
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 28,
+					"file": "Src/main.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12685,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8282,
+								8282
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5707.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 29,
+					"file": "Src/usart.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5220,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								88,
+								88
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 30,
+					"file": "/home/steven/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 264,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								264,
+								264
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 31,
+					"file": "/home/steven/STM32CubeMX/ledstrips_nucleo/Src/spi.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5764,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3711,
+								3711
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1539.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Src/ControlRegisters.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10904,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7187,
+								7187
+							]
+						],
+						"settings":
+						{
+							"auto_name": "// ControlRegisters.c",
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5035.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 0,
+					"file": "Inc/ControlRegisters.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2164,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1374,
+								1374
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
 					"type": "text"
 				}
 			]
@@ -2617,32 +3068,122 @@
 			[
 				{
 					"buffer": 28,
-					"file": "Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s",
+					"file": "Src/main.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 22026,
+						"buffer_size": 12685,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3169,
-								3169
+								6190,
+								6190
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/R/R.tmLanguage",
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 863.0,
+						"translation.y": 3363.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 0,
+					"file": "Inc/ControlRegisters.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2164,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1249,
+								1249
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 572.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Src/ControlRegisters.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10904,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2000,
+								2000
+							]
+						],
+						"settings":
+						{
+							"auto_name": "// ControlRegisters.c",
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1549.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 32,
+					"file": "Inc/FrameBuffer.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1269,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								426,
+								426
+							]
+						],
+						"settings":
+						{
+							"auto_name": "// FrameBuffer.h",
+							"syntax": "Packages/C Improved/C Improved.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
 					"type": "text"
 				}
 			]
@@ -2650,7 +3191,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 34.0
+		"height": 27.0
 	},
 	"input":
 	{
@@ -2667,6 +3208,12 @@
 				1
 			],
 			[
+				2,
+				0,
+				3,
+				1
+			],
+			[
 				1,
 				0,
 				2,
@@ -2676,7 +3223,8 @@
 		"cols":
 		[
 			0.0,
-			0.661526794742,
+			0.173791605036,
+			0.535547984147,
 			1.0
 		],
 		"rows":
@@ -2694,11 +3242,11 @@
 	{
 		"height": 0.0
 	},
-	"pinned_build_system": "",
+	"pinned_build_system": "Packages/Makefile/Make.sublime-build",
 	"project": "ledstrips_nucleo",
 	"replace":
 	{
-		"height": 46.0
+		"height": 50.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -2707,6 +3255,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"mai",
+				"~/projects/ledstrips_nucleo/Src/main.c"
+			],
+			[
+				"main",
+				"~/STM32Cube/Repository/STM32Cube_FW_F4_V1.12.0/Projects/STM32F429I-Discovery/Transmission/Src/main.c"
+			],
 			[
 				"con",
 				"Inc/ControlRegisters.h"
@@ -2810,10 +3366,6 @@
 			[
 				"touch",
 				"TouchScreen/touch_7846.c"
-			],
-			[
-				"main",
-				"main.c"
 			],
 			[
 				"init",
@@ -2940,15 +3492,15 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
-	"side_bar_width": 302.0,
+	"side_bar_visible": false,
+	"side_bar_width": 221.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

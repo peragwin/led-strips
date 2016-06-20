@@ -44,6 +44,8 @@ extern DMA_HandleTypeDef hdma_timx_gpio_low;
 extern DMA_HandleTypeDef hdma_timx_gpio_data;
 extern DMA_HandleTypeDef hdma_timx_gpio_high;
 extern TIM_HandleTypeDef htimx;
+extern TIM_HandleTypeDef htim_dead;
+extern TIM_HandleTypeDef htimFrame;
 extern UART_HandleTypeDef huart2;
 
 /******************************************************************************/
@@ -110,6 +112,16 @@ void TIM1_UP_TIM10_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
   HAL_UART_IRQHandler(&huart2);
+}
+
+void TIM4_IRQHandler(void)
+{
+  HAL_TIM_IRQHandler(&htimFrame);
+}
+
+void TIM2_IRQHandler(void)
+{
+  HAL_TIM_IRQHandler(&htim_dead);
 }
 
 

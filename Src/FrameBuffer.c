@@ -4,17 +4,6 @@
 #include "FrameBuffer.h"
 
 
-#include "colors.out"
-
-const Pixel CBlack      = {0x00, 0x00, 0x00};
-const Pixel CRed        = {0xFF, 0x00, 0x00};
-const Pixel CGreen      = {0x00, 0xFF, 0x00};
-const Pixel CBlue       = {0x00, 0x00, 0xFF};
-const Pixel CCyan       = {0x00, 0xFF, 0xFF};
-const Pixel CMagenta    = {0xFF, 0x00, 0xFF};
-const Pixel CYellow     = {0xFF, 0xFF, 0x00};
-const Pixel CWhite      = {0xFF, 0xFF, 0xFF};
-
 Pixel setPixelBrightnessF (Pixel p, float b)
 {
   p.red = (b*p.red > 255) ? 0xFF : (uint8_t)(100*b*p.red/100);
@@ -31,26 +20,13 @@ Pixel setPixelBrightness(Pixel c, uint brightness)
       c.blue * 100*brightness/10000 };
 }
 
-Pixel AdjustPixelBrightness(Pixel c)
+Pixel AdjustPixelBrightness(Pixel c, uint b)
 {
-    int b; //, g;
-   // static int subBrightCn;
-  //  subBrightCn++;
-
-    b = globalBrightness;
-    Pixel p = (Pixel)
-    { c.red * 100*b/10000,
-      c.green * 100*b/10000,
-      c.blue * 100*b/10000 };
-
-    // g = globalSubBrightness;
-    // if (g > 0 && g <= 8)
-    //     if (!(subBrightCn % g))
-    //         p = CBlack;
-    // if (g < 0 && g >= -8)
-    //     if (subBrightCn % g)
-    //         p = CBlack;
-
+    Pixel p = (Pixel) {
+      min(c.red + b, 0xff),
+      min(c.green + b, 0xff),
+      min(c.blue + b, 0xff)
+    };
     return p;
 }
 
@@ -118,7 +94,7 @@ void FB_FastSetPixel(buf frameBuffer, PixelBlock pixelBlock, uint pixelIdx)
   uint8_t green, red, blue;
   uint8_t miniBuf[24] = {0};
 
-  for (ch=0; ch<NUM_CHANNELS; ch++)
+  for (ch=0; ch<MAX_NUM_CHANNELS; ch++)
   {
     green = pixelBlock[ch].green;
     red   = pixelBlock[ch].red;

@@ -14,11 +14,12 @@
 //extern int _write(int, char*, int);
 
 extern void Error_Handler(void);
-extern void ParseCommands(char*);
+extern int ParseCommands(char*);
 extern volatile int showFrameDebug;
 extern volatile int serialEchoEnabled;
 
 void USART2_Init(void);
+void USART6_Init(void);
 void HAL_UART_MspInit(UART_HandleTypeDef* usartHandle);
 extern void ShowPrompt(void);
 

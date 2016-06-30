@@ -47,6 +47,11 @@ extern TIM_HandleTypeDef htimx;
 extern TIM_HandleTypeDef htim_dead;
 extern TIM_HandleTypeDef htimFrame;
 extern UART_HandleTypeDef huart2;
+extern UART_HandleTypeDef huart6;
+extern SPI_HandleTypeDef hspi2;
+extern ADC_HandleTypeDef hadc1;
+extern DMA_HandleTypeDef hdma_adc1;
+
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
@@ -104,26 +109,69 @@ void DMA2_Stream5_IRQHandler(void)
 
 }
 
-void TIM1_UP_TIM10_IRQHandler(void)
+void TIM5_IRQHandler(void)
 {
   HAL_TIM_IRQHandler(&htimx);
 }
+
+
 
 void USART2_IRQHandler(void)
 {
   HAL_UART_IRQHandler(&huart2);
 }
-
-void TIM4_IRQHandler(void)
+void USART6_IRQHandler(void)
 {
-  HAL_TIM_IRQHandler(&htimFrame);
+  HAL_UART_IRQHandler(&huart6);
 }
+
+
 
 void TIM2_IRQHandler(void)
 {
   HAL_TIM_IRQHandler(&htim_dead);
 }
 
+/**
+  * @brief  This function handles DMA Rx interrupt request.  
+  * @param  None
+  * @retval None    
+  */
+  // SPI RX
+void DMA1_Stream3_IRQHandler(void)
+{
+  HAL_DMA_IRQHandler(hspi2.hdmarx);
+}
 
+/**
+  * @brief  This function handles DMA Tx interrupt request.
+  * @param  None
+  * @retval None  
+  */
+  // SPI TX
+void DMA1_Stream4_IRQHandler(void)
+{
+  HAL_DMA_IRQHandler(hspi2.hdmatx);
+}
+
+/**
+  * @brief  This function handles SPI interrupt request.
+  * @param  None
+  * @retval None
+  */
+void SPI2_IRQHandler(void)
+{
+  HAL_SPI_IRQHandler(&hspi2);
+}
+
+void DMA2_Stream0_IRQHandler(void)
+{
+  HAL_DMA_IRQHandler(&hdma_adc1);
+}
+
+void ADC_IRQHandler(void)
+{
+  HAL_ADC_IRQHandler(&hadc1);
+}
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

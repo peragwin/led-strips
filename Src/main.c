@@ -31,46 +31,20 @@
   ******************************************************************************
   */
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx_hal.h"
 #include "dma.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
+#include "spi.h"
+#include "adc.h"
 
 #include "ControlRegisters.h"
-
-/* USER CODE BEGIN Includes */
-#include "stdlib.h"
-#include "string.h"
-
-#define ARM_MATH_CM4
-
-#include "arm_math.h"
-  #include "math.h"
-//#define PI 3.1415926
-/* USER CODE END Includes */
-
-
-/* Private variables ---------------------------------------------------------*/
-
-/* USER CODE BEGIN PV */
-/* Private variables ---------------------------------------------------------*/
-
-#define MAJOR_REV 0
-#define MINOR_REV 1
-
-// buffer size is num_leds * 24 bits/led
-// 60 * 24 = 1440
-#define BUFFSIZE 2*1440
-#define NUM_CHANNELS 8
-#define NUM_LEDS_PER_CHANNEL 2*60
-#define MAX_NUM_CHANNELS 8
-
-#define DEFAULT_BRIGHTNESS 50
-#define DEFAULT_FRAMERATE  10
-
-
 #include "FrameBuffer.h"
+
+
+
+
+
 
 // put these in memory so they can be copied via DMA
 uint32_t _rawBuffer[2 * BUFFSIZE/4];  //make aligned
@@ -82,6 +56,9 @@ uint32_t DMA_IO_Low  = 0x00000000U;
 
 volatile uint8_t WS2812_TransferComplete = 1;
 
+extern uint8_t spiTxBuffer[SPI_BUFFSIZE];
+extern uint8_t spiRxBuffer[SPI_BUFFSIZE];
+
 
 extern TIM_HandleTypeDef htimx;
 extern TIM_HandleTypeDef htimFrame;
@@ -89,20 +66,31 @@ extern DMA_HandleTypeDef hdma_timx_gpio_low;     // DMA1_stream4 sets data gpios
 extern DMA_HandleTypeDef hdma_timx_gpio_data;    // DMA1_stream5 sets data gpios to buffer value
 extern DMA_HandleTypeDef hdma_timx_gpio_high;    // DMA1_stream6 sets data gpios high
 extern UART_HandleTypeDef huart2;
+extern UART_HandleTypeDef huart6;
+extern SPI_HandleTypeDef hspi2;
+extern ADC_HandleTypeDef hadc1;
 
 
+uint16_t ADC_Buffer[ADC_BUFFER_LENGTH];
 
-
+float audioEffect[4];
+float audioDiffEffect[4];
 
 volatile int showFrameDebug = 1;
 volatile int serialEchoEnabled = 1;
 
-uint globalFrameDelay = 100;
-uint globalBrightness = 100;
-uint globalLedsPerChannel = NUM_LEDS_PER_CHANNEL;
-int globalSubBrightness = 0;
 
+extern struct ControlRegisters controlRegisters;
 
+volatile u8 *gPause = &controlRegisters.displayStatus.pause;
+volatile u16 *gFrameDelay = &controlRegisters.displayStatus.frameDelay;
+volatile u16 *gBrightness = &controlRegisters.displayStatus.brightness;
+volatile u8 *gNumLedsPerChannel = &controlRegisters.displayControl.numberLedsPerChannel;
+volatile u8 *gNumberOfChannels = &controlRegisters.displayControl.numberOfChannels;
+volatile u8 *gDisplayMode = &controlRegisters.displayMode;
+int gSubBrightness = 0;
+
+int (*currentModeSerialCommandPlugin)(char*, char*);
 
 /* USER CODE END PV */
 
@@ -138,7 +126,7 @@ int serialDoRawRegisterWrite(char* args);
 
 
 
-
+/*
 GPIO_TypeDef *GpioC;
 
 void Debug_Setup(void)
@@ -147,24 +135,17 @@ void Debug_Setup(void)
 
   // enable usasge error handler status reg
   *((uint32_t*)0xe000ed24) = 0x70000;
-}
+} */
 
 void DMA_IO_SendBuffer(buf frameBuffer, uint16_t buffsize)
 {
   while(!WS2812_TransferComplete) HAL_Delay(1);
   WS2812_TransferComplete = 0;
 
-  static int subBrightCn;
-  subBrightCn++;
-  uint32_t frameBufferOrZeros = (uint32_t) frameBuffer;
-  int g = globalSubBrightness;
-  if (g > 0 && g <= 8)
-      if (!(subBrightCn % g))
-          frameBufferOrZeros = &DMA_IO_Low;
-  if (g < 0 && g >= -8)
-      if (subBrightCn % g)
-          frameBufferOrZeros = &DMA_IO_Low;
+  // Stop ADC conversions to avoid cross noise and request conflicts.
+  //HAL_ADC_Stop_DMA(&hadc1);
 
+  uint32_t frameBufferOrZeros = (uint32_t) frameBuffer;
 
   // Enable DMA
   if (HAL_DMA_Start_IT(&hdma_timx_gpio_high,
@@ -189,7 +170,7 @@ void DMA_IO_SendBuffer(buf frameBuffer, uint16_t buffsize)
 
   __HAL_TIM_ENABLE_DMA(&htimx, TIM_DMA_UPDATE);
   __HAL_TIM_ENABLE_DMA(&htimx, TIM_DMA_CC1);
-  __HAL_TIM_ENABLE_DMA(&htimx, TIM_DMA_CC2);
+  __HAL_TIM_ENABLE_DMA(&htimx, TIM_DMA_CC3);
 
   __HAL_TIM_CLEAR_FLAG(&htimx, (uint16_t)0xFFFFU); // clear all
   // Start counter at max value so UPDATE IT is generated immediately
@@ -202,27 +183,17 @@ void DMA_IO_SendBuffer(buf frameBuffer, uint16_t buffsize)
 }
 
 
-void (*frameUpdateFn)(void) = NULL;
-
-void FrameUpdater()
-{
-  if (frameUpdateFn != NULL)
-    frameUpdateFn();
-
-  if(WS2812_TransferComplete)
-    DMA_IO_SendBuffer(DMA_IO_FrameBuffer, BUFFSIZE);
-}
 
 void setFrameDelay(uint d)
 {
-  globalFrameDelay = d;
+  *gFrameDelay = d;
   __HAL_TIM_SET_AUTORELOAD(&htimFrame, d);
 }
 
 void frameDelay(void)
 {
   //for(int i = 0; i < 40000*globalFrameDelay; i++);
-  HAL_Delay(globalFrameDelay);
+  HAL_Delay(*gFrameDelay);
 }
 
 void enableFrameUpdates(void)
@@ -238,6 +209,123 @@ void disableFrameUpdates(void)
 }
 
 
+
+
+
+
+
+#define FFT_LENGTH ADC_BUFFER_LENGTH
+#define FFT_LOW_SIZE 2
+#define FFT_LOW_MID_SIZE 8
+#define FFT_HIGH_MID_SIZE 16
+#define FFT_HIGH_SIZE (FFT_LENGTH - FFT_LOW_SIZE - FFT_LOW_MID_SIZE - FFT_HIGH_MID_SIZE)
+
+float eqLow = 2.0;
+float eqLowMid = 0.8;
+float eqHighMid = 1.0;
+float eqHigh = 1.5;
+
+float fftIn[FFT_LENGTH];
+float fftOut[FFT_LENGTH];
+
+float fftBucketLow[FFT_LOW_SIZE];
+float fftBucketLowMid[FFT_LOW_MID_SIZE];
+float fftBucketHighMid[FFT_HIGH_MID_SIZE];
+float fftBucketHigh[FFT_HIGH_SIZE];
+
+
+float audioEffectScale, audioDiffEffectScale;
+
+void setupAudioProcessing(void) {
+  arm_fill_f32(eqLow / FFT_LOW_SIZE, fftBucketLow, FFT_LOW_SIZE);
+  arm_fill_f32(eqLowMid / FFT_LOW_MID_SIZE, fftBucketLowMid, FFT_LOW_MID_SIZE);
+  arm_fill_f32(eqHighMid / FFT_HIGH_MID_SIZE, fftBucketHighMid, FFT_HIGH_MID_SIZE);
+  arm_fill_f32(eqHigh / FFT_HIGH_SIZE, fftBucketHigh, FFT_HIGH_SIZE);
+
+  audioEffectScale = 0.5;
+  audioDiffEffectScale = 0.5;
+}
+
+
+float fftIntensity[4];
+
+
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
+{
+  //if (WS2812_TransferComplete == 0) return;
+  int i;
+  int sum;
+  float mean;
+  arm_rfft_fast_instance_f32 S;
+  arm_rfft_fast_init_f32(&S, FFT_LENGTH);
+
+  // kill dc component
+  sum = 0;
+  for (i = 0; i < ADC_BUFFER_LENGTH; i++) {
+    sum += ADC_Buffer[i];
+  }
+  mean = (float) sum / ADC_BUFFER_LENGTH;
+
+  // and average / decimate by 4
+  for (i = 0; i < ADC_BUFFER_LENGTH; i++) {
+    fftIn[i] =
+      (float) (ADC_Buffer[i]) - mean;
+      //  + ADC_Buffer[i+1] + ADC_Buffer[i+2] + ADC_Buffer[i+3])
+      //- 4.0 * mean;
+  }
+
+  arm_rfft_fast_f32(&S, fftIn, fftOut, 0);
+
+  arm_abs_f32(fftOut, fftOut, FFT_LENGTH);
+
+  arm_dot_prod_f32(fftOut, fftBucketLow, FFT_LOW_SIZE, &fftIntensity[0]);
+  arm_dot_prod_f32(fftOut+FFT_LOW_SIZE, fftBucketLowMid, FFT_LOW_MID_SIZE, &fftIntensity[1]);
+  arm_dot_prod_f32(fftOut+FFT_LOW_MID_SIZE, fftBucketHighMid, FFT_HIGH_MID_SIZE, &fftIntensity[2]);
+  arm_dot_prod_f32(fftOut+FFT_HIGH_MID_SIZE, fftBucketHigh, FFT_HIGH_SIZE, &fftIntensity[3]);
+
+
+  for(i = 0; i < 4; i++) {
+    audioDiffEffect[i] = fftIntensity[i] - audioEffect[i];
+    audioEffect[i] += audioEffectScale * audioDiffEffect[i];
+    audioDiffEffect[i] *= audioDiffEffectScale;
+  }
+}
+
+// expects "eq \d %f"
+int setEqValue(char *args){
+  float eqVal;
+  char* eqKey = args;
+  bool shortKey = args[2] == ' ';
+  char *p = args + (shortKey ? 2 : 3);
+
+  eqVal = strtof(p, NULL);
+
+  if (*eqKey == 'l')
+    if (shortKey) eqLow = eqVal;
+    else if (eqKey[1] == 'm') eqLowMid = eqVal;
+    else return -1;
+
+  else if (*eqKey == 'h')
+    if (shortKey) eqHigh = eqVal;
+    else if (eqKey[1] == 'm') eqHighMid = eqVal;
+    else return -1;
+
+  else return -1;
+
+  return 0;
+}
+
+int setAudioEffectValue(char *args){
+  float aeVal = strtof(args, NULL);
+  audioEffectScale = aeVal;
+  return 0;
+}
+
+int setAudioDiffEffectValue(char *args){
+  float adeVal = strtof(args, NULL);
+  audioDiffEffectScale = adeVal;
+  return 0;
+}
 
 
 
@@ -268,92 +356,125 @@ float triangleWave(int period, float amplitude, int phase, int d)
 
 
 
+/*****          ********          ********       *********       ******/
+/* BEGIN DEMO ONE STUFF                                               */
+/************               *****************                  ********/
 
-
-int frameCount = 0;
-
-struct DemoOneConfig {
-  uint16_t frameDelay;
-  uint16_t period[MAX_NUM_CHANNELS];
-  uint16_t phase[MAX_NUM_CHANNELS];
+struct DemoOneConfig
+{
+  uint8_t timeScale[MAX_NUM_CHANNELS];
+  uint8_t timeIncrement[MAX_NUM_CHANNELS];
+  uint8_t modUpdate[MAX_NUM_CHANNELS];
+  uint16_t amp[MAX_NUM_CHANNELS];
   uint16_t brightness[MAX_NUM_CHANNELS];
+  uint16_t timePeriod[MAX_NUM_CHANNELS];
+  uint16_t spacePeriod[MAX_NUM_CHANNELS];
+  uint16_t phase[MAX_NUM_CHANNELS];
+  float (*iterFunc)(float);
 };
+typedef struct DemoOneConfig conf1;
 
-struct DemoOneConfig *demoOneConfig;
-
-
-
-void rainbowShiftIterateFrame(buf fb, struct DemoOneConfig *config)
-{
-    int ch, period, phase;
-    float brightness, w, red_, green_, blue_, s;
-    uint8_t red, green, blue;
-    Pixel c;
-    static int d;
-    static PixelBlock pixelBlockNext;
-
-    //c = ColorTable[d%COLOR_TABLE_LEN];
-    for (ch=0; ch < 3; ch++)
-    {
-      
-      brightness = (float)config->brightness[ch];
-      period =  config->period[ch];
-      phase = config->phase[ch];
-      w = PI / period;
-
-      red_   = 128.0f + 120.0f*sinf((float32_t)w*(d + phase));
-      green_ = 128.0f + 120.0f*sinf(w*(d + phase + 2*period/3));
-      blue_  = 128.0f + 120.0f*sinf(w*(d + phase - 2*period/3));
-      s = red_ + green_ + blue_;
-      red = (uint8_t)round(red_ * brightness/s);
-      green = (uint8_t)round(blue_ * brightness/s);
-      blue = (uint8_t)round(green_ * brightness/s);
-
-      c = (Pixel) { red, green, blue };
-      //printf("%2x %2x %2x\r\n", c.red, c.blue, c.green); */
-      pixelBlockNext[ch] = AdjustPixelBrightness(c);
-    }
-
-    FB_FastSetPixel(fb, pixelBlockNext, globalLedsPerChannel-1);
-    FB_FastSetPixel(fb, pixelBlockNext, -1);
-    //for(ibnt i = 0; i < globalLedsPerChannel; i++)
-    //  FB_ShiftSetPixel(fb, pixelBlockNext, i);
-
-    d++;
-}
-
-static volatile int frameReady = 1;
-
-void doRainbowShiftIterateFrame(int fbOffset)
-{
-
-    rainbowShiftIterateFrame(FrameBufferZero+fbOffset, demoOneConfig);
-
-
-}
-
+int demoOneSerialCommandPlugin(char *cmd, char *args);
 
 void DisplayLedDemoOne(void)
 {
-  int fbOffset = 0;
+  conf1 *newDemoOneConfig()
+  {
+    static conf1 conf;
+    for (int i = 0; i < MAX_NUM_CHANNELS; i++)
+    {
+      conf.timeScale[i] = 4;
+      conf.timeIncrement[i] = 1;
+      conf.modUpdate[i] = 1;
+      conf.amp[i] = 0xff * 2;
+      conf.brightness[i] = 0xff;
+      conf.timePeriod[i] = 200;
+      conf.spacePeriod[i] = 100;//MAX_NUM_LEDS_PER_CHANNEL;
+      conf.phase[i] = 0;
+    }
+    conf.iterFunc = arm_sin_f32;
+  return &conf;
+  }
+
+  conf1 *config = newDemoOneConfig();
+  controlRegisters.demoConfig = config;
+  currentModeSerialCommandPlugin = demoOneSerialCommandPlugin;
+
+  static float d[MAX_NUM_CHANNELS] = {0};
+  static int ucount = 0;
+  uint8_t nLedsPerCh = *gNumLedsPerChannel;
+  void rainbowShiftIterateFrame(buf fb, conf1 *config, float (*iterFunc)(float)) {
+    int ch, px;
+    float timeperiod, spaceperiod, br, wt, ws, red_, green_, blue_, s;
+    float amp[MAX_NUM_CHANNELS];
+    uint8_t red, green, blue;
+    Pixel c;
+    PixelBlock pixelBlock;
+    uint8_t numChan = *gNumberOfChannels;
+    nLedsPerCh = *gNumLedsPerChannel;
+    uint16_t gBr = *gBrightness;
+    bool updateAny = true;
+
+    ch = 0;
+    //amp = (float)config->amp[ch];
+    br = (float)config->brightness[ch];
+    timeperiod = (float)config->timePeriod[ch];
+    spaceperiod = (float)config->spacePeriod[ch];
+    wt = 2.0f * PI / timeperiod;
+    ws = 2.0f * PI / spaceperiod;
+    
+    for (ch = 3; ch < 7; ch++) {
+    //  if (ucount % config->modUpdate[ch] == 0) {
+        d[ch] -= audioDiffEffect[ch-3] * (float)config->timeIncrement[ch] / (float) config->timeScale[ch];
+    //    updateAny = true;
+    }
+    ucount++;
+
+    for (ch = 3; ch < 7; ch++)
+      amp[ch] = (float)config->amp[ch] * audioEffect[ch-3];
+
+    if (updateAny)
+      for (px = 0; px < nLedsPerCh; px++) {
+        for (ch = 3; ch < 7; ch++) {
+        //  if (ucount % config->modUpdate[ch] == 0) {
+
+        red_   = br + amp[ch] * iterFunc((wt * d[ch]) + (ws * px));
+        green_ = br + amp[ch] * iterFunc((wt * d[ch]) + (ws * px) + 2.0*PI/3);
+        blue_  = br + amp[ch] * iterFunc((wt * d[ch]) + (ws * px) - 2.0*PI/3);
+        s = (float) gBr / (red_ + green_ + blue_);
+        red = (uint8_t) round(red_ * s);
+        green = (uint8_t) round(blue_ * s);
+        blue = (uint8_t) round(green_ * s);
+
+        c = (Pixel) { red, green, blue };
+        // if (px == 10) {
+        //   printf("pixel %d: %2x %2x %2x, d = %.2f\r\n", px, red, green, blue, d[ch]);
+        // }
+
+       //for (ch = 0; ch < numChan; ch++)
+          pixelBlock[ch] = c;
+        }
+
+
+        FB_FastSetPixel(fb, pixelBlock, px);
+      }
+  }
+
   int buffsize;
-  static struct DemoOneConfig config =  { 600, {100, 100, 100}, {0}, {80, 80, 80} };
-  demoOneConfig = &config;
-  setFrameDelay(config.frameDelay);
-  //frameUpdateFn = doRainbowShiftIterateFrame;
-  //enableFrameUpdates();
-  while(1){
-    buffsize = globalLedsPerChannel*24;
-    fbOffset %= buffsize;
-    fbOffset+=24;
+  while (true) {
+    if (*gPause) { HAL_Delay(200); continue; }
+    // delay for sending buffer
+    HAL_Delay(8);
+    if (HAL_ADC_Start_DMA(&hadc1, (uint32_t*)ADC_Buffer, ADC_BUFFER_LENGTH) != HAL_OK)
+      Error_Handler();
     frameDelay();
-    doRainbowShiftIterateFrame(fbOffset);
-    DMA_IO_SendBuffer(FrameBufferZero+fbOffset, globalLedsPerChannel*24);
+    rainbowShiftIterateFrame(FrameBufferZero, config, config->iterFunc);
+    buffsize = min(MAX_NUM_LEDS_PER_CHANNEL, nLedsPerCh)*24;
+    DMA_IO_SendBuffer(FrameBufferZero, buffsize);
   }
 }
 
-
-int serialDoDemoOneSetBrightness(struct DemoOneConfig *config, char *args){
+int doDemoOneSetConfig(uint16_t *configVal, char *args, char *name){
   char *bp;
   long bVal;
   long chVal;
@@ -361,16 +482,17 @@ int serialDoDemoOneSetBrightness(struct DemoOneConfig *config, char *args){
   if (*bp != 0) chVal = strtol(bp, &bp, 10);
   else chVal = -1;
 
-  printf("DemoOne, set brightness[%d]: %d", chVal, bVal);
+  printf("DemoOne, set %s[%d]: %d", name, (int)chVal, (int)bVal);
 
-  if (chVal >= 0 && chVal < NUM_CHANNELS)
-    config->brightness[chVal] = bVal;
-
+  if (chVal >= 0 && chVal < MAX_NUM_CHANNELS)
+    configVal[chVal] = bVal;
   else
-    for (int c = 0; c < NUM_CHANNELS; c++) config->brightness[c] = bVal;
+    for (int c = 0; c < MAX_NUM_CHANNELS; c++) configVal[c] = bVal;
+
   return 0;
 }
-int serialDoDemoOneSetPeriod(struct DemoOneConfig *config, char *args){
+
+int doDemoOneSetConfig8(uint8_t *configVal, char *args, char *name){
   char *bp;
   long bVal;
   long chVal;
@@ -378,32 +500,72 @@ int serialDoDemoOneSetPeriod(struct DemoOneConfig *config, char *args){
   if (*bp != 0) chVal = strtol(bp, &bp, 10);
   else chVal = -1;
 
-  printf("DemoOne, set period[%d]: %d", chVal, bVal);
+  printf("DemoOne, set %s[%d]: %d", name, (int)chVal, (int)bVal);
 
-  if (chVal >= 0 && chVal < NUM_CHANNELS)
-    config->period[chVal] = bVal;
-
+  if (chVal >= 0 && chVal < MAX_NUM_CHANNELS)
+    configVal[chVal] = bVal;
   else
-    for (int c = 0; c < NUM_CHANNELS; c++) config->period[c] = bVal;
+    for (int c = 0; c < MAX_NUM_CHANNELS; c++) configVal[c] = bVal;
+
   return 0;
 }
-int serialDoDemoOneSetPhase(struct DemoOneConfig *config, char *args){
-  char *bp;
-  long bVal;
-  long chVal;
-  bVal = strtol(args, &bp, 10);
-  if (*bp != 0) chVal = strtol(bp, &bp, 10);
-  else chVal = -1;
 
-  printf("DemoOne, set phase[%d]: %d", chVal, bVal);
+int demoOneSerialCommandPlugin(char *cmd, char *args) {
+  int rv = -1;
+  switch(cmd[0]) {
+    case 'b':
+      rv = doDemoOneSetConfig(
+        ((conf1*) controlRegisters.demoConfig)->brightness, args, "brightness");
+      break;
 
-  if (chVal >= 0 && chVal < NUM_CHANNELS)
-    config->phase[chVal] = bVal;
+    case 'a':
+      if (cmd[1] == 'e')
+        rv = setAudioEffectValue(args);
+      else if (cmd[1] == 'd' && cmd[2] == 'e')
+        rv = setAudioDiffEffectValue(args);
+      else
+        rv = doDemoOneSetConfig(
+          ((conf1*) controlRegisters.demoConfig)->amp, args, "amplitude");
+      break;
 
-  else
-    for (int c = 0; c < NUM_CHANNELS; c++) config->phase[c] = bVal;
-  return 0;
+    case 'p':
+      if (cmd[1] == 's') rv = doDemoOneSetConfig(
+        ((conf1*) controlRegisters.demoConfig)->spacePeriod, args, "spacePeriod");
+      else rv = doDemoOneSetConfig(
+        ((conf1*) controlRegisters.demoConfig)->timePeriod, args, "timePeriod");
+      break;
+
+    case 't':
+      if (cmd[1] == 'i') rv = doDemoOneSetConfig8(
+        ((conf1*) controlRegisters.demoConfig)->timeIncrement, args, "timeIncrement");
+      else if (cmd[1] == 's') rv = doDemoOneSetConfig8(
+        ((conf1*) controlRegisters.demoConfig)->timeScale, args, "timeScale");
+      break;
+
+    case 'e':
+      if (cmd[1] == 'q') rv = setEqValue(args);
+      break;
+
+    default:
+      rv = -1;
+  }
+  return rv;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -486,21 +648,24 @@ int serialDoRawRegisterWrite(char *args)
 
 void ShowPrompt(void)
 {
-  char prompt[32] = { 0 };
-  char frame[16] = { 0 };
-
-  strncpy(prompt, "\r\n%s> ", sizeof(prompt));
-  strncpy(frame, "Frame %d ", sizeof(frame));
-
-  if (showFrameDebug) {
-    sprintf(frame, frame, frameCount);
-    printf(prompt, frame);
+  void getMode(char *mode, u8 modeValue) {
+    if (modeValue == 1)
+      strncpy(mode, "demoOne", 8);
+    else
+      strncpy(mode, "led", 5);
   }
-  else printf(prompt, "");
+  char prompt[32] = "\r\n%s > ";
+  char mode[16];
+  getMode(&mode[0], *gDisplayMode);
+
+  //strncpy(prompt, "\r\n%s> ", sizeof(prompt));
+  //strncpy(frame, "Frame %d ", sizeof(frame));
+
+  printf(prompt, mode);
 }
 
 
-void ParseCommands(char *cmdStr)
+int ParseCommands(char *cmdStr)
 {
   char cmd[16], args[32];
   char *csep, *cend;
@@ -510,7 +675,7 @@ void ParseCommands(char *cmdStr)
   csep = strchr(cmdStr, ' ');
   cend = strchr(cmdStr, '\r');
   if (!cend) cend = strchr(cmdStr, '\n');
-  if (csep == NULL || cend == NULL) return;
+  if (csep == NULL || cend == NULL) return -1;
 
   cmdLen = csep - cmdStr;
   strncpy(cmd, cmdStr, cmdLen);
@@ -519,33 +684,17 @@ void ParseCommands(char *cmdStr)
   switch (cmd[0])
   {
 
-    case 's':
-      if (cmd[1] == 'u' && cmd[2] == 'b')
-      { // sub brightness
-        int g = atoi(args);
-        if (!(g < -8 || g > 8))
-          globalSubBrightness = g;
-      }
-      else
-        // here 'args' should be a valid "addr value"
+    case 'w':
+      // here 'args' should be a valid "addr value"
+      if (cmd[1] == 'r')
         rv = serialDoRawRegisterWrite(args);
+      else rv = -1;
       break;
 
-    case 'g':
-      rv = serialDoRawRegisterRead(args); break;
-
-    // these cases to be customized by __current_demo__
-
-    case 'b':
-      rv = serialDoDemoOneSetBrightness(demoOneConfig, args); break;
-
-    case 'c':
-      if (cmd[1] == 'h' && cmd[2] == 'a')
-      {
-        int g = atoi(args);
-        if (g >= 0 && g <= 240)
-          globalLedsPerChannel = g;
-      }
+    case 'r':
+      if (cmd[1] == 'd')
+        rv = serialDoRawRegisterRead(args);
+      else rv = -1;
       break;
 
     case 'f':
@@ -554,19 +703,31 @@ void ParseCommands(char *cmdStr)
       setFrameDelay((uint)fd);
       break;
 
-    case 'p':
-      if (cmd[1] == 'h') serialDoDemoOneSetPhase(demoOneConfig, args);
-      else serialDoDemoOneSetPeriod(demoOneConfig, args);
+    case 'g':
+      fd = atoi(args);
+      printf("Set gBrightness: %d", fd);
+      *gBrightness = fd;
       break;
 
+    case 'c':
+      if (cmd[1] == 'h' && cmd[2] == 'a')
+      {
+        int g = atoi(args);
+        if (g >= 0 && g <= 240)
+          *gNumLedsPerChannel = g;
+      }
+      break;
+
+    // these cases to be customized by __current_demo__
+
+
+
     default:
-      rv = -1;
+      rv = currentModeSerialCommandPlugin(cmd, args);
+
   }
-
+  return rv;
 }
-
-
-
 
 
 
@@ -609,19 +770,31 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  MX_TIM1_Init();
+  TIM_Leds_Init();
   TIM2_Init();
-  //MX_TIM_FRAME_Init();
-  USART2_Init();
-  HAL_UART_RxCpltCallback(&huart2); // begin rx for loopback
 
-  Debug_Setup();
+  USART2_Init();
+  USART6_Init();
+  HAL_UART_RxCpltCallback(&huart2); // begin rx for loopback
+  HAL_UART_RxCpltCallback(&huart6);
+
+  MX_SPI2_Init();
+  if(HAL_SPI_TransmitReceive_DMA(&hspi2,
+    (uint8_t*)spiTxBuffer,
+    (uint8_t*)spiRxBuffer,
+    SPI_BUFFSIZE) != HAL_OK) Error_Handler();
+
+  setupAudioProcessing();
+  MX_ADC1_Init();
+  //if (HAL_ADC_Start_DMA(&hadc1, (uint32_t*)ADC_Buffer, ADC_BUFFER_LENGTH) != HAL_OK)
+  //  Error_Handler();
 
   /* USER CODE BEGIN 2 */
 
   for (uint16_t i = 0; i < NUM_LEDS_PER_CHANNEL; i++)
-  {
-    FB_SetPixel(DMA_IO_FrameBuffer, 0, i, CWhite);
+  { 
+    for (uint ch=0; ch<NUM_CHANNELS; ch++)
+      FB_SetPixel(DMA_IO_FrameBuffer, ch, i, CWhite);
   }
 
   uint16_t size = BUFFSIZE;

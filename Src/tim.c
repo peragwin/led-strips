@@ -49,7 +49,7 @@ DMA_HandleTypeDef hdma_timx_gpio_high;
 DMA_HandleTypeDef hdma_timx_gpio_data;
 
 /* TIM1 init function */
-void MX_TIM1_Init(void)
+void TIM_Leds_Init(void)
 {
   TIM_ClockConfigTypeDef sClockSourceConfig;
   TIM_SlaveConfigTypeDef sSlaveConfig;
@@ -113,8 +113,8 @@ void MX_TIM1_Init(void)
     Error_Handler();
   }
 
-  HAL_NVIC_SetPriority(TIM1_UP_TIM10_IRQn, 0, 2);
-  HAL_NVIC_EnableIRQ(TIM1_UP_TIM10_IRQn);
+  //HAL_NVIC_SetPriority(TIM1_IRQn, 0, 2);
+  //HAL_NVIC_EnableIRQ(TIM1_IRQn);
 
 
   HAL_TIM_MspPostInit(&htimx);
@@ -146,50 +146,7 @@ void TIM2_Init(void)
   HAL_TIM_MspPostInit(&htim_dead);
 }
 
-void MX_TIM_FRAME_Init(void)
-{
-  TIM_ClockConfigTypeDef sClockSourceConfig;
-  TIM_MasterConfigTypeDef sMasterConfig;
-  TIM_OC_InitTypeDef sConfigOC;
 
-  htimFrame.Instance = TIM4;
-  htimFrame.Init.Prescaler = 80000; // for ms time
-  htimFrame.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htimFrame.Init.Period = 0;
-  htimFrame.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  if (HAL_TIM_Base_Init(&htimFrame) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htimFrame, &sClockSourceConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  if (HAL_TIM_OC_Init(&htimFrame) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htimFrame, &sMasterConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  sConfigOC.OCMode = TIM_OCMODE_TIMING;
-  sConfigOC.Pulse = 0;
-  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
-  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  if (HAL_TIM_OC_ConfigChannel(&htimFrame, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-}
 
 
 
@@ -201,7 +158,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* tim_baseHandle)
 {
   // callback handles UPDATE interrupts for TIM
 
-  if(tim_baseHandle->Instance==TIM1)
+  if(tim_baseHandle->Instance==TIM5)
   {
     
     // // make sure to wait 50us after any transfer completes
@@ -224,10 +181,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* tim_baseHandle)
     WS2812_TransferComplete = 1;
   }
 
-  else if (tim_baseHandle->Instance==TIM4)
-  {
-    FrameUpdater();
-  }
+
 }
 
 // void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
@@ -241,11 +195,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* tim_baseHandle)
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
 {
 
-  if(tim_baseHandle->Instance==TIM1)
+  if(tim_baseHandle->Instance==TIM5)
   {
 
     /* Peripheral clock enable */
-    __HAL_RCC_TIM1_CLK_ENABLE();
+    __HAL_RCC_TIM5_CLK_ENABLE();
 
     /* Peripheral DMA init*/
 
@@ -258,7 +212,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
     hdma_timx_gpio_high.Init.PeriphDataAlignment =  DMA_PDATAALIGN_BYTE;
     hdma_timx_gpio_high.Init.MemDataAlignment =     DMA_MDATAALIGN_WORD;
     hdma_timx_gpio_high.Init.Mode =                 DMA_NORMAL;
-    hdma_timx_gpio_high.Init.Priority =             DMA_PRIORITY_HIGH;
+    hdma_timx_gpio_high.Init.Priority =             DMA_PRIORITY_VERY_HIGH;
     hdma_timx_gpio_high.Init.FIFOMode =             DMA_FIFOMODE_ENABLE;
     hdma_timx_gpio_high.Init.FIFOThreshold =        DMA_FIFO_THRESHOLD_FULL;
     hdma_timx_gpio_high.Init.MemBurst =             DMA_MBURST_INC4;
@@ -278,7 +232,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
     hdma_timx_gpio_data.Init.PeriphDataAlignment =  DMA_PDATAALIGN_BYTE;
     hdma_timx_gpio_data.Init.MemDataAlignment =     DMA_MDATAALIGN_WORD;
     hdma_timx_gpio_data.Init.Mode =                 DMA_NORMAL;
-    hdma_timx_gpio_data.Init.Priority =             DMA_PRIORITY_HIGH;
+    hdma_timx_gpio_data.Init.Priority =             DMA_PRIORITY_VERY_HIGH;
     hdma_timx_gpio_data.Init.FIFOMode =             DMA_FIFOMODE_ENABLE;
     hdma_timx_gpio_data.Init.FIFOThreshold =        DMA_FIFO_THRESHOLD_FULL;
     hdma_timx_gpio_data.Init.MemBurst =             DMA_MBURST_INC4;
@@ -289,9 +243,9 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
     __HAL_LINKDMA(tim_baseHandle,hdma[TIM_DMA_ID_CC1],hdma_timx_gpio_data);  //falling edge?
 
 
-    // this stream is for copying 0x00 (output low) on TIM CC2
+    // this stream is for copying 0x00 (output low) on TIM CC3
     // also has the callback for when dma streaming is complete
-    hdma_timx_gpio_low.Instance =                   DMA2_Stream2;
+    hdma_timx_gpio_low.Instance =                   DMA2_Stream1;
     hdma_timx_gpio_low.Init.Channel =               DMA_CHANNEL_6;
     hdma_timx_gpio_low.Init.Direction =             DMA_MEMORY_TO_PERIPH;
     hdma_timx_gpio_low.Init.PeriphInc =             DMA_PINC_DISABLE;
@@ -299,7 +253,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
     hdma_timx_gpio_low.Init.PeriphDataAlignment =   DMA_PDATAALIGN_BYTE;
     hdma_timx_gpio_low.Init.MemDataAlignment =      DMA_MDATAALIGN_BYTE;
     hdma_timx_gpio_low.Init.Mode =                  DMA_NORMAL;
-    hdma_timx_gpio_low.Init.Priority =              DMA_PRIORITY_LOW;
+    hdma_timx_gpio_low.Init.Priority =              DMA_PRIORITY_MEDIUM;
     hdma_timx_gpio_low.Init.FIFOMode =              DMA_FIFOMODE_ENABLE;
     hdma_timx_gpio_low.Init.FIFOThreshold =         DMA_FIFO_THRESHOLD_FULL;
     hdma_timx_gpio_low.Init.MemBurst =              DMA_MBURST_INC4;
@@ -328,19 +282,12 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
 
 
 
-  else if(tim_baseHandle->Instance==TIM4)
-  {
-    __HAL_RCC_TIM4_CLK_ENABLE();
-
-    HAL_NVIC_SetPriority(TIM4_IRQn, 1, 1);
-    HAL_NVIC_EnableIRQ(TIM4_IRQn);
-  }
   else if (tim_baseHandle->Instance==TIM2)
   {
     __HAL_RCC_TIM2_CLK_ENABLE();
 
 
-    HAL_NVIC_SetPriority(TIM2_IRQn, 1, 2);
+    HAL_NVIC_SetPriority(TIM2_IRQn, 3, 2);
     HAL_NVIC_EnableIRQ(TIM2_IRQn);
   }
 }
@@ -380,19 +327,20 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
 {
 
   GPIO_InitTypeDef GPIO_InitStruct;
-  if(timHandle->Instance==TIM1)
+  if(timHandle->Instance==TIM5)
   {
 
     /**TIM1 GPIO Configuration    
     PA8     ------> TIM2_CH1
     PA9     ------> TIM2_CH2 
-    */
+    
     GPIO_InitStruct.Pin =       GPIO_PIN_8 | GPIO_PIN_9;
     GPIO_InitStruct.Mode =      GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull =      GPIO_NOPULL;
     GPIO_InitStruct.Speed =     GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.Alternate = GPIO_AF1_TIM1;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    */
 
   // make sure to actually enable PWM!!
   TIM_CCxChannelCmd(timHandle->Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);
@@ -405,13 +353,13 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
 void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 {
 
-  if(tim_baseHandle->Instance==TIM1)
+  if(tim_baseHandle->Instance==TIM5)
   {
   /* USER CODE BEGIN TIM2_MspDeInit 0 */
 
   /* USER CODE END TIM2_MspDeInit 0 */
     /* Peripheral clock disable */
-    __HAL_RCC_TIM2_CLK_DISABLE();
+    __HAL_RCC_TIM5_CLK_DISABLE();
 
     /* Peripheral DMA DeInit*/
     HAL_DMA_DeInit(tim_baseHandle->hdma[TIM_DMA_ID_CC1]);
@@ -419,11 +367,11 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
     HAL_DMA_DeInit(tim_baseHandle->hdma[TIM_DMA_ID_CC2]);
   }
 
-  else if(tim_baseHandle->Instance==TIM4)
+  else if(tim_baseHandle->Instance==TIM2)
   {
-    __HAL_RCC_TIM4_CLK_DISABLE();
+    __HAL_RCC_TIM2_CLK_DISABLE();
 
-    HAL_NVIC_DisableIRQ(TIM4_IRQn);
+    HAL_NVIC_DisableIRQ(TIM2_IRQn);
   }
 } 
 

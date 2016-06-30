@@ -65,11 +65,9 @@ void FrameXferErrorCallback(DMA_HandleTypeDef *hdma);
 /* USER CODE END Private defines */
 
 extern void Error_Handler(void);
-extern void FrameUpdater(void);
 
-void MX_TIM1_Init(void);
+void TIM_Leds_Init(void);
 void TIM2_Init(void);
-void MX_TIM_FRAME_Init(void);
                     
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
                 

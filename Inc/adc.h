@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : dma.c
+  * File Name          : ADC.h
   * Description        : This file provides code for the configuration
-  *                      of all the requested memory to memory DMA transfers.
+  *                      of the ADC instances.
   ******************************************************************************
   *
   * COPYRIGHT(c) 2016 STMicroelectronics
@@ -31,59 +31,38 @@
   *
   ******************************************************************************
   */
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __adc_H
+#define __adc_H
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
 /* Includes ------------------------------------------------------------------*/
-#include "dma.h"
+#include "stm32f4xx_hal.h"
 
-/* USER CODE BEGIN 0 */
+/* USER CODE BEGIN Includes */
 
-/* USER CODE END 0 */
+/* USER CODE END Includes */
 
-/*----------------------------------------------------------------------------*/
-/* Configure DMA                                                              */
-/*----------------------------------------------------------------------------*/
+extern ADC_HandleTypeDef hadc1;
 
-/* USER CODE BEGIN 1 */
+/* USER CODE BEGIN Private defines */
 
-/* USER CODE END 1 */
+/* USER CODE END Private defines */
 
-/** 
-  * Enable DMA controller clock
-  */
-void MX_DMA_Init(void) 
-{
-  /* DMA controller clock enable */
-  __HAL_RCC_DMA1_CLK_ENABLE();
-  __HAL_RCC_DMA2_CLK_ENABLE();
+extern void Error_Handler(void);
 
-  /* DMA interrupt init */
+void MX_ADC1_Init(void);
 
-  // spi
-  HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 2, 1);
-  HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
-  // uart
-  HAL_NVIC_SetPriority(DMA1_Stream3_IRQn, 2, 0);   
-  HAL_NVIC_EnableIRQ(DMA1_Stream3_IRQn);
+/* USER CODE BEGIN Prototypes */
 
+/* USER CODE END Prototypes */
 
-  // led driver
-  HAL_NVIC_SetPriority(DMA2_Stream1_IRQn, 1, 1);
-  HAL_NVIC_EnableIRQ(DMA2_Stream1_IRQn);
-
-  HAL_NVIC_SetPriority(DMA2_Stream5_IRQn, 1, 1);
-  HAL_NVIC_EnableIRQ(DMA2_Stream5_IRQn);
-
-  HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 1, 1);
-  HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
-
-  // adc
-  HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 3, 0);
-  HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
-
+#ifdef __cplusplus
 }
-
-/* USER CODE BEGIN 2 */
-
-/* USER CODE END 2 */
+#endif
+#endif /*__ adc_H */
 
 /**
   * @}

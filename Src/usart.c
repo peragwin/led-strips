@@ -4,14 +4,17 @@
 #include "gpio.h"
 
 #include "stdarg.h"
-#include "string.h"
+
+#include "main.h"
 
 UART_HandleTypeDef huart2;
+UART_HandleTypeDef huart6;
 
 char serialTxBuff[256];
 char *serialTxBuff_p0 = &serialTxBuff[0];
 char *serialTxBuff_p = &serialTxBuff[0];
 
+UART_HandleTypeDef *uaReplyChan;
 
 #ifdef USE_PUTCHAR
 #ifdef __GNUC__
@@ -45,41 +48,50 @@ int _write(int file, char *ptr, int len)
 {
   int l;
 
-  __serialOutMutex = 1;
   for(l = 0; l < len; l++)
   {
     *serialTxBuff_p = ptr[l];
     serialTxBuff_p++;
   }
-  __serialOutMutex = 0;
 
-  HAL_UART_TxCpltCallback(&huart2);
-
-  return len;
+  return SendSerialBufferIfNotEmpty(uaReplyChan);
 }
 #endif
 
+void SendSerialBufferIfNotEmpty(UART_HandleTypeDef *huart) {
+  int len;
+  char *serialTxBuff_p_notok;
+
+  if (huart == uaReplyChan)
+    
+    if((len = serialTxBuff_p - serialTxBuff_p0))
+
+      // if we get callback happen during _write, pass on this and wait
+      // for the next call from _write
+      if (!__serialOutMutex)
+      {
+        __serialOutMutex = 1;
+        
+        strncpy(serialOutput, serialTxBuff, len);
+
+        serialTxBuff_p_notok = serialTxBuff_p;
+        serialTxBuff_p = serialTxBuff_p0;
+
+        if(HAL_UART_Transmit_IT(huart, (uint8_t*)serialOutput, len) != HAL_OK) {
+          serialTxBuff_p = serialTxBuff_p_notok; // reset tx buffer
+          return 0;
+        }
+        return len;
+
+      }
+
+  return 0;
+}
+
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
-  int len;
-  char *so, *si;
-
-  if((len = serialTxBuff_p - serialTxBuff_p0))
-  {
-    // if we get callback happen during _write, pass on this and wait
-    // for the next call from _write
-    if (!__serialOutMutex)
-    {
-      so = serialOutput;
-      si = serialTxBuff;
-      __serialOutMutex = 1;
-      strncpy(so, si, len);
-      //for (l = 0; l < len; l++) { *so = *si; so++; si++; } // atomic copy to output
-      __serialOutMutex = 0;
-      if(HAL_UART_Transmit_IT(huart, (uint8_t*)serialOutput, len) == HAL_OK)
-        serialTxBuff_p = serialTxBuff_p0; // reset tx buffer
-    }
-  }
+  __serialOutMutex = 0;
+  SendSerialBufferIfNotEmpty(huart);
 }
 
 char serialRxBuff[256];
@@ -171,15 +183,18 @@ void SerialInputHandler()
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-  static char serialRxChar;
+  static uint8_t serialRxChar;
+  *serialRxBuff_p = (char)serialRxChar; serialRxBuff_p++; 
 
-  if (serialEchoEnabled) _write(0, &serialRxChar, 1);
-   *serialRxBuff_p = serialRxChar; serialRxBuff_p++; 
+  if (serialEchoEnabled) //_write(0, &serialRxChar, 1);
+    HAL_UART_Transmit_IT(huart, &serialRxChar, 1);
+
+  uaReplyChan = huart;
 
   SerialInputHandler();
 
   while(
-    HAL_UART_Receive_IT(huart, (uint8_t*)&serialRxChar, 1) == HAL_BUSY);
+    HAL_UART_Receive_IT(huart, &serialRxChar, 1) == HAL_BUSY);
 }
 
 void USART2_Init(void)
@@ -200,6 +215,10 @@ void USART2_Init(void)
 
   HAL_NVIC_SetPriority(USART2_IRQn, 2, 0);
   HAL_NVIC_EnableIRQ(USART2_IRQn);
+
+  uaReplyChan = &huart2;
+  printf("Led Controller v%d.%d\r\n", MAJOR_REV, MINOR_REV);
+  ShowPrompt();
 }
 
 void HAL_UART_MspInit(UART_HandleTypeDef* usartHandle)
@@ -231,5 +250,47 @@ void HAL_UART_MspInit(UART_HandleTypeDef* usartHandle)
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
     */
   }
+  
+  if(usartHandle->Instance==USART6)
+  {
+    __HAL_RCC_USART6_CLK_ENABLE();
+  
+    /**USART2 GPIO Configuration    
+    PA11     ------> USART6_TX
+    PA12     ------> USART6_RX
 
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_12;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
+    GPIO_InitStruct.Alternate = GPIO_AF8_USART6;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  }
+
+}
+
+void USART6_Init(void)
+{
+  huart6.Instance          = USART6;
+  
+  huart6.Init.BaudRate     = 115200;
+  huart6.Init.WordLength   = UART_WORDLENGTH_8B;
+  huart6.Init.StopBits     = UART_STOPBITS_1;
+  huart6.Init.Parity       = UART_PARITY_NONE;
+  huart6.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
+  huart6.Init.Mode         = UART_MODE_TX_RX;
+  huart6.Init.OverSampling = UART_OVERSAMPLING_16;
+
+  if(HAL_UART_Init(&huart6) != HAL_OK) Error_Handler();
+
+  __HAL_UART_ENABLE_IT(&huart6, UART_IT_RXNE|UART_IT_TC);
+
+  HAL_NVIC_SetPriority(USART6_IRQn, 2, 4);
+  HAL_NVIC_EnableIRQ(USART6_IRQn);
+
+  uaReplyChan = &huart6;
+  printf("Led Controller v%d.%d\r\n", MAJOR_REV, MINOR_REV);
+  ShowPrompt();
 }

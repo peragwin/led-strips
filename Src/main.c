@@ -74,9 +74,6 @@ extern ADC_HandleTypeDef hadc1;
 uint16_t _raw_ADC_Buffer[ADC_BUFFER_LENGTH+2];
 uint16_t *ADC_Buffer = _raw_ADC_Buffer+1;
 
-float audioEffect[4];
-float audioDiffEffect[4];
-
 volatile int showFrameDebug = 1;
 volatile int serialEchoEnabled = 1;
 
@@ -293,6 +290,7 @@ int fftFilterLength[NUM_FFT_FILTERS] = { 4*FFT_RATIO, 6*FFT_RATIO, 8*FFT_RATIO,
     FFT_LENGTH - 1 - 4*FFT_RATIO - 6*FFT_RATIO - 8*FFT_RATIO};
 float fftEqValue[NUM_FFT_FILTERS] = { 0.5, 0.8, 2.0, 4.5 };
 
+
 float audioEffectScale = 0.5;
 float audioDiffEffectScale = 0.5;
 float longAudioEffectScale = 0.85;
@@ -304,7 +302,7 @@ float fftIntensity[NUM_FFT_FILTERS];
 arm_rfft_fast_instance_f32 fftStruct;
 
 
-
+float fftWindow[FFT_LENGTH];
 float confinedGaussian(float n) {
   #define G_SIGMA 0.1
   float wGaussian(float a){
@@ -317,13 +315,31 @@ float confinedGaussian(float n) {
   return wGaussian(n) - g1 * g2 / g4;
 }
 
-float fftWindow[FFT_LENGTH];
 
+#define IIR_FILTER_ORDER 4
+
+float audioEffect[NUM_FFT_FILTERS][IIR_FILTER_ORDER];
+float audioDiffEffect[NUM_FFT_FILTERS][1];
+
+float filterParams[NUM_FFT_FILTERS][IIR_FILTER_ORDER][2] = {
+  { 
+    { 1.0, 0.5 }, // first order
+    { -0.005, -0.995 }, // second order
+    { 0.0, 0.0 }, // third order
+    { 0.0, 0.0 } // fourth order
+  }
+  // start same for each filter
+};
+float diffFilterParams[NUM_FFT_FILTERS][1][2] = {
+  {
+    { 1.0, 0.5 }
+  }
+};
 
 void updateAudioFilters(void) {
   int filterOffset = 1; // ignore dc component
   for (int i = 0; i < NUM_FFT_FILTERS; i++){
-    arm_fill_f32(fftEqValue[i] / fftFilterLength[i], fftFilter+filterOffset, fftFilterLength[i]);
+    arm_fill_f32(1.0, fftFilter+filterOffset, fftFilterLength[i]);
     filterOffset += fftFilterLength[i];
   }
 }
@@ -338,29 +354,48 @@ void initAudioProcessing(void) {
   updateAudioFilters();
 }
 
+
+void applyIIRFilter(
+  float (*filterEq)[2], // [filterOrder] x [2]
+  float input,
+  float *output, // [filterOrder]
+  int filterOrder,
+  float *dInput
+) {
+  int order;
+  float ae;
+  for (order = 0; order < filterOrder; order++) {
+    ae = filterEq[order][0] * input + filterEq[order][1] * output[order];
+    if (dInput != NULL)
+      dInput[order] = ae - output[order];
+
+    input = ae;
+    output[order] = ae;
+  }
+  for (order = filterOrder - 1; order > 0; order--) {
+    output[order - 1] += output[order] - 0.0001; // correct for fp precision in negative feedback
+  }
+}
+
+
 static int callbacksPerFrame = 0;
 static int ncallback = 0;
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 {
-  callbacksPerFrame++;
-  ncallback++;
+  int i, filterOffset, fftOffset;
 
-  int i, filterOffset;
-  float dIntensity, ae;
-
-  int fftOffset = ADC_BUFFER_LENGTH * (ncallback % FFT_RATIO);
+  fftOffset = ADC_BUFFER_LENGTH * (ncallback % FFT_RATIO);
   for (i = 0; i < ADC_BUFFER_LENGTH; i++) {
     fftIn[i + fftOffset] = (float) ADC_Buffer[i];
   }
   arm_mult_f32(fftIn+fftOffset, fftWindow+fftOffset, fftIn+fftOffset, ADC_BUFFER_LENGTH);
 
   if (ncallback % FFT_RATIO == 0) {
-
-
-
+    int fnum;
+    float dInput[IIR_FILTER_ORDER];
+    
     arm_rfft_fast_f32(&fftStruct, fftIn, fftOut, 0);
-
     arm_abs_f32(fftOut, fftOut, FFT_LENGTH);
 
     filterOffset = 1; // ignore dc component
@@ -369,17 +404,20 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
       filterOffset += fftFilterLength[i];
     }
 
-    for(i = 0; i < 4; i++) {
-      ae = (1 - audioEffectScale) * fftIntensity[i] + audioEffectScale * audioEffect[i];
+    for(fnum = 0; fnum < NUM_FFT_FILTERS; fnum++) {
+      // filterEq = filterParams[fnum];
+      // input = fftIntensity[fnum];
+      // output = audioEffect[fnum];
+      applyIIRFilter(
+        filterParams[fnum], fftIntensity[fnum], audioEffect[fnum], IIR_FILTER_ORDER, dInput);
 
-      longAudioEffect[i] = (1 - longAudioEffectScale) * ae + longAudioEffectScale * longAudioEffect[i] + 0.01;
-
-      dIntensity = ae - audioEffect[i];
-      audioDiffEffect[i] = (1 - audioDiffEffectScale) * dIntensity + audioDiffEffect[i] * audioDiffEffectScale;
-
-      audioEffect[i] = ae - longAudioEffect[i];
+      applyIIRFilter(
+        diffFilterParams[fnum], dInput[0], audioDiffEffect[fnum], 1, NULL);
     }
   }
+
+  callbacksPerFrame++;
+  ncallback++;
 }
 
 // expects "eq \d %f"
@@ -590,13 +628,13 @@ void DisplayLedDemoOne(void)
     
     for (ch = 3; ch < 7; ch++) {
     //  if (ucount % config->modUpdate[ch] == 0) {
-        d[ch] -= audioDiffEffect[ch-3] * (float)config->timeIncrement[ch] / (float)config->timeScale[ch];
+        d[ch] -= audioDiffEffect[ch-3][0] * (float)config->timeIncrement[ch] / (float)config->timeScale[ch];
     //    updateAny = true;
     }
     ucount++;
 
     for (ch = 3; ch < 7; ch++)
-      amp[ch] = (float)config->ampOffset[ch] + ((float)config->amp[ch] * audioEffect[ch-3]);
+      amp[ch] = (float)config->ampOffset[ch] + ((float)config->amp[ch] * audioEffect[ch-3][0]);
 
     if (updateAny)
       for (px = 0; px < nLedsPerCh; px++) {

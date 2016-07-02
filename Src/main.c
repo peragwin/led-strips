@@ -234,6 +234,53 @@ void frameDelay(void)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #define FFT_RATIO 1
 #define FFT_LENGTH ADC_BUFFER_LENGTH*FFT_RATIO
 #define NUM_FFT_FILTERS 4 // only 4 channels connected right now
@@ -243,7 +290,7 @@ float fftOut[FFT_LENGTH];
 float fftFilter[FFT_LENGTH];
 
 int fftFilterLength[NUM_FFT_FILTERS] = { 4*FFT_RATIO, 6*FFT_RATIO, 8*FFT_RATIO,
-  FFT_LENGTH - 1 - 4*FFT_RATIO - 6*FFT_RATIO - 8*FFT_RATIO};
+    FFT_LENGTH - 1 - 4*FFT_RATIO - 6*FFT_RATIO - 8*FFT_RATIO};
 float fftEqValue[NUM_FFT_FILTERS] = { 0.5, 0.8, 2.0, 4.5 };
 
 float audioEffectScale = 0.5;
@@ -436,6 +483,42 @@ float triangleWave(int period, float amplitude, int phase, int d)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*****          ********          ********       *********       ******/
 /* BEGIN DEMO ONE STUFF                                               */
 /************               *****************                  ********/
@@ -520,13 +603,18 @@ void DisplayLedDemoOne(void)
         for (ch = 3; ch < 7; ch++) {
         //  if (ucount % config->modUpdate[ch] == 0) {
 
-        red_   = br + amp[ch] * iterFunc((wt * d[ch]) + (ws * px));
-        green_ = br + amp[ch] * iterFunc((wt * d[ch]) + (ws * px) + 2.0*PI/3);
-        blue_  = br + amp[ch] * iterFunc((wt * d[ch]) + (ws * px) - 2.0*PI/3);
+        red_   = br + amp[ch] * iterFunc(  (wt * d[ch]) + (ws * px)  );
+        green_ = br + amp[ch] * iterFunc(  (wt * d[ch]) + (ws * px) + 2.0*PI/3  );
+        blue_  = br + amp[ch] * iterFunc(  (wt * d[ch]) + (ws * px) - 2.0*PI/3  );
+        
         s = (float) gBr / (red_ + green_ + blue_);
-        red = (uint8_t) round(red_ * s);
-        green = (uint8_t) round(blue_ * s);
-        blue = (uint8_t) round(green_ * s);
+        red_ *= s;
+        green_ *= s;
+        blue_ *= s;
+
+        red = (uint8_t) round(  red_ > 255 ? 255 : ( red_ < 0 ? 0 : red_ )  );
+        blue = (uint8_t) round(  blue_ > 255 ? 255 : ( blue_ < 0 ? 0 : blue_ )  );
+        green = (uint8_t) round(  green_ > 255 ? 255 : ( green_ < 0 ? 0 : green_ )  );
 
         c = (Pixel) { red, green, blue };
         // if (px == 10) {
@@ -544,16 +632,23 @@ void DisplayLedDemoOne(void)
 
 
 
+
+
+// demo main
+
   int buffsize;
   while (true) {
     if (*gPause) { HAL_Delay(200); continue; }
-    printf("cbfp: %d\r\n", callbacksPerFrame);
+    //printf("cbfp: %d\r\n", callbacksPerFrame);
     callbacksPerFrame = 0;
     frameDelay();
     rainbowShiftIterateFrame(FrameBufferZero, config, config->iterFunc);
     buffsize = min(MAX_NUM_LEDS_PER_CHANNEL, nLedsPerCh)*24;
     DMA_IO_SendBuffer(FrameBufferZero, buffsize);
   }
+
+
+
 }
 
 int doDemoOneSetConfig(uint16_t *configVal, char *args, char *name){

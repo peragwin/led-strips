@@ -47,8 +47,8 @@
 #define DATA_TIM_FREQ 800000
 #endif
 */
-#define DATA_TIM_PERIOD    100 // want to approximate cycle in ns.. (1250)
-#define DATA_TIM_PULSE1     30//40
+#define DATA_TIM_PERIOD    100 //100 want to approximate cycle in ns.. (1250)
+#define DATA_TIM_PULSE1     30//30
 #define DATA_TIM_PULSE2     80//80
 
 #define WS2812_DEADPERIOD   400 // in system cycles

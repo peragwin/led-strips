@@ -229,20 +229,48 @@ void frameDelay(void)
 
 
 
-#define FFT_LENGTH ADC_BUFFER_LENGTH/2
+
+
+
+
+
+#define FFT_RATIO 1
+#define FFT_LENGTH ADC_BUFFER_LENGTH*FFT_RATIO
 #define NUM_FFT_FILTERS 4 // only 4 channels connected right now
 
 float fftIn[FFT_LENGTH];
 float fftOut[FFT_LENGTH];
 float fftFilter[FFT_LENGTH];
 
-int fftFilterLength[NUM_FFT_FILTERS] = { 4, 8, 12, FFT_LENGTH - 1 - 4 - 4 - 12};
+int fftFilterLength[NUM_FFT_FILTERS] = { 4*FFT_RATIO, 6*FFT_RATIO, 8*FFT_RATIO,
+  FFT_LENGTH - 1 - 4*FFT_RATIO - 6*FFT_RATIO - 8*FFT_RATIO};
 float fftEqValue[NUM_FFT_FILTERS] = { 0.5, 0.8, 2.0, 4.5 };
 
 float audioEffectScale = 0.5;
 float audioDiffEffectScale = 0.5;
+float longAudioEffectScale = 0.85;
 
-float fftIntensity[4];
+float longAudioEffect[NUM_FFT_FILTERS];
+
+float fftIntensity[NUM_FFT_FILTERS];
+
+arm_rfft_fast_instance_f32 fftStruct;
+
+
+
+float confinedGaussian(float n) {
+  #define G_SIGMA 0.1
+  float wGaussian(float a){
+    float aa = ( a - ((FFT_LENGTH-1)/2.0) )/( 2.0*G_SIGMA*FFT_LENGTH );
+    return exp( -(aa*aa) );
+  }
+  float g1 = wGaussian(-0.5);
+  float g2 = wGaussian(n + FFT_LENGTH) + wGaussian(n - FFT_LENGTH);
+  float g4 = wGaussian(-0.5 + FFT_LENGTH) + wGaussian(-0.5 - FFT_LENGTH);
+  return wGaussian(n) - g1 * g2 / g4;
+}
+
+float fftWindow[FFT_LENGTH];
 
 
 void updateAudioFilters(void) {
@@ -253,45 +281,57 @@ void updateAudioFilters(void) {
   }
 }
 
+void initAudioProcessing(void) {
+  for (int i = 0; i < FFT_LENGTH; i++) {
+    fftIn[i] = 0;
+    fftOut[i] = 0;
+    fftWindow[i] = confinedGaussian((float)i);
+  }
+  arm_rfft_fast_init_f32(&fftStruct, FFT_LENGTH);
+  updateAudioFilters();
+}
+
+static int callbacksPerFrame = 0;
+static int ncallback = 0;
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 {
-  //if (WS2812_TransferComplete == 0) return;
-  int i, sum, filterOffset;
-  float dIntensity;
-  arm_rfft_fast_instance_f32 S;
-  arm_rfft_fast_init_f32(&S, FFT_LENGTH);
+  callbacksPerFrame++;
+  ncallback++;
 
-  /* kill dc component
-  sum = 0;
+  int i, filterOffset;
+  float dIntensity, ae;
+
+  int fftOffset = ADC_BUFFER_LENGTH * (ncallback % FFT_RATIO);
   for (i = 0; i < ADC_BUFFER_LENGTH; i++) {
-    sum += ADC_Buffer[i];
+    fftIn[i + fftOffset] = (float) ADC_Buffer[i];
   }
-  mean = (float) sum / ADC_BUFFER_LENGTH;
-  */
+  arm_mult_f32(fftIn+fftOffset, fftWindow+fftOffset, fftIn+fftOffset, ADC_BUFFER_LENGTH);
 
-  // and average / decimate by 4
-  for (i = 0; i < FFT_LENGTH; i++) {
-    fftIn[i] =
-      (float) (ADC_Buffer[2*i-1] + 2*ADC_Buffer[2*i] + ADC_Buffer[2*i+1]);
-      //  + ADC_Buffer[i+1] + ADC_Buffer[i+2] + ADC_Buffer[i+3])
-      //- 4.0 * mean;
-  }
+  if (ncallback % FFT_RATIO == 0) {
 
-  arm_rfft_fast_f32(&S, fftIn, fftOut, 0);
 
-  arm_abs_f32(fftOut, fftOut, FFT_LENGTH);
 
-  filterOffset = 1; // ignore dc component
-  for (i = 0; i < NUM_FFT_FILTERS; i++){
-    arm_dot_prod_f32(fftOut+filterOffset, fftFilter+filterOffset, fftFilterLength[i], &fftIntensity[i]);
-    filterOffset += fftFilterLength[i];
-  }
+    arm_rfft_fast_f32(&fftStruct, fftIn, fftOut, 0);
 
-  for(i = 0; i < 4; i++) {
-    dIntensity = fftIntensity[i] - audioEffect[i];
-    audioEffect[i] += audioEffectScale * dIntensity;
-    audioDiffEffect[i] = (dIntensity - audioDiffEffect[i]) * audioDiffEffectScale;
+    arm_abs_f32(fftOut, fftOut, FFT_LENGTH);
+
+    filterOffset = 1; // ignore dc component
+    for (i = 0; i < NUM_FFT_FILTERS; i++){
+      arm_dot_prod_f32(fftOut+filterOffset, fftFilter+filterOffset, fftFilterLength[i], &fftIntensity[i]);
+      filterOffset += fftFilterLength[i];
+    }
+
+    for(i = 0; i < 4; i++) {
+      ae = (1 - audioEffectScale) * fftIntensity[i] + audioEffectScale * audioEffect[i];
+
+      longAudioEffect[i] = (1 - longAudioEffectScale) * ae + longAudioEffectScale * longAudioEffect[i] + 0.01;
+
+      dIntensity = ae - audioEffect[i];
+      audioDiffEffect[i] = (1 - audioDiffEffectScale) * dIntensity + audioDiffEffect[i] * audioDiffEffectScale;
+
+      audioEffect[i] = ae - longAudioEffect[i];
+    }
   }
 }
 
@@ -361,6 +401,12 @@ int setAudioDiffEffectValue(char *args){
   return 0;
 }
 
+int setLongAudioEffectValue(char *args){
+  float laeVal = strtof(args, NULL);
+  longAudioEffectScale = laeVal;
+  return 0;
+}
+
 
 
 
@@ -400,6 +446,7 @@ struct DemoOneConfig
   uint16_t timeIncrement[MAX_NUM_CHANNELS];
   //uint8_t modUpdate[MAX_NUM_CHANNELS];
   uint16_t amp[MAX_NUM_CHANNELS];
+  uint16_t ampOffset[MAX_NUM_CHANNELS];
   uint16_t brightness[MAX_NUM_CHANNELS];
   uint16_t timePeriod[MAX_NUM_CHANNELS];
   uint16_t spacePeriod[MAX_NUM_CHANNELS];
@@ -417,11 +464,12 @@ void DisplayLedDemoOne(void)
     static conf1 conf;
     for (int i = 0; i < MAX_NUM_CHANNELS; i++)
     {
-      conf.timeScale[i] = 120;
+      conf.timeScale[i] = 6000;
       conf.timeIncrement[i] = 1;
      // conf.modUpdate[i] = 1;
       conf.amp[i] = 1;
-      conf.brightness[i] = 8000;
+      conf.ampOffset[i] = 800;
+      conf.brightness[i] = 800;
       conf.timePeriod[i] = 300;
       conf.spacePeriod[i] = 100;//MAX_NUM_LEDS_PER_CHANNEL;
      // conf.phase[i] = 0;
@@ -465,7 +513,7 @@ void DisplayLedDemoOne(void)
     ucount++;
 
     for (ch = 3; ch < 7; ch++)
-      amp[ch] = (float)config->amp[ch] * audioEffect[ch-3];
+      amp[ch] = (float)config->ampOffset[ch] + ((float)config->amp[ch] * audioEffect[ch-3]);
 
     if (updateAny)
       for (px = 0; px < nLedsPerCh; px++) {
@@ -494,9 +542,13 @@ void DisplayLedDemoOne(void)
       }
   }
 
+
+
   int buffsize;
   while (true) {
     if (*gPause) { HAL_Delay(200); continue; }
+    printf("cbfp: %d\r\n", callbacksPerFrame);
+    callbacksPerFrame = 0;
     frameDelay();
     rainbowShiftIterateFrame(FrameBufferZero, config, config->iterFunc);
     buffsize = min(MAX_NUM_LEDS_PER_CHANNEL, nLedsPerCh)*24;
@@ -542,10 +594,11 @@ int doDemoOneSetConfig8(uint8_t *configVal, char *args, char *name){
 
 int demoOneSerialCommandPlugin(char *cmd, char *args) {
   int rv = -1;
+  conf1 *demoConfig = (conf1*) controlRegisters.demoConfig;
   switch(cmd[0]) {
     case 'b':
       rv = doDemoOneSetConfig(
-        ((conf1*) controlRegisters.demoConfig)->brightness, args, "brightness");
+        demoConfig->brightness, args, "brightness");
       break;
 
     case 'a':
@@ -553,23 +606,31 @@ int demoOneSerialCommandPlugin(char *cmd, char *args) {
         rv = setAudioEffectValue(args);
       else if (cmd[1] == 'd' && cmd[2] == 'e')
         rv = setAudioDiffEffectValue(args);
+      else if (cmd[1] == 'o')
+        rv = doDemoOneSetConfig(
+          demoConfig->ampOffset, args, "ampOffset");
       else
         rv = doDemoOneSetConfig(
-          ((conf1*) controlRegisters.demoConfig)->amp, args, "amplitude");
+          demoConfig->amp, args, "amplitude");
+      break;
+
+    case 'l':
+      if (cmd[1] == 'a' && cmd[2] == 'e')
+        rv = setLongAudioEffectValue(args);
       break;
 
     case 'p':
       if (cmd[1] == 's') rv = doDemoOneSetConfig(
-        ((conf1*) controlRegisters.demoConfig)->spacePeriod, args, "spacePeriod");
+        demoConfig->spacePeriod, args, "spacePeriod");
       else rv = doDemoOneSetConfig(
-        ((conf1*) controlRegisters.demoConfig)->timePeriod, args, "timePeriod");
+        demoConfig->timePeriod, args, "timePeriod");
       break;
 
     case 't':
-      if (cmd[1] == 'i') rv = doDemoOneSetConfig8(
-        ((conf1*) controlRegisters.demoConfig)->timeIncrement, args, "timeIncrement");
-      else if (cmd[1] == 's') rv = doDemoOneSetConfig8(
-        ((conf1*) controlRegisters.demoConfig)->timeScale, args, "timeScale");
+      if (cmd[1] == 'i') rv = doDemoOneSetConfig(
+        demoConfig->timeIncrement, args, "timeIncrement");
+      else if (cmd[1] == 's') rv = doDemoOneSetConfig(
+        demoConfig->timeScale, args, "timeScale");
       break;
 
     case 'e':
@@ -578,6 +639,21 @@ int demoOneSerialCommandPlugin(char *cmd, char *args) {
 
     case 'f':
       if (cmd[1] == 's') rv = setFilterSize(args);
+      break;
+
+    case 's':
+      printf("brightness: %d\r\n", demoConfig->brightness[0]);
+      printf("amplitude: %d\r\n", demoConfig->amp[0]);
+      printf("spacePeriod: %d\r\n", demoConfig->spacePeriod[0]);
+      printf("timePeriod: %d\r\n", demoConfig->timePeriod[0]);
+      printf("timeScale: %d\r\n", demoConfig->timeScale[0]);
+      printf("ae: %f\r\n", audioEffectScale);
+      printf("lae: %f\r\n", longAudioEffectScale);
+      printf("ade: %f\r\n", audioDiffEffectScale);
+      // todo: these in loops
+      printf("eqValues: %.2f %.2f %.2f %.2f\r\n", fftEqValue[0], fftEqValue[1], fftEqValue[2], fftEqValue[3]);
+      printf("filterSizes: %d %d %d %d\r\n", fftFilterLength[0], fftFilterLength[1], fftFilterLength[2], fftFilterLength[3]);
+      rv = 0;
       break;
 
     default:
@@ -824,8 +900,8 @@ int main(void)
     (uint8_t*)spiRxBuffer,
     SPI_BUFFSIZE) != HAL_OK) Error_Handler();
 
-  updateAudioFilters();
   MX_ADC1_Init();
+  initAudioProcessing();
   if (HAL_ADC_Start_DMA(&hadc1, (uint32_t*)ADC_Buffer, ADC_BUFFER_LENGTH) != HAL_OK)
     Error_Handler();
 

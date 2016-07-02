@@ -58,7 +58,7 @@ int _write(int file, char *ptr, int len)
 }
 #endif
 
-void SendSerialBufferIfNotEmpty(UART_HandleTypeDef *huart) {
+int SendSerialBufferIfNotEmpty(UART_HandleTypeDef *huart) {
   int len;
   char *serialTxBuff_p_notok;
 
@@ -130,8 +130,8 @@ void sanitizePrintStr(char *str)
 #define DebugSerialInput 1
 void SerialInputHandler()
 {
-  int len;
-  char *bs = "\x1b[D";
+  int len, rv;
+  char *bs = "\x1b[D\x1b[3~";
   static char lastChar;
   //static char lastLastChar;
 
@@ -155,6 +155,8 @@ void SerialInputHandler()
     {
       case '\r':
       case '\n':
+        if (*(serialRxBuff_p-1) == '\r')
+          serialRxBuff_p -= 1;
         *serialRxBuff_p = '\0';
         serialRxBuff_p = serialRxBuff_p0;
 
@@ -163,12 +165,14 @@ void SerialInputHandler()
           sanitizePrintStr(serialRxBuff);
           printf("\"\r\n");
         }
-        ParseCommands(serialRxBuff);
+        rv = ParseCommands(serialRxBuff);
+        if (rv)
+          printf("command execution failed!\r\n");
 
         ShowPrompt();
         break;
       case '\x7f': //backspace?
-        _write(0, bs, 2);
+        _write(0, bs, 7);
         serialRxBuff_p-=2;
         *serialRxBuff_p = '\0';
         break;

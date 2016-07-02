@@ -195,11 +195,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* tim_baseHandle)
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
 {
 
-  if(tim_baseHandle->Instance==TIM5)
+  if(tim_baseHandle->Instance==TIM1)
   {
 
     /* Peripheral clock enable */
-    __HAL_RCC_TIM5_CLK_ENABLE();
+    __HAL_RCC_TIM1_CLK_ENABLE();
 
     /* Peripheral DMA init*/
 
@@ -245,7 +245,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
 
     // this stream is for copying 0x00 (output low) on TIM CC3
     // also has the callback for when dma streaming is complete
-    hdma_timx_gpio_low.Instance =                   DMA2_Stream1;
+    hdma_timx_gpio_low.Instance =                   DMA2_Stream2;
     hdma_timx_gpio_low.Init.Channel =               DMA_CHANNEL_6;
     hdma_timx_gpio_low.Init.Direction =             DMA_MEMORY_TO_PERIPH;
     hdma_timx_gpio_low.Init.PeriphInc =             DMA_PINC_DISABLE;
@@ -292,31 +292,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
   }
 }
 
-void FrameXferCompleteCallback(DMA_HandleTypeDef *hdma){
-  if (1) //(hdma->Instance==DMA2_Stream2)
-  {
-    int once = 0;
-    while((htimx.Instance->CNT < DATA_TIM_PULSE2) || once<20) once++; //wait for clock to trigger gpios LOW
-
-    // a full __HAL_TIM_DISABLE takes too long!
-    (htimx.Instance)->CR1 &= ~(TIM_CR1_CEN);
-    __HAL_TIM_DISABLE(&htimx);
-    GPIOC->ODR = 0x0000;
-
-
-    // Disable DMA
-    __HAL_DMA_DISABLE(&hdma_timx_gpio_low);
-    __HAL_DMA_DISABLE(&hdma_timx_gpio_high);
-    __HAL_DMA_DISABLE(&hdma_timx_gpio_data);
-    __HAL_TIM_DISABLE_DMA(&htimx, TIM_DMA_UPDATE);
-    __HAL_TIM_DISABLE_DMA(&htimx, TIM_DMA_CC1);
-    __HAL_TIM_DISABLE_DMA(&htimx, TIM_DMA_CC2);
-
-    // enable TIM2 UPDATE interrupt to ensure wait 50us
-    __HAL_TIM_ENABLE_IT(&htim_dead, TIM_IT_UPDATE); 
-    __HAL_TIM_ENABLE(&htim_dead);
-  }
-}
+extern void FrameXferCompleteCallback(DMA_HandleTypeDef *hdma);
 
 void FrameXferErrorCallback(DMA_HandleTypeDef *hdma)
 {
@@ -327,7 +303,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
 {
 
   GPIO_InitTypeDef GPIO_InitStruct;
-  if(timHandle->Instance==TIM5)
+  if(timHandle->Instance==TIM1)
   {
 
     /**TIM1 GPIO Configuration    

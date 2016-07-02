@@ -23,6 +23,8 @@ void USART6_Init(void);
 void HAL_UART_MspInit(UART_HandleTypeDef* usartHandle);
 extern void ShowPrompt(void);
 
+int SendSerialBufferIfNotEmpty(UART_HandleTypeDef*);
+
 #ifdef __cplusplus
 }
 #endif

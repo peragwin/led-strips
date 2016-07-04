@@ -284,7 +284,7 @@ void frameDelay(void)
 
 float fftIn[FFT_LENGTH];
 float fftOut[FFT_LENGTH];
-float fftFilter[FFT_LENGTH];
+float fftFilter[FFT_LENGTH] = {0};
 
 int fftFilterLength[NUM_FFT_FILTERS] = { 4*FFT_RATIO, 6*FFT_RATIO, 8*FFT_RATIO,
     FFT_LENGTH - 1 - 4*FFT_RATIO - 6*FFT_RATIO - 8*FFT_RATIO};
@@ -323,14 +323,40 @@ float audioDiffEffect[NUM_FFT_FILTERS][1];
 
 float filterParams[NUM_FFT_FILTERS][IIR_FILTER_ORDER][2] = {
   { 
-    { 1.0, 0.5 }, // first order
-    { -0.005, -0.995 }, // second order
+    { 0.5, 0.5 }, // first order
+    { -0.005, 0.995 }, // second order
+    { 0.0, 0.0 }, // third order
+    { 0.0, 0.0 } // fourth order
+  },
+  { 
+    { 0.8, 0.5 }, // first order
+    { -0.005, 0.995 }, // second order
+    { 0.0, 0.0 }, // third order
+    { 0.0, 0.0 } // fourth order
+  },
+  { 
+    { 1.2, 0.5 }, // first order
+    { -0.005, 0.995 }, // second order
+    { 0.0, 0.0 }, // third order
+    { 0.0, 0.0 } // fourth order
+  },
+  { 
+    { 10.0, 0.5 }, // first order
+    { -0.005, 0.995 }, // second order
     { 0.0, 0.0 }, // third order
     { 0.0, 0.0 } // fourth order
   }
-  // start same for each filter
 };
 float diffFilterParams[NUM_FFT_FILTERS][1][2] = {
+  {
+    { 1.0, 0.5 }
+  },
+  {
+    { 1.0, 0.5 }
+  },
+  {
+    { 1.0, 0.5 }
+  },
   {
     { 1.0, 0.5 }
   }
@@ -339,7 +365,7 @@ float diffFilterParams[NUM_FFT_FILTERS][1][2] = {
 void updateAudioFilters(void) {
   int filterOffset = 1; // ignore dc component
   for (int i = 0; i < NUM_FFT_FILTERS; i++){
-    arm_fill_f32(1.0, fftFilter+filterOffset, fftFilterLength[i]);
+    arm_fill_f32(1.0/fftFilterLength[i], fftFilter+filterOffset, fftFilterLength[i]);
     filterOffset += fftFilterLength[i];
   }
 }

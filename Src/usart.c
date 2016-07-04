@@ -3,94 +3,129 @@
 #include "usart.h"
 #include "gpio.h"
 
-#include "stdarg.h"
+//#include "stdarg.h"
 
 #include "main.h"
 
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart6;
 
-char serialTxBuff[256];
+int currentUartIrqPriority = 7;
+
+char serialTxBuff[SERIAL_OUT_BUFFER_SIZE];
 char *serialTxBuff_p0 = &serialTxBuff[0];
 char *serialTxBuff_p = &serialTxBuff[0];
 
 UART_HandleTypeDef *uaReplyChan;
 
-#ifdef USE_PUTCHAR
-#ifdef __GNUC__
-  /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
-     set to 'Yes') calls __io_putchar() */
-  #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-#else
-  #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-#endif /* __GNUC__ */
-/**
-  * @brief  Retargets the C library printf function to the USART.
-  * @param  None
-  * @retval None
-  */
-PUTCHAR_PROTOTYPE
-{
-  *serialT     xBuff_p++ = (char)ch;
-  HAL_UART_TxCpltCallback(&huart2);
-  return ch;
+
+
+void pushUartIrqPriority(void) {
+  if (currentUartIrqPriority > 3) currentUartIrqPriority--;
+  int irqChan = (uaReplyChan->Instance == USART2) ? USART2_IRQn : USART6_IRQn;
+  HAL_NVIC_SetPriority(irqChan, currentUartIrqPriority, 1);
 }
-#endif
+
+void popUartIrqPriority(void) {
+  if (currentUartIrqPriority < 7) currentUartIrqPriority++;
+  int irqChan = (uaReplyChan->Instance == USART2) ? USART2_IRQn : USART6_IRQn;
+  HAL_NVIC_SetPriority(irqChan, currentUartIrqPriority, 1);
+}
 
 
 
-char serialOutput[256];
-volatile int __serialOutMutex = 0;
 
-#ifndef USE_PUTCHAR
+
+
+#ifdef __USE_PUTCHAR
+
+void __io_putchar(unsigned c) {
+  if (serialTxBuff_p >= serialTxBuff_p0+SERIAL_OUT_BUFFER_SIZE) { // overflow, have to become blocking
+    HAL_UART_Transmit(uaReplyChan, serialTxBuff, SERIAL_OUT_BUFFER_SIZE, 1000);
+  }
+  *serialTxBuff_p = c;
+  serialTxBuff_p++;
+
+  SendSerialBufferIfNotEmpty(uaReplyChan);
+}
+/* defined in syscalls.c
+int _write(int file, char *ptr, int len) {
+  int l;
+  for (l = 0; l < len; l++) {
+    putchar(*ptr);
+    ptr++;
+  }
+  return len;
+}
+*/
+#else
 // add stuff to the serialTxBuffer until we can process it
 int _write(int file, char *ptr, int len)
 {
   int l;
+  int wr = 0;
 
   for(l = 0; l < len; l++)
   {
     *serialTxBuff_p = ptr[l];
     serialTxBuff_p++;
+    if (serialTxBuff_p >= serialTxBuff+SERIAL_OUT_BUFFER_SIZE) {
+      wr += SendSerialBufferIfNotEmpty(uaReplyChan);
+    }
   }
-
-  return SendSerialBufferIfNotEmpty(uaReplyChan);
+  return wr + SendSerialBufferIfNotEmpty(uaReplyChan);
 }
 #endif
+
+
+//char serialOutput[256];
+//volatile 
+int __serialOutMutex = 0;
+
 
 int SendSerialBufferIfNotEmpty(UART_HandleTypeDef *huart) {
   int len;
   char *serialTxBuff_p_notok;
 
-  if (huart == uaReplyChan)
-    
-    if((len = serialTxBuff_p - serialTxBuff_p0))
+  if (huart == uaReplyChan) {
+    if((len = serialTxBuff_p - serialTxBuff_p0)) {
 
-      // if we get callback happen during _write, pass on this and wait
-      // for the next call from _write
-      if (!__serialOutMutex)
-      {
+      if (1) { //len >= SERIAL_OUT_BUFFER_SIZE) {
+        if (HAL_UART_Transmit(huart, (uint8_t*)serialTxBuff, len, 1000) == HAL_OK){
+          serialTxBuff_p = serialTxBuff_p0;
+          return len;
+        }
+      }
+
+      // buffer not full so we can be non-blocking
+      else if (!__serialOutMutex) { 
         __serialOutMutex = 1;
-        
-        strncpy(serialOutput, serialTxBuff, len);
-
         serialTxBuff_p_notok = serialTxBuff_p;
         serialTxBuff_p = serialTxBuff_p0;
 
-        if(HAL_UART_Transmit_IT(huart, (uint8_t*)serialOutput, len) != HAL_OK) {
-          serialTxBuff_p = serialTxBuff_p_notok; // reset tx buffer
-          return 0;
+        if (currentUartIrqPriority > 2) {
+          pushUartIrqPriority();
+        
+          if(HAL_UART_Transmit_IT(huart, (uint8_t*)serialTxBuff, len) != HAL_OK) {
+            serialTxBuff_p = serialTxBuff_p_notok; // reset tx buffer
+            popUartIrqPriority();
+            return 0;
+          }
         }
+
         return len;
-
       }
+    }
+    else return 0;
+  }
 
-  return 0;
+  return -1;
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
   __serialOutMutex = 0;
+  popUartIrqPriority();
   SendSerialBufferIfNotEmpty(huart);
 }
 
@@ -190,22 +225,30 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   static uint8_t serialRxChar;
   *serialRxBuff_p = (char)serialRxChar; serialRxBuff_p++; 
 
-  if (serialEchoEnabled) //_write(0, &serialRxChar, 1);
-    HAL_UART_Transmit_IT(huart, &serialRxChar, 1);
+  if (serialEchoEnabled) { //_write(0, &serialRxChar, 1);
+    pushUartIrqPriority();
+    HAL_UART_Transmit(huart, &serialRxChar, 1, 100);
+  }
+
+  // ????? (not sure about this)
+  // since these are on same irq channel, we can't process any new
+  // transmit irqs until this iterrupt vector completes
+  __serialOutMutex = 1;
 
   uaReplyChan = huart;
-
   SerialInputHandler();
 
-  while(
-    HAL_UART_Receive_IT(huart, &serialRxChar, 1) == HAL_BUSY);
+  while (HAL_UART_Receive_IT(huart, &serialRxChar, 1) == HAL_BUSY)
+    HAL_Delay(20);
+
+  __serialOutMutex = 0;
 }
 
 void USART2_Init(void)
 {
   huart2.Instance          = USART2;
   
-  huart2.Init.BaudRate     = 9600;
+  huart2.Init.BaudRate     = 115200;
   huart2.Init.WordLength   = UART_WORDLENGTH_8B;
   huart2.Init.StopBits     = UART_STOPBITS_1;
   huart2.Init.Parity       = UART_PARITY_NONE;
@@ -216,9 +259,6 @@ void USART2_Init(void)
   if(HAL_UART_Init(&huart2) != HAL_OK) Error_Handler();
 
   __HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE|UART_IT_TC);
-
-  HAL_NVIC_SetPriority(USART2_IRQn, 2, 0);
-  HAL_NVIC_EnableIRQ(USART2_IRQn);
 
   uaReplyChan = &huart2;
   printf("Led Controller v%d.%d\r\n", MAJOR_REV, MINOR_REV);
@@ -290,9 +330,6 @@ void USART6_Init(void)
   if(HAL_UART_Init(&huart6) != HAL_OK) Error_Handler();
 
   __HAL_UART_ENABLE_IT(&huart6, UART_IT_RXNE|UART_IT_TC);
-
-  HAL_NVIC_SetPriority(USART6_IRQn, 2, 4);
-  HAL_NVIC_EnableIRQ(USART6_IRQn);
 
   uaReplyChan = &huart6;
   printf("Led Controller v%d.%d\r\n", MAJOR_REV, MINOR_REV);

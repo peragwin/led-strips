@@ -227,8 +227,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
 
 
 
-    HAL_NVIC_SetPriority(SPI2_IRQn, 5, 2);
-    HAL_NVIC_EnableIRQ(SPI2_IRQn);
+
   }
 }
 

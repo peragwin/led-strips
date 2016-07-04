@@ -18,6 +18,16 @@ extern int ParseCommands(char*);
 extern volatile int showFrameDebug;
 extern volatile int serialEchoEnabled;
 
+#define SERIAL_OUT_BUFFER_SIZE 256
+
+//#define __USE_PUTCHAR 1
+#ifdef __USE_PUTCHAR
+void __io_putchar(unsigned);
+extern int _write(int, char*, int);
+#else
+int _write(int, char*, int);
+#endif
+
 void USART2_Init(void);
 void USART6_Init(void);
 void HAL_UART_MspInit(UART_HandleTypeDef* usartHandle);

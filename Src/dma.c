@@ -57,27 +57,7 @@ void MX_DMA_Init(void)
 
   /* DMA interrupt init */
 
-  // spi
-  HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 2, 1);
-  HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
-  // uart
-  HAL_NVIC_SetPriority(DMA1_Stream3_IRQn, 2, 0);   
-  HAL_NVIC_EnableIRQ(DMA1_Stream3_IRQn);
 
-
-  // led driver
-  HAL_NVIC_SetPriority(DMA2_Stream1_IRQn, 1, 1);
-  HAL_NVIC_EnableIRQ(DMA2_Stream1_IRQn);
-
-  HAL_NVIC_SetPriority(DMA2_Stream5_IRQn, 1, 1);
-  HAL_NVIC_EnableIRQ(DMA2_Stream5_IRQn);
-
-  HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 1, 1);
-  HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
-
-  // adc
-  HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 3, 0);
-  HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
 
 }
 

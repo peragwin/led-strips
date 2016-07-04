@@ -37,7 +37,7 @@ LINKER=STM32F401RETx_FLASH.ld
 CFLAGS  = -g -O3 -Wall -T$(LINKER) --specs=nosys.specs
 CFLAGS += -D$(MCU_MODEL)
 CFLAGS += -DARM_MATH_CM4
-CFLAGS += -D__FPU_PRESENT=1
+#CFLAGS += -D__FPU_PRESENT=1
 CFLAGS += -lm -lc -lgcc
 CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m4 #-mthumb-interwork
 CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
@@ -60,7 +60,7 @@ CFLAGS += $(OTHER_INCLUDES)
 # add startup files to build
 SRCS += ./Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 MCU_MODEL_LOWER := $(shell echo $(MCU_MODEL) | tr A-Z a-z)
-start = $(STM_COMMON)/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_$(MCU_MODEL_LOWER).s
+SRCS += Src/startup_$(MCU_MODEL_LOWER).s
 
 # Add Hal lib src files
 SRC_HAL := $(wildcard ./Lib/Drivers/STM32F4xx_HAL_Driver/Src/*.c)
@@ -93,7 +93,7 @@ all: proj
 proj: $(PROJ_NAME).elf
 
 $(PROJ_NAME).elf: $(OBJS)
-	$(CC) $(CFLAGS) $^ $(start) $(libarmmath) -o $@
+	$(CC) $(CFLAGS) $^ $(libarmmath) -o $@
 	$(OBJCOPY) -O ihex $(PROJ_NAME).elf $(PROJ_NAME).hex
 	$(OBJCOPY) -O binary $(PROJ_NAME).elf $(PROJ_NAME).bin
 

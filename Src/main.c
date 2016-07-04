@@ -41,7 +41,7 @@
 #include "ControlRegisters.h"
 #include "FrameBuffer.h"
 
-
+#include "stm32f4xx_it.h"
 
 
 
@@ -420,31 +420,55 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
   ncallback++;
 }
 
-// expects "eq \d %f"
+// expects "eq %d %d %d %f"
 int setEqValue(char *args){
   float eqVal;
-  int eqIdx;
-  char* eqKey = args;
-  bool shortKey = args[1] == ' ';
-  char *p = args + (shortKey ? 2 : 3);
+  int filterNum, filterOrder, eqIdx, i;
+  char *p = args;
 
+  filterNum = (int) strtol(p, &p, 10);
+  filterOrder = (int) strtol(p, &p, 10);
+  eqIdx = (int) strtol(p, &p, 10);
   eqVal = strtof(p, NULL);
 
-  if (*eqKey == 'l')
-    if (shortKey) eqIdx = 0;
-    else if (eqKey[1] == 'm') eqIdx = 1;
-    else return -1;
+  if (filterNum < -1 || filterNum >= NUM_FFT_FILTERS) return -2;
+  if (filterOrder < 0 || filterOrder >= IIR_FILTER_ORDER) return -3;
+  if (eqIdx < 0 || eqIdx > 1) return -4;
 
-  else if (*eqKey == 'h')
-    if (shortKey) eqIdx = 3;
-    else if (eqKey[1] == 'm') eqIdx = 2;
-    else return -1;
+  if (filterNum == -1)
+    for (i = 0; i < NUM_FFT_FILTERS; i++)
+      filterParams[i][filterOrder][eqIdx] = eqVal;
 
-  else return -1;
+  else
+    filterParams[filterNum][filterOrder][eqIdx] = eqVal;
 
-  fftEqValue[eqIdx] = eqVal;
-  printf("set eq value [%d]: %f", eqIdx, eqVal);
-  updateAudioFilters();
+  printf("Set eqValue for filter[%d], order[%d], idx[%d] = %.4f\r\n",
+      filterNum, filterOrder, eqIdx, eqVal);
+
+  return 0;
+}
+
+int setDiffEqValue(char *args){
+  float eqVal;
+  int filterNum, eqIdx, i;
+  char *p = args;
+
+  filterNum = (int) strtol(p, &p, 10);
+  eqIdx = (int) strtol(p, &p, 10);
+  eqVal = strtof(p, NULL);
+
+  if (filterNum < -1 || filterNum >= NUM_FFT_FILTERS) return -2;
+  if (eqIdx < 0 || eqIdx > 1) return -3;
+
+  if (filterNum == -1)
+    for (i = 0; i < NUM_FFT_FILTERS; i++)
+      diffFilterParams[i][0][eqIdx] = eqVal;
+
+  else
+    diffFilterParams[filterNum][0][eqIdx] = eqVal;
+
+  printf("Set diff eqValue for filter[%d], idx[%d] = %.4f\r\n",
+      filterNum, eqIdx, eqVal);
 
   return 0;
 }
@@ -452,12 +476,10 @@ int setEqValue(char *args){
 int setFilterSize(char *args){
   int fSize, fIdx, oldSize, newHighSize;
 
-  if (args[0] == 'l') fIdx = 0;
-  else if (args[0] == 'm') fIdx = 1;
-  else if (args[0] == 'h') fIdx = 2;
-  else return -1;
+  fIdx = (int) strtol(args, &args, 10);
+  fSize = (int) strtol(args, NULL, 10);
 
-  fSize = (int) strtol(args+2, NULL, 10);
+  if (fIdx < 0 || fIdx >= NUM_FFT_FILTERS) return -2;
 
   oldSize = fftFilterLength[fIdx];
   fftFilterLength[fIdx] = fSize;
@@ -465,32 +487,53 @@ int setFilterSize(char *args){
   
   if (newHighSize < 0) {
     fftFilterLength[fIdx] = oldSize;
-    return -1;
+    return -3;
   }
 
-  printf("set filter size [%d]: %d\r\n", fIdx, fSize);
-  updateAudioFilters();
+  printf("Set filterSize[%d] = %d\r\n", fIdx, fSize);
+  updateAudioFilters(); // probably not needed
 
   return 0;
 }
 
-int setAudioEffectValue(char *args){
-  float aeVal = strtof(args, NULL);
-  audioEffectScale = aeVal;
-  return 0;
+void printFilterValues(void) {
+  int i, j;
+  //HAL_Delay(1); // dont overrun print buffer
+  for (i = 0; i < NUM_FFT_FILTERS; i++) {
+    printf("\r\nFilter %d:\r\n", i);
+    printf("- size: %d\r\n", fftFilterLength[i]);
+    printf("- eqValues:\r\n");
+    for (j = 0; j < IIR_FILTER_ORDER; j++) {
+      printf("\t- order %d: %.4f, %.4f\r\n", j, filterParams[i][j][0], filterParams[i][j][1]);
+    }
+    printf("- diffEqValues: %.4f, %.4f\r\n", diffFilterParams[i][0][0], diffFilterParams[i][0][1]);
+  }
 }
 
-int setAudioDiffEffectValue(char *args){
-  float adeVal = strtof(args, NULL);
-  audioDiffEffectScale = adeVal;
-  return 0;
+int audioSerialCommandPlugin(char *cmd, char *args) {
+  int rv = -1;
+  switch (cmd[0]) {
+    case 'f':
+      if (cmd[1] == 's')
+        rv = setFilterSize(args);
+      break;
+
+    case 'e':
+      if (cmd[1] == 'q')
+        rv = setEqValue(args);
+      break;
+
+    case 'd':
+      if (cmd[1] == 'e' && cmd[2] == 'q')
+        rv = setDiffEqValue(args);
+      break;
+
+    default:
+      rv = -1;
+  }
+  return rv;
 }
 
-int setLongAudioEffectValue(char *args){
-  float laeVal = strtof(args, NULL);
-  longAudioEffectScale = laeVal;
-  return 0;
-}
 
 
 
@@ -502,9 +545,7 @@ int setLongAudioEffectValue(char *args){
 
 
 
-
-
-
+/*
 float triangleWave(int period, float amplitude, int phase, int d)
 {
   int p = phase % 360;
@@ -513,7 +554,7 @@ float triangleWave(int period, float amplitude, int phase, int d)
   if (t>=180) return amplitude * (-1 + (t-180)/90);
   else        return amplitude * (1 - t/90);
 }
-
+*/
 
 
 
@@ -735,21 +776,12 @@ int demoOneSerialCommandPlugin(char *cmd, char *args) {
       break;
 
     case 'a':
-      if (cmd[1] == 'e')
-        rv = setAudioEffectValue(args);
-      else if (cmd[1] == 'd' && cmd[2] == 'e')
-        rv = setAudioDiffEffectValue(args);
-      else if (cmd[1] == 'o')
+      if (cmd[1] == 'o')
         rv = doDemoOneSetConfig(
           demoConfig->ampOffset, args, "ampOffset");
       else
         rv = doDemoOneSetConfig(
           demoConfig->amp, args, "amplitude");
-      break;
-
-    case 'l':
-      if (cmd[1] == 'a' && cmd[2] == 'e')
-        rv = setLongAudioEffectValue(args);
       break;
 
     case 'p':
@@ -766,32 +798,22 @@ int demoOneSerialCommandPlugin(char *cmd, char *args) {
         demoConfig->timeScale, args, "timeScale");
       break;
 
-    case 'e':
-      if (cmd[1] == 'q') rv = setEqValue(args);
-      break;
-
-    case 'f':
-      if (cmd[1] == 's') rv = setFilterSize(args);
-      break;
-
     case 's':
       printf("brightness: %d\r\n", demoConfig->brightness[0]);
       printf("amplitude: %d\r\n", demoConfig->amp[0]);
       printf("spacePeriod: %d\r\n", demoConfig->spacePeriod[0]);
       printf("timePeriod: %d\r\n", demoConfig->timePeriod[0]);
       printf("timeScale: %d\r\n", demoConfig->timeScale[0]);
-      printf("ae: %f\r\n", audioEffectScale);
-      printf("lae: %f\r\n", longAudioEffectScale);
-      printf("ade: %f\r\n", audioDiffEffectScale);
-      // todo: these in loops
-      printf("eqValues: %.2f %.2f %.2f %.2f\r\n", fftEqValue[0], fftEqValue[1], fftEqValue[2], fftEqValue[3]);
-      printf("filterSizes: %d %d %d %d\r\n", fftFilterLength[0], fftFilterLength[1], fftFilterLength[2], fftFilterLength[3]);
+      printFilterValues();
       rv = 0;
       break;
 
     default:
       rv = -1;
   }
+//  if (rv == -1)
+//    rv = audioSerialCommandPlugin(cmd, args);
+
   return rv;
 }
 
@@ -887,24 +909,17 @@ int serialDoRawRegisterWrite(char *args)
 
 
 
-
+const char modeStrings[] = "demoOne\0led\0";
 
 void ShowPrompt(void)
 {
-  void getMode(char *mode, u8 modeValue) {
-    if (modeValue == 1)
-      strncpy(mode, "demoOne", 8);
-    else
-      strncpy(mode, "led", 5);
-  }
-  char prompt[32] = "\r\n%s > ";
-  char mode[16];
-  getMode(&mode[0], *gDisplayMode);
-
-  //strncpy(prompt, "\r\n%s> ", sizeof(prompt));
-  //strncpy(frame, "Frame %d ", sizeof(frame));
-
-  printf(prompt, mode);
+  char mode[16]; 
+  if (*gDisplayMode == 1)
+    strncpy(mode, modeStrings, 8);
+  else
+    strncpy(mode, modeStrings+8, 4);
+  printf("\r\n %s > ", mode);
+  fflush(stdout);
 }
 
 
@@ -921,6 +936,9 @@ int ParseCommands(char *cmdStr)
   if (!cend) cend = strchr(cmdStr, '\n');
   if (!cend) cend = strchr(cmdStr, 0);
   if (csep == NULL || cend == NULL) return -1;
+  //if (cend == NULL) return -1;
+  //if (csep == NULL)
+  //  csep = cend;
 
   cmdLen = csep - cmdStr;
   strncpy(cmd, cmdStr, cmdLen);
@@ -972,8 +990,10 @@ int ParseCommands(char *cmdStr)
 
   }
 
-  if (rv)
+  if (rv == -1)
     rv = currentModeSerialCommandPlugin(cmd, args);
+  if (rv == -1)
+    rv = audioSerialCommandPlugin(cmd, args);
 
   return rv;
 }
@@ -1015,6 +1035,8 @@ int main(void)
 
   /* Configure the system clock */
   SystemClock_Config();
+
+  NVIC_Init();
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();

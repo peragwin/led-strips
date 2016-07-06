@@ -4,7 +4,6 @@
 
 #include "main.h"
 
-
 typedef uint8_t* buf;
 
 typedef struct {

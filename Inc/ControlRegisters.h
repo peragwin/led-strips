@@ -30,6 +30,7 @@
 #define DEMOn_CONTROL_OFFSET          0x3000
 
 #define AUDIO_CONTROL_OFFSET          0x4000
+//extern filterParameters;
 
 //custom demo1 registers
 #define DEMO1_T_VALUE                 0x000 // write only

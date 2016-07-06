@@ -770,10 +770,12 @@ void DisplayLedDemoOne(void)
 
         pixelBlock[ch] = c;
     }
-
-    FB_FastSetPixel(*fb, pixelBlock, -1); // will be first after increment
-    FB_FastSetPixel(*fb, pixelBlock, nLedsPerCh-1); // will be last pixel after increment
-    if (  ((*fb)-=24) <= FrameBufferZero  ) *fb = FrameBufferOne;
+    
+    if (*fb <= FrameBufferZero) *fb = FrameBufferOne;
+    (*fb)-=24;
+    
+    FB_FastSetPixel(*fb, pixelBlock, 0); // will be first after increment
+    FB_FastSetPixel(*fb, pixelBlock, nLedsPerCh); // will be last pixel after increment
   }
   
 

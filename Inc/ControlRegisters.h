@@ -29,6 +29,8 @@
 // reserved
 #define DEMOn_CONTROL_OFFSET          0x3000
 
+#define AUDIO_CONTROL_OFFSET          0x4000
+
 //custom demo1 registers
 #define DEMO1_T_VALUE                 0x000 // write only
 #define DEMO1_T_INCR                  0x004

@@ -673,9 +673,11 @@ void DisplayLedDemoOne(void)
   static float d[MAX_NUM_CHANNELS] = {0};
   static int ucount = 0;
   uint8_t nLedsPerCh = *gNumLedsPerChannel;
-  void rainbowShiftIterateFrame(buf fb, conf1 *config, float (*iterFunc)(float)) {
+  int buffsize;
+
+  void iterateDemoOne(buf fb, conf1 *config, float (*iterFunc)(float)) {
     int ch, px;
-    float timeperiod, spaceperiod, br, wt, ws, red_, green_, blue_, s;
+    float timeperiod, spaceperiod, br, wt, ws, wpx, red_, green_, blue_, s;
     float amp[MAX_NUM_CHANNELS];
     uint8_t red, green, blue;
     Pixel c;
@@ -683,7 +685,6 @@ void DisplayLedDemoOne(void)
     uint8_t numChan = *gNumberOfChannels;
     nLedsPerCh = *gNumLedsPerChannel;
     uint16_t gBr = *gBrightness;
-    bool updateAny = true;
 
     ch = 0;
     //amp = (float)config->amp[ch];
@@ -693,24 +694,21 @@ void DisplayLedDemoOne(void)
     wt = 2.0f * PI / timeperiod;
     ws = 2.0f * PI / spaceperiod;
     
-    for (ch = 3; ch < 7; ch++) {
-    //  if (ucount % config->modUpdate[ch] == 0) {
-        d[ch] -= audioDiffEffect[ch-3][0] * (float)config->timeIncrement[ch] / (float)config->timeScale[ch];
-    //    updateAny = true;
-    }
     ucount++;
 
-    for (ch = 3; ch < 7; ch++)
+    for (ch = 3; ch < 7; ch++) {
+      d[ch] -= wt * audioDiffEffect[ch-3][0] * (float)config->timeIncrement[ch] / (float)config->timeScale[ch];
       amp[ch] = (float)config->ampOffset[ch] + ((float)config->amp[ch] * audioEffect[ch-3][0]);
+    }
 
-    if (updateAny)
-      for (px = 0; px < nLedsPerCh; px++) {
-        for (ch = 3; ch < 7; ch++) {
-        //  if (ucount % config->modUpdate[ch] == 0) {
+    for (px = 0; px < nLedsPerCh; px++) {
+      wpx = ws * px;
+      for (ch = 3; ch < 7; ch++) {
 
-        red_   = br + amp[ch] * iterFunc(  (wt * d[ch]) + (ws * px)  );
-        green_ = br + amp[ch] * iterFunc(  (wt * d[ch]) + (ws * px) + 2.0*PI/3  );
-        blue_  = br + amp[ch] * iterFunc(  (wt * d[ch]) + (ws * px) - 2.0*PI/3  );
+        // todo: limit amp
+        red_   = br + amp[ch] * iterFunc(  d[ch] + wpx  );
+        green_ = br + amp[ch] * iterFunc(  d[ch] + wpx + 2.0*PI/3  );
+        blue_  = br + amp[ch] * iterFunc(  d[ch] + wpx - 2.0*PI/3  );
         
         s = (float) gBr / (red_ + green_ + blue_);
         red_ *= s;
@@ -722,34 +720,85 @@ void DisplayLedDemoOne(void)
         green = (uint8_t) round(  green_ > 255 ? 255 : ( green_ < 0 ? 0 : green_ )  );
 
         c = (Pixel) { red, green, blue };
-        // if (px == 10) {
-        //   printf("pixel %d: %2x %2x %2x, d = %.2f\r\n", px, red, green, blue, d[ch]);
-        // }
 
-       //for (ch = 0; ch < numChan; ch++)
-          pixelBlock[ch] = c;
-        }
-
-
-        FB_FastSetPixel(fb, pixelBlock, px);
+        pixelBlock[ch] = c;
       }
+      FB_FastSetPixel(fb, pixelBlock, px);
+    }
+
   }
 
+  void iterateDemoTwo(buf *fb, conf1 *config, float (*iterFunc)(float)) {
+    int ch = 0;
+    float timeperiod, spaceperiod, wt, ws, red_, green_, blue_, s;
+    float amp[MAX_NUM_CHANNELS];
+    float br[MAX_NUM_CHANNELS];
+    uint8_t red, green, blue;
+    Pixel c;
+    PixelBlock pixelBlock;
+    uint8_t numChan = *gNumberOfChannels;
+    nLedsPerCh = *gNumLedsPerChannel;
+    uint16_t gBr = *gBrightness;
 
 
+    timeperiod = (float)config->timePeriod[ch];
+    spaceperiod = (float)config->spacePeriod[ch];
+    wt = 2.0f * PI / timeperiod;
+    ws = 2.0f * PI / spaceperiod * (ucount++);
+
+    for (ch = 3; ch < 7; ch++) {
+      br[ch] = (float)config->brightness[ch];
+      d[ch] -= wt * audioDiffEffect[ch-3][0] * (float)config->timeIncrement[ch] / (float)config->timeScale[ch];
+      amp[ch] = (float)config->ampOffset[ch] + ((float)config->amp[ch] * audioEffect[ch-3][0]);
+    }
+
+    for (ch = 3; ch < 7; ch++) {
+        // todo: limit amp
+        red_   = br[ch] + amp[ch] * iterFunc(  d[ch] + ws  );
+        green_ = br[ch] + amp[ch] * iterFunc(  d[ch] + ws + 2.0*PI/3  );
+        blue_  = br[ch] + amp[ch] * iterFunc(  d[ch] + ws - 2.0*PI/3  );
+        
+        s = (float) gBr / (red_ + green_ + blue_);
+        red_ *= s;
+        green_ *= s;
+        blue_ *= s;
+
+        red = (uint8_t) round(  red_ > 255 ? 255 : ( red_ < 0 ? 0 : red_ )  );
+        blue = (uint8_t) round(  blue_ > 255 ? 255 : ( blue_ < 0 ? 0 : blue_ )  );
+        green = (uint8_t) round(  green_ > 255 ? 255 : ( green_ < 0 ? 0 : green_ )  );
+        c = (Pixel) { red, green, blue };
+
+        pixelBlock[ch] = c;
+    }
+
+    FB_FastSetPixel(*fb, pixelBlock, -1); // will be first after increment
+    FB_FastSetPixel(*fb, pixelBlock, nLedsPerCh-1); // will be last pixel after increment
+    if (  ((*fb)-=24) <= FrameBufferZero  ) *fb = FrameBufferOne;
+  }
+  
 
 
 // demo main
 
-  int buffsize;
+  buf frameBuffer = FrameBufferZero;
+
   while (true) {
     if (*gPause) { HAL_Delay(200); continue; }
     //printf("cbfp: %d\r\n", callbacksPerFrame);
     callbacksPerFrame = 0;
     frameDelay();
-    rainbowShiftIterateFrame(FrameBufferZero, config, config->iterFunc);
+
     buffsize = min(MAX_NUM_LEDS_PER_CHANNEL, nLedsPerCh)*24;
-    DMA_IO_SendBuffer(FrameBufferZero, buffsize);
+
+    if (*gDisplayMode == 1) {
+      frameBuffer = FrameBufferZero;
+      iterateDemoOne(frameBuffer, config, config->iterFunc);
+    }
+    else if (*gDisplayMode == 2) {
+      iterateDemoTwo(&frameBuffer, config, config->iterFunc);
+    }
+    
+    DMA_IO_SendBuffer(frameBuffer, buffsize);
   }
 
 
@@ -934,16 +983,18 @@ int serialDoRawRegisterWrite(char *args)
 
 
 
-
-const char modeStrings[] = "demoOne\0led\0";
+//                              +4       +12
+const char modeStrings[] = "led\0demoOne\0demoTwo\0";
 
 void ShowPrompt(void)
 {
   char mode[16]; 
   if (*gDisplayMode == 1)
-    strncpy(mode, modeStrings, 8);
+    strncpy(mode, modeStrings+4, 8);
+  else if (*gDisplayMode == 2)
+    strncpy(mode, modeStrings+12, 8);
   else
-    strncpy(mode, modeStrings+8, 4);
+    strncpy(mode, modeStrings, 4);
   printf("\r\n %s > ", mode);
   fflush(stdout);
 }
@@ -1001,11 +1052,20 @@ int ParseCommands(char *cmdStr)
       break;
 
     case 'c':
-      if (cmd[1] == 'h' && cmd[2] == 'a')
-      {
+      if (cmd[1] == 'h' && cmd[2] == 'a') {
         int g = atoi(args);
         if (g >= 0 && g <= 240)
           *gNumLedsPerChannel = g;
+        else
+          return -2;
+      }
+      break;
+
+    case 'm':
+      if (cmdLen == 1) {
+        int m = atoi(args);
+        if (m >= 0 && m < 255) *gDisplayMode = m;
+        else return -2;
       }
       break;
 

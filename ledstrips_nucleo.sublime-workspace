@@ -4,12 +4,216 @@
 		"selected_items":
 		[
 			[
-				"MAT",
-				"MATHSRCS"
+				"uin",
+				"uint8_t"
+			],
+			[
+				"fram",
+				"frameBuffer"
+			],
+			[
+				"iter",
+				"iterateDemoTwo"
+			],
+			[
+				"filter",
+				"filterParams"
+			],
+			[
+				"HAL_Tr",
+				"HAL_UART_Transmit"
+			],
+			[
+				"US",
+				"USART6_IRQn"
+			],
+			[
+				"USAR",
+				"USART2_IRQn"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"fftFilt",
+				"fftFilterLength"
+			],
+			[
+				"audioDiffEff",
+				"audioDiffEffect"
+			],
+			[
+				"MAX_",
+				"MAX_IIR_FILTER_ORDER"
+			],
+			[
+				"MAX",
+				"MAX_IIR_FILTER_ORDER"
+			],
+			[
+				"audio",
+				"audioEffect"
+			],
+			[
+				"Theme",
+				"Material-Theme-Darker"
+			],
+			[
+				"amp",
+				"ampOffset"
+			],
+			[
+				"FFT",
+				"FFT_RATIO"
+			],
+			[
+				"audi",
+				"audioDiffEffectScale"
+			],
+			[
+				"long",
+				"longAudioEffect"
+			],
+			[
+				"spac",
+				"spacePeriod"
+			],
+			[
+				"lon",
+				"longAudioEffectScale"
+			],
+			[
+				"audioDiffEf",
+				"audioDiffEffect"
+			],
+			[
+				"_raw",
+				"_raw_ADC_Buffer"
+			],
+			[
+				"serialRxB",
+				"serialRxBuff_p"
+			],
+			[
+				"update",
+				"updateAudioFilters"
+			],
+			[
+				"fft",
+				"fftFilterLength"
+			],
+			[
+				"fftFil",
+				"fftFilterLength"
+			],
+			[
+				"NUM",
+				"NUM_FFT_FILTERS"
+			],
+			[
+				"HAL_",
+				"HAL_ADC_Start_DMA"
+			],
+			[
+				"setAud",
+				"setAudioDiffEffectValue"
+			],
+			[
+				"audioDif",
+				"audioDiffEffectScale"
+			],
+			[
+				"audioDiff",
+				"audioDiffEffect"
+			],
+			[
+				"audioDiffEffec",
+				"audioDiffEffectScale"
+			],
+			[
+				"HIGH",
+				"HIGH_MID_SCALE"
+			],
+			[
+				"FFT_LOW",
+				"FFT_LOW_SIZE"
+			],
+			[
+				"FFT_L",
+				"FFT_LENGTH"
+			],
+			[
+				"audo",
+				"audioEffectScale"
+			],
+			[
+				"FFT_HI",
+				"FFT_HIGH_SIZE"
+			],
+			[
+				"FFT_LO",
+				"FFT_LOW_MID_SIZE"
+			],
+			[
+				"FFT_",
+				"FFT_LOW_MID_SIZE"
+			],
+			[
+				"fftIn",
+				"fftIntensity"
+			],
+			[
+				"fftB",
+				"fftBucketLow"
+			],
+			[
+				"fftBuck",
+				"fftBucketLowMid"
+			],
+			[
+				"ADC",
+				"ADC_BUFFER_LENGTH"
 			],
 			[
 				"ADC_",
-				"ADC_BUFFER_LENGTH"
+				"ADC_Buffer"
+			],
+			[
+				"float",
+				"float32_t"
+			],
+			[
+				"Error",
+				"Error_Handler"
+			],
+			[
+				"hu",
+				"huart2"
+			],
+			[
+				"h",
+				"huart6"
+			],
+			[
+				"USA",
+				"USART2"
+			],
+			[
+				"serialTx",
+				"serialTxBuff"
+			],
+			[
+				"HAL_US",
+				"HAL_UART_Transmit_IT"
+			],
+			[
+				"COR",
+				"CORTEX_M4_HWFP_LIB_PATH"
+			],
+			[
+				"MAT",
+				"MATHSRCS"
 			],
 			[
 				"HAL_NVIC_",
@@ -32,24 +236,8 @@
 				"displayMode"
 			],
 			[
-				"uin",
-				"uint16_t"
-			],
-			[
-				"amp",
-				"amplitude"
-			],
-			[
-				"MAX",
-				"MAX_NUM_LEDS_PER_CHANNEL"
-			],
-			[
 				"M",
 				"MAX_NUM_CHANNELS"
-			],
-			[
-				"MAX_",
-				"MAX_NUM_LEDS_PER_CHANNEL"
 			],
 			[
 				"time",
@@ -136,10 +324,6 @@
 				"DATA_TIM_PULSE2"
 			],
 			[
-				"h",
-				"htimx"
-			],
-			[
 				"WS",
 				"WS2812_DEADPERIOD"
 			],
@@ -217,10 +401,6 @@
 			],
 			[
 				"frame",
-				"frameDelay"
-			],
-			[
-				"fram",
 				"frameDelay"
 			],
 			[
@@ -334,196 +514,19 @@
 			[
 				"con",
 				"controlRegisters"
-			],
-			[
-				"rea",
-				"readControlRegister"
-			],
-			[
-				"DIS",
-				"DISPLAYERROR_BR"
-			],
-			[
-				"NUM",
-				"NUM_CHANNELS"
-			],
-			[
-				"hu",
-				"huart2"
-			],
-			[
-				"HAL_U",
-				"HAL_UART_RxCpltCallback"
-			],
-			[
-				"uar",
-				"uartCharBuffer"
-			],
-			[
-				"HAL",
-				"HAL_BUSY"
-			],
-			[
-				"u",
-				"uartBuff"
-			],
-			[
-				"UART_H",
-				"UART_HandleTypeDef"
-			],
-			[
-				"ua",
-				"uartBuff"
-			],
-			[
-				"uart",
-				"uartBuffPtr"
-			],
-			[
-				"un",
-				"uint8_t"
-			],
-			[
-				"HAL_UAR",
-				"HAL_UART_Receive_IT"
-			],
-			[
-				"usa",
-				"usartCharBuffer"
-			],
-			[
-				"us",
-				"usartCharBuffer"
-			],
-			[
-				"a",
-				"amplitude"
-			],
-			[
-				"set",
-				"setPixelBrightness"
-			],
-			[
-				"pix",
-				"pixelIdx"
-			],
-			[
-				"_pix",
-				"_pixelBlockNow"
-			],
-			[
-				"return",
-				"returnBlock"
-			],
-			[
-				"COlo",
-				"ColorTypeDef"
-			],
-			[
-				"pi",
-				"pixelBlock"
-			],
-			[
-				"LED",
-				"LED_CHANNEL0"
-			],
-			[
-				"colorPro",
-				"colorPrevious0"
-			],
-			[
-				"__HAL_TIM",
-				"__HAL_TIM_DISABLE"
-			],
-			[
-				"DAT",
-				"DATA_TIM_PERIOD_SC"
-			],
-			[
-				"TIM_CH",
-				"TIM_CHANNEL_2"
-			],
-			[
-				"TIM_CC",
-				"TIM_CCxChannelCmd"
-			],
-			[
-				"TIM_CHA",
-				"TIM_CHANNEL_1"
-			],
-			[
-				"hdm",
-				"hdma_tim2_ch1_gpio_low"
-			],
-			[
-				"De",
-				"Debug_Setup"
-			],
-			[
-				"GPIO",
-				"GPIO_TypeDef"
-			],
-			[
-				"Gp",
-				"GpioA"
-			],
-			[
-				"NVI",
-				"NVIC_CTRL_INTR_REG"
-			],
-			[
-				"Hal",
-				"HAL_Delay"
-			],
-			[
-				"LD2",
-				"LD2_Pin"
-			],
-			[
-				"LD2_P",
-				"LD2_GPIO_Port"
-			],
-			[
-				"DA",
-				"DATA_TIM_PERIOD_SC"
-			],
-			[
-				"hdma_tim2_",
-				"hdma_tim2_ch1_gpio_high"
-			],
-			[
-				"hdma_tim2_ch1_",
-				"hdma_tim2_ch1_gpio_low"
-			],
-			[
-				"HAL_",
-				"HAL_GPIO_WritePin"
-			],
-			[
-				"DM",
-				"DMA_IO_FrameBuffer"
-			],
-			[
-				"in",
-				"index"
-			],
-			[
-				"Color",
-				"ColorTypeDef"
-			],
-			[
-				"hd",
-				"hdma_tim3_ch1"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
+			"contents": "// ControlRegisters.h\n#ifndef __CONTROLREGISTERS_H\n#define __CONTROLREGISTERS_H\n\n#include \"main.h\"\n\n\n// these offsets define a mapping for hw access via sw / communation protocol\n#define DUMMY_READ                    0x0000\n#define REVISION_OFFSET               0x0004\n#define SCRATCHPAD_OFFSET             0x0008\n#define ENVIRONSTATUS_OFFSET          0x0100 // : 0x020F\n// reserved                           0x0210\n#define DISPLAY_CONTROL_RESET         0x1000\n#define DISPLAY_CONTROL_NLEDPCH       0x1001\n#define DISPLAY_CONTROL_NCHAN         0x1002\n#define DISPLAY_CONTROL_MAXCHAN       0x1003 // read-only\n#define DISPLAY_STATUS_BR_OFFSET      0x1004\n#define DISPLAY_STATUS_FD_OFFSET      0x1006\n#define DISPLAY_STATUS_P_OFFSET       0x1008\n#define DISPLAY_MODE_OFFSET           0x1010\n#define DISPLAY_ERROR_OFFSET          0x1014 // clear-on-read + read-only\n// reserved\n#define BUFFER_STATUS_NFRAMES         0x2000\n#define BUFFER_STATUS_CFRAME          0x2002\n#define BUFFER_ADDRESS_OFFSET         0x2004\n#define BUFFER_VALUE_OFFSET           0x2008\n#define BUFFER_ERROR_OFFSET           0x200c // read-only\n// reserved\n#define DEMOn_CONTROL_OFFSET          0x3000\n\n#define AUDIO_CONTROL_OFFSET          0x4000\nextern filterParameters\n\n//custom demo1 registers\n#define DEMO1_T_VALUE                 0x000 // write only\n#define DEMO1_T_INCR                  0x004\n#define DEMO1_BRIGHTNESS              0x100\n#define DEMO1_MODUPDATE               0x140\n#define DEMO1_PERIOD                  0x180\n#define DEMO1_PHASE                   0x1c0\n\n\n#define DISPLAYMODE_RAW     0\n#define DISPLAYMODE_REPEAT  9\n#define DISPLAYMODE_DEMO1   1\n\n#define DISPLAYERROR_NLED   0x1\n#define DISPLAYERROR_NCH    0x2\n#define DISPLAYERROR_BR     0x4\n#define DISPLAYERROR_FR     0x8\n#define DISPLAYERROR_DM     0x10\n\n#define BUFFER_ERROR_FRAMEID    0x1\n#define BUFFER_ERROR_CHANNELID  0x2\n#define BUFFER_ERROR_PIXELID    0x4\n#define BUFFER_ERROR_LASTPIXEL  0x80\n\n#define INVALID_ACCESS       1\n#define UPDATE_VALID_ACCESS  0x80\n\n#include \"FrameBuffer.h\"\nbuf FrameBuffer;\n\n\n\n\n// this stores the actual data in RAM\n\nstruct ControlRegisters\n{\n\n  struct Revision // read only\n  {\n    u16 majorRev;\n    u16 minorRev;\n  } revision;\n\n  u32 scratchPad;\n\n  struct EnvironStatus // reserved, read-only\n  {\n    u32 temperature[16];\n    u32 voltage[16];      // +0x0040\n    u32 current[16];      // +0x0080\n    u32 power[16];        // +0x00c0\n    u8 faults[16];       //  +0x0100\n  } environStatus;\n\n  struct DisplayControl\n  {\n    u8 softReset;\n    u8 numberLedsPerChannel;\n    u8 maxNumberLedsPerChannel;\n    u8 numberOfChannels;\n    u8 maxNumberOfChannels; // read-only\n    //struct MaxNumberOfStrips { struct RegSpec regSpec; u32 number; } maxNumberOfStrips;\n  } displayControl;\n\n  struct DisplayStatus\n  {\n    u16 brightness;\n    u16 frameDelay;\n    u8 pause;\n  } displayStatus;\n\n  u8 displayMode;\n    // 0 -> raw\n    // 1 -> repeat\n    // >=2 -> demo_n\n\n  u8 displayError; // clear-on-read, read-only\n    // 0x1 -> invalid numberLedsPerStrip\n    // 0x2 -> invalid numberOfStrips\n    // 0x4 -> invalid brightness\n    // 0x8 -> invalid frameRate\n    // 0x10 -> unknown/invalid displayMode\n\n  struct BufferStatus\n  {\n    u8 numberOfFrames;\n    u8 currentFrame;\n  } bufferStatus;\n\n  struct BufferAddress\n  {\n    u8 frameId;\n    u8 channelId;\n    u8 pixelId;\n    uint increment:1;\n  } bufferAddress;\n\n  Pixel bufferValue;\n\n  u8 bufferError; // clear-on-read, read-only\n    // 0x1 -> frame id out-of-range\n    // 0x2 -> strip id out-of-range\n    // 0x4 -> pixel id out-of-range\n    // reserved\n    // 0x80 -> last valid pixel written\n\n  void *demoConfig;\n\n  u8 accessStatus;\n\n};\n\nenum RegType\n{\n  reg8,\n  reg16,\n  reg32,\n  regRevision,\n  regDisplayControl,\n  regDisplayStatus,\n  regBufferStatus,\n  regBufferAddress,\n  regPixel,\n  invalid,\n\n} regTypes;\n\nenum RegAction\n{\n  noRegAction,\n\n  clear_on_read,\n\n  funcSetBrightness,\n\n  funcSetDemo1Brightness,\n  funcSetDemo1Phase,\n  funcSetDemo1Period,\n  \n  funcBufferAccess,\n};\n\nenum RegAccess\n{\n  rwRegAccess,\n  read_only,\n};\n\ntypedef struct {\n  enum RegType type;\n  enum RegAccess access;\n  enum RegAction action;\n  union _register\n  {\n    uint8_t  *reg8;\n    uint16_t *reg16;\n    uint32_t *reg32;\n    struct Revision *revision;\n    struct DisplayControl *displayControl;\n    struct DisplayStatus *displayStatus;\n    struct BufferStatus *bufferStatus;\n    struct BufferAddress *bufferAddress;\n    Pixel *pixel;\n  } r;\n} Register;\n\n\n\n\n\nvoid InitControlRegisters();\n\ntypedef enum handleRegAccessFlag\n{\n  validAccess,\n  invalidAccess,\n  clearOnReadAccess, // FIXME ???\n  readOnlyAccess,\n} HandleRegAccessFlag;\n\n\ntypedef struct _rawRegReadValue\n{\n  uint32_t reg;\n  HandleRegAccessFlag flag;\n} RawRegReadValue;\n\nvoid RawRegisterRead(uint address, RawRegReadValue *rv);\nHandleRegAccessFlag RawRegisterWrite(uint address, uint32_t value);\n\n#endif\n",
 			"file": "Inc/ControlRegisters.h",
+			"file_size": 4832,
+			"file_write_time": 131121316110456222,
 			"settings":
 			{
-				"buffer_size": 4786,
+				"buffer_size": 4856,
 				"line_ending": "Unix"
 			}
 		},
@@ -537,10 +540,10 @@
 			}
 		},
 		{
-			"file": "Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s",
+			"file": "Src/startup_stm32f401xe.s",
 			"settings":
 			{
-				"buffer_size": 21561,
+				"buffer_size": 21627,
 				"line_ending": "Windows"
 			}
 		},
@@ -556,32 +559,75 @@
 			"file": "Src/stm32f4xx_it.c",
 			"settings":
 			{
-				"buffer_size": 4894,
+				"buffer_size": 8745,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Inc/main.h",
+			"file": "Inc/stm32f4xx_it.h",
 			"settings":
 			{
-				"buffer_size": 792,
+				"buffer_size": 3165,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Inc/tim.h",
+			"settings":
+			{
+				"buffer_size": 3205,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c",
+			"settings":
+			{
+				"buffer_size": 19153,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Lib/Drivers/CMSIS/Include/core_cm4.h",
+			"settings":
+			{
+				"buffer_size": 112561,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Src/dma.c",
+			"settings":
+			{
+				"buffer_size": 2824,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "// main.h\n\n#define u32 uint32_t\n#define u16 uint16_t\n#define u8  uint8_t\n//#define uint unsigned int\n\n\n#define PRINT_DEBUG\n\n\n#define MAJOR_REV 0\n#define MINOR_REV 8\n\n// buffer size is num_leds * 24 bits/led\n// 60 * 24 = 1440\n#define BUFFSIZE 2*1440\n#define NUM_CHANNELS 8\n#define NUM_LEDS_PER_CHANNEL 2*60\n#define MAX_NUM_LEDS_PER_CHANNEL 240\n#define MAX_NUM_CHANNELS 8\n\n#define ADC_BUFFER_LENGTH 512\n\n#define DEFAULT_BRIGHTNESS 100\n#define DEFAULT_FRAMEDELAY 100\n\n#define min(X, Y)  ((X) < (Y) ? (X) : (Y))\n\n#include \"stdlib.h\"\n#include \"string.h\"\n#include \"stdbool.h\"\n#include \"stdint.h\"\n\n#include \"stm32f4xx_hal.h\"\n\n//#define ARM_MATH_CM4\n#include \"arm_math.h\"\n  #include \"math.h\"\n#include \"arm_const_structs.h\"\n#include \"arm_common_tables.h\"",
+			"file": "Inc/main.h",
+			"file_size": 745,
+			"file_write_time": 131120720480473235,
+			"settings":
+			{
+				"buffer_size": 745,
 				"line_ending": "Unix",
 				"name": "// main.h"
 			}
 		},
 		{
-			"file": "Lib/Drivers/CMSIS/Include/arm_math.h",
+			"file": "Inc/usart.h",
 			"settings":
 			{
-				"buffer_size": 245185,
-				"line_ending": "Windows"
+				"buffer_size": 850,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "Makefile",
 			"settings":
 			{
-				"buffer_size": 3097,
+				"buffer_size": 3254,
 				"line_ending": "Unix"
 			}
 		},
@@ -598,7 +644,23 @@
 			"file": "Src/adc.c",
 			"settings":
 			{
-				"buffer_size": 5262,
+				"buffer_size": 5261,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Src/main.c",
+			"settings":
+			{
+				"buffer_size": 29840,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h",
+			"settings":
+			{
+				"buffer_size": 44522,
 				"line_ending": "Windows"
 			}
 		},
@@ -667,25 +729,6 @@
 			}
 		},
 		{
-			"contents": "/**\n  ******************************************************************************\n  * @file    Transmission/Src/main.c\n  * @author  MCD Application Team\n  * @version V1.0.0\n  * @date    06-January-2016\n  * @brief   This example provides a description of how to generate a parallel\n  *          data transmission on GPIO with a synchronous clock using a DMA channel\n  *          to transfer a data buffer from SDRAM external memory connected to\n  *          STM32F4xx FSMC interface to GPIO and using a Timer to generate a synchronous\n  *          clock output through the STM32F4xx HAL API\n  ******************************************************************************\n  * @attention\n  *\n  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>\n  *\n  * Redistribution and use in source and binary forms, with or without modification,\n  * are permitted provided that the following conditions are met:\n  *   1. Redistributions of source code must retain the above copyright notice,\n  *      this list of conditions and the following disclaimer.\n  *   2. Redistributions in binary form must reproduce the above copyright notice,\n  *      this list of conditions and the following disclaimer in the documentation\n  *      and/or other materials provided with the distribution.\n  *   3. Neither the name of STMicroelectronics nor the names of its contributors\n  *      may be used to endorse or promote products derived from this software\n  *      without specific prior written permission.\n  *\n  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n  *\n  ******************************************************************************\n  */\n\n/* Includes ------------------------------------------------------------------*/\n#include \"main.h\"\n#include <stdio.h>\n#include \"string.h\"\n#include \"stlogo.h\"\n\n/* Private typedef -----------------------------------------------------------*/\n/* Private define ------------------------------------------------------------*/\n/* Private macro -------------------------------------------------------------*/\n/* Private variables ---------------------------------------------------------*/\n__IO int SendData = 0;\n__IO int EndTransmit = 0;\n\n\n/* Timer handler declaration */\nTIM_HandleTypeDef    TimHandlex;\nTIM_HandleTypeDef    TimHandley;\n\n/* Output compare structure */\nTIM_OC_InitTypeDef     sOCConfig;\n/* Master configuration structure */\nTIM_MasterConfigTypeDef   sMasterConfig;\n/* Slave configuration structure */\nTIM_SlaveConfigTypeDef    sSlaveConfig;\n\n/* RNG handler declaration */\nRNG_HandleTypeDef rng_handle;\n\n/* CRC handler declaration */\nCRC_HandleTypeDef   crc_handle;\n/* used for storing CRC Value */\nstatic uint32_t uw_crc_value = 0;\n\n/* used to store the data generated by RNG random generator and used by CRC */\n/* also used to store the data to be sent on GPIO.. */\nstatic uint32_t rng_data;\n\n#ifdef INCR_DATA_FRAME\nstatic uint32_t SDRAM_data;\nstatic uint32_t SDRAM_data1;\nstatic uint32_t SDRAM_data2;\nstatic uint32_t SDRAM_data3;\nstatic uint32_t SDRAM_data4;\n#endif /* INCR_DATA_FRAME */\n\n#ifdef INCR_DATA_FRAME_SSO\nstatic uint32_t SDRAM_data;\nstatic uint32_t SDRAM_data1;\nstatic uint32_t SDRAM_data2;\n#endif /* #ifdef INCR_DATA_FRAME_SSO */\n\nstatic uint32_t uw_index;\n\n__IO uint32_t second_mem_address = 0;\n\nchar String1[50];\nchar String2[50];\n\n/* Private function prototypes -----------------------------------------------*/\nstatic void TIMx_Config(void);\nstatic void TIMy_Config(void);\nstatic void SystemClock_Config(void);\nstatic void Display_DemoDescription(void);\nstatic void Data_GPIO_Config(void);\nstatic void Error_Handler(void);\nstatic void TransferComplete(DMA_HandleTypeDef *DmaHandle);\nstatic void TransferError(DMA_HandleTypeDef *DmaHandle);\n\n/* Private functions ---------------------------------------------------------*/\n\n/**\n  * @brief  Main program\n  * @param  None\n  * @retval None\n  */\nint main(void)\n{\n\n  /* STM32L4xx HAL library initialization:\n       - Configure the Flash prefetch\n       - Systick timer is configured by default as source of time base, but user \n         can eventually implement his proper time base source (a general purpose \n         timer for example or other time source), keeping in mind that Time base \n         duration should be kept 1ms since PPP_TIMEOUT_VALUEs are defined and \n         handled in milliseconds basis.\n       - Set NVIC Group Priority to 4\n       - Low Level Initialization\n     */\n  HAL_Init();\n\n  /* Configure USER Button */\n  BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_EXTI);\n\n  /* Configure the system clock to 180 MHz */\n  SystemClock_Config();\n\n  /* Initialize LED */\n  BSP_LED_Init(LED_GREEN);\n  BSP_LED_Init(LED_RED);\n\n  /* Initialize the LCD */\n  BSP_LCD_Init();\n  /* Initialize the LCD Layers */\n  BSP_LCD_LayerDefaultInit(1, LCD_FRAME_BUFFER);\n  /* show wait message to user */\n  sprintf(String1, \"WAIT... !!!\");\n  sprintf(String2, \"   \");\n  Display_DemoDescription();\n\n  /* Initialize the SDRAM */\n  BSP_SDRAM_Init();\n\n  /*************************************************************************/\n  /***   Create data to be sent from RNG and CRC                           */\n  /*************************************************************************/\n  /*## Configure the RNG peripheral #######################################*/\n  rng_handle.Instance = RNG;\n\n  /* DeInitialize the RNG peripheral */\n  if (HAL_RNG_DeInit(&rng_handle) != HAL_OK)\n  {\n    /* DeInitialization Error */\n    Error_Handler();\n  }\n\n  /* Initialize the RNG peripheral */\n  if (HAL_RNG_Init(&rng_handle) != HAL_OK)\n  {\n    /* Initialization Error */\n    Error_Handler();\n  }\n\n  /* Configure the CRC peripheral  */\n  crc_handle.Instance = CRC;\n\n  if (HAL_CRC_Init(&crc_handle) != HAL_OK)\n  {\n    /* Initialization Error */\n    Error_Handler();\n  }\n\n  /*## Generate (FULL_FRAME_SIZE - 4) 32-bit long random numbers ##################################*/\n  for (uw_index = 0; uw_index < FULL_FRAME_SIZE / 4 - 1 ; uw_index++)\n  {\n    if (HAL_RNG_GenerateRandomNumber(&rng_handle, &rng_data) != HAL_OK)\n    {\n      /* Random number generation error */\n      Error_Handler();\n    }\n\n    /******************************************************************************************/\n    /******************************************************************************************/\n    /** in our example using DISCOVERY only PB[11:8] 4bits are available for data transmission*/\n    /** so we must set all non transmitted bit to 0 before calculating CRC                    */\n    /** so that the reception board will be able to compute CRC again based on available bits */\n    /** Also, the CRC result will be transmitted only on 4bits..                              */\n    /** so the non transmitted bit of CRC result will also be set to 0 and display on the LCD */\n    /**                                                                                       */\n    /** on top of this we have to store each data on 8 bits, to only write 8MSB of GPIO,      */\n    /** since GPIO LSB are used in parallel by SDRAM access                                   */\n    /** and so we store 4 data of 4bits at each 32bits data SDRAM @                           */\n    /**    0x0(d3)0(d2)0(d1)0(d0)  with d3,d2,d1,d0 the 4 data to be transmitted on 4bits     */\n    /** the dma will access the memory on byte alignment and so                               */\n    /**  will read 0x0(d0) and write on PB[15:8] (PB[15:12]=0, and PB[11:8]= (d0)             */\n    /**  then read 0x0(d1) and write on PB[15:8] (PB[15:12]=0, and PB[11:8]= (d1)             */\n    /**  etc...                                                                               */\n    /******************************************************************************************/\n    /******************************************************************************************/\n    rng_data &= 0x0F0F0F0F;\n    *(__IO uint32_t*) (SDRAM_BANK_ADDR + WRITE_READ_ADDR + 4*uw_index) = rng_data;\n    uw_crc_value = HAL_CRC_Accumulate(&crc_handle, (uint32_t *) & rng_data, 1);\n  }\n\n  /* for debug.. send pre-defined frame... */\n#ifdef INCR_DATA_FRAME\n  /* case 1:  incrementing on 4 bits from 0 to 15\n     so we can easily see in watch window the value incremented on PB[11:8]) */\n  uint32_t indval = 0;\n  __HAL_CRC_DR_RESET(&crc_handle); /* Reset CRC Calculation Unit */\n  for (uw_index = 0; uw_index < FULL_FRAME_SIZE / 4 - 1 ; uw_index++)\n  {\n    SDRAM_data1 = 4 * indval;\n    SDRAM_data2 = (4 * indval + 1) << 8;\n    SDRAM_data3 = (4 * indval + 2) << 16;\n    SDRAM_data4 = (4 * indval + 3) << 24;\n    SDRAM_data = SDRAM_data4 | SDRAM_data3 | SDRAM_data2 | SDRAM_data1;\n    /* copying 4 x 8bits data into our SDRAM buffer */\n    *(__IO uint32_t*) (SDRAM_BANK_ADDR + WRITE_READ_ADDR + 4*uw_index) = SDRAM_data;\n    uw_crc_value = HAL_CRC_Accumulate(&crc_handle, (uint32_t *) & SDRAM_data, 1);\n\n    indval = indval + 1;\n    if (indval == 4)\n    {\n      indval = 0;\n    }\n  }\n#endif /* INCR_DATA_FRAME */\n\n#ifdef INCR_DATA_FRAME_SSO\n  /* case 2: changing all bits every 2 data (n, not(n), n+1, not(n+1),..) */\n  uint32_t indval = 0;\n  __HAL_CRC_DR_RESET(&crc_handle); /* Reset CRC Calculation Unit */\n  for (uw_index = 0; uw_index < FULL_FRAME_SIZE / 2 - 2 ; uw_index++)\n  {\n    if (indval == 16)\n    {\n      indval = 0;\n    }\n\n    SDRAM_data1 = indval;           /* 1st data on 4lsb bits of 8bits LSB */\n    uw_index++;\n    SDRAM_data2 = ~(indval << 8);   /* 2nd data on 4lsb bits of 8bits MSB */\n    SDRAM_data = SDRAM_data2 | SDRAM_data1;\n    /* copying 2 x 8bits data into our SDRAM buffer */\n    *(__IO uint32_t*) (SDRAM_BANK_ADDR + WRITE_READ_ADDR + uw_index) = SDRAM_data;\n    uw_crc_value = HAL_CRC_Accumulate(&crc_handle, (uint32_t *) & SDRAM_data, 1);\n\n    indval++;\n  }\n#endif /* INCR_DATA_FRAME_SSO */\n\n  /*****************************************************************************/\n  /* Storing CRC result as last data sent                                      */\n  /*****************************************************************************/\n  /* keep only the transmitted bits */\n  uw_crc_value &= 0x0F0F0F0F;        /* keeping only bit (d0) */\n\n  /* store result as last table value */\n  *(__IO uint32_t*) (SDRAM_BANK_ADDR + WRITE_READ_ADDR + 4*uw_index) = uw_crc_value;\n\n\n  /*************************************************************************/\n  /*************************************************************************/\n\n  SendData = 0;\n\n  /* show press button message to user */\n  /* using the LCD seems to erase data in SDRAM...  !!! */\n  sprintf(String1, \"PRESS BUTTON !!!\");\n  sprintf(String2, \"  to send frame  \");\n  Display_DemoDescription();\n\n  /* Configure the Data GPIO in output mode  */\n  /* hence avoiding LCD pin impact on receiving board with noise on clock signal */\n  /* impact is that LCD message is a bit dimmed.. but readable */\n  Data_GPIO_Config();\n\n  /* wait for User button to be pressed */\n  while (SendData < 1)\n  {}\n\n  /* show number of data sent and CRC computed */\n  sprintf(String1, \"Nb Data Sent: %lu\", FULL_FRAME_SIZE);\n  sprintf(String2, \"CRC: %lu\", uw_crc_value);\n  Display_DemoDescription();\n\n\n  /* Configure the TIMx for Clock generation and DMA trigger */\n  TIMx_Config();\n  /* Configure the TIMy for Output Compare (count nb of PWM from TIMx) */\n  TIMy_Config();\n\n  /* Set the DMA memory0 conversion complete callback */\n  TimHandlex.hdma[TIMx_DMA_ID]->XferCpltCallback = TransferComplete;\n  /* Set the DMA error callback */\n  TimHandlex.hdma[TIMx_DMA_ID]->XferErrorCallback = TransferError ;\n\n\n  /* Set the DMA memory1 conversion complete callback */\n  TimHandlex.hdma[TIMx_DMA_ID]->XferM1CpltCallback = TransferComplete;\n\n  /* Update second memory address */\n  second_mem_address = (uint32_t)((SDRAM_BANK_ADDR + WRITE_READ_ADDR) + (DMA_MEM_BUFF_SIZE));\n\n  /* Start DMA multi buffer transfer */\n  HAL_DMAEx_MultiBufferStart_IT(TimHandlex.hdma[TIMx_DMA_ID], (SDRAM_BANK_ADDR + WRITE_READ_ADDR), GPIOx_ODR, second_mem_address, DMA_MEM_BUFF_SIZE);\n\n  __HAL_TIM_ENABLE_DMA(&TimHandlex, TIMx_DMA_CC);\n\n  /* Start TIMy OC mode (count number of PWM from TIMx) */\n  if (HAL_TIM_OC_Start_IT(&TimHandley, TIMy_CHANNEL) != HAL_OK)\n  {\n    /* OC Generation Error */\n    Error_Handler();\n  }\n\n  /* Start TIMx PWM generation*/\n  if (HAL_TIM_PWM_Start(&TimHandlex, TIMx_CHANNEL) != HAL_OK)\n  {\n    /* PWM Generation Error */\n    Error_Handler();\n  }\n\n  /* waiting for end of transmission */\n  while (EndTransmit == 0)\n  {}\n\n\n  /* case of normal transmission */\n  if (EndTransmit == 1)\n  {\n    /* end of transaction */\n    BSP_LED_On(LED_GREEN);\n  }\n\n  /* case of Transmission error */\n  if (EndTransmit == 2)\n  {\n    /* end of transaction */\n    BSP_LED_On(LED_RED);\n  }\n\n  while (1)\n  {}\n\n}\n\n/**\n  * @brief  Configure the Data GPIO in output mode\n  *\n  * @note   None\n  * @param  None\n  * @retval None\n  */\nstatic void Data_GPIO_Config(void)\n{\n  GPIO_InitTypeDef   GPIO_InitStruct;\n\n  /* Enable GPIO Clocks */\n  DATA_GPIO_CLK_ENABLE();\n\n  /* Configure output of GPIO as output  */\n  GPIO_InitStruct.Pin = DATA_GPIO_PIN;\n  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;\n  GPIO_InitStruct.Pull = GPIO_NOPULL;\n  GPIO_InitStruct.Speed = GPIO_SPEED_MEDIUM;\n  HAL_GPIO_Init(DATA_GPIO_PORT, &GPIO_InitStruct);\n\n}\n\n\n/**\n  * @brief  Configure the TIMx\n  *\n  * @note   None\n  * @param  None\n  * @retval None\n  */\nstatic void TIMx_Config(void)\n{\n  /* Configure the TIMx peripheral                                              */\n  /* -----------------------------------------------------------------------\n    In this example TIMx input clock (TIMxCLK)  is set to APB clock (PCLK),\n    since APB prescaler is equal to 1.\n      TIMxCLK = PCLK\n      PCLK = HCLK\n      => TIMxCLK = HCLK = SystemCoreClock\n    we will use pre-scaler = 1 to have counter working at SystemCoreClock = 80Mhz\n\n    Note:\n     SystemCoreClock variable holds HCLK frequency and is defined in system_stm32l4xx.c file.\n     Each time the core clock (HCLK) changes, user had to update SystemCoreClock\n     variable value. Otherwise, any configuration based on this variable will be incorrect.\n     This variable is updated in three ways:\n      1) by calling CMSIS function SystemCoreClockUpdate()\n      2) by calling HAL API function HAL_RCC_GetSysClockFreq()\n      3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency\n  ----------------------------------------------------------------------- */\n  /* Initialize TIMx peripheral as follows:\n       +   the Period is the Timeout value after which an event will be generated\n          for example if we want an output at 20Mhz (rising, falling, rising, falling,...)\n                      we set Period = 4 (SystemCoreClock/4 = 80MHz/4 = 20MHz)\n       + Prescaler = 1\n       + ClockDivision = 0\n       + Counter direction = Up\n  */\n  /* Set TIMx instance */\n  TimHandlex.Instance        = TIMx;\n  TimHandlex.Init.Period            = TIM_PERIOD;\n  TimHandlex.Init.Prescaler         = 0;\n  TimHandlex.Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;\n  TimHandlex.Init.CounterMode       = TIM_COUNTERMODE_UP;\n  TimHandlex.Init.RepetitionCounter = 0;\n\n  if (HAL_TIM_PWM_Init(&TimHandlex) != HAL_OK)\n  {\n    /* Initialization Error */\n    Error_Handler();\n  }\n\n  /* configuring Timer for PWM mode */\n  sOCConfig.OCMode       = TIM_OCMODE_PWM1;\n  sOCConfig.OCPolarity   = TIM_OCPOLARITY_HIGH;\n  sOCConfig.Pulse       = TIM_PULSE_VALUE;\n  sOCConfig.OCNPolarity  = TIM_OCNPOLARITY_LOW;\n  sOCConfig.OCFastMode   = TIM_OCFAST_DISABLE;\n  sOCConfig.OCNIdleState = TIM_OCNIDLESTATE_RESET;\n  sOCConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;\n\n  if (HAL_TIM_PWM_ConfigChannel(&TimHandlex, &sOCConfig, TIMx_CHANNEL) != HAL_OK)\n  {\n    /* Configuration Error */\n    Error_Handler();\n  }\n\n  /* Configure TIMx as master & use the OCxREF event as Trigger Output (TRGO) */\n  sMasterConfig.MasterOutputTrigger = TIMx_TRGO_OCREF;\n  sMasterConfig.MasterSlaveMode     = TIM_MASTERSLAVEMODE_ENABLE;\n  if ( HAL_TIMEx_MasterConfigSynchronization(&TimHandlex, &sMasterConfig) != HAL_OK)\n  {\n    /* Configuration Error */\n    Error_Handler();\n  }\n\n}\n\n/**\n  * @brief  Configure the TIMy\n  *\n  * @note   None\n  * @param  None\n  * @retval None\n  */\nstatic void TIMy_Config(void)\n{\n  /* Configure the TIMy peripheral                                              */\n  /* -----------------------------------------------------------------------\n    In this example TIMy is set in Slave mode. The ITR input is used as input trigger.\n   It is connected to TIMx TRGO output. \n    Each edge of ITR is incrementing the counter.\n    The channel 1 is configured in Output Compare mode with the compare register \n   preloaded with number of edge to be counted (nb of data to be transfered)\n   The prescaler is used to count the number of data because nb of data can be > 0xFFF\n  ----------------------------------------------------------------------- */\n\n  /* Set TIMy instance */\n  TimHandley.Instance        = TIMy;\n  TimHandley.Init.Period            = 0xFFFFFFFF;  /* TIM2 counter is 32bit */\n  TimHandley.Init.Prescaler         = 0;\n  TimHandley.Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;\n  TimHandley.Init.CounterMode       = TIM_COUNTERMODE_UP;\n  TimHandley.Init.RepetitionCounter = 0;\n\n  if (HAL_TIM_OC_Init(&TimHandley) != HAL_OK)\n  {\n    /* Initialization Error */\n    Error_Handler();\n  }\n\n  /* configuring Timer for OC mode */\n  sOCConfig.OCMode       = TIM_OCMODE_TIMING;\n  sOCConfig.OCPolarity   = TIM_OCPOLARITY_HIGH;\n  sOCConfig.Pulse       = TIMy_COMPARE_VALUE;\n  sOCConfig.OCNPolarity  = TIM_OCNPOLARITY_LOW;\n  sOCConfig.OCFastMode   = TIM_OCFAST_DISABLE;\n  sOCConfig.OCNIdleState = TIM_OCNIDLESTATE_RESET;\n  sOCConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;\n\n  if (HAL_TIM_OC_ConfigChannel(&TimHandley, &sOCConfig, TIMy_CHANNEL) != HAL_OK)\n  {\n    /* Configuration Error */\n    Error_Handler();\n  }\n\n  /* Configure TIMy in External Clock mode1 slave mode &\n   use the Internal Trigger connected to TIMx TRGO as trigger source */\n  sSlaveConfig.SlaveMode     = TIM_SLAVEMODE_EXTERNAL1;\n  sSlaveConfig.InputTrigger  = TIMy_TS;\n  if (HAL_TIM_SlaveConfigSynchronization(&TimHandley, &sSlaveConfig) != HAL_OK)\n  {\n    /* Configuration Error */\n    Error_Handler();\n  }\n\n}\n\n/**\n  * @brief  TIM Output Compare callback\n  * @note   This function is executed when the TIM Output Compare interrupt\n  *         is generated\n  * @retval None\n  */\nvoid  HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)\n{\n  if (htim->Instance == TIMy)\n  {\n    EndTransmit = 1;\n  }\n}\n\n/**\n  * @brief  DMA conversion complete callback\n  * @note   This function is executed when the transfer complete interrupt\n  *         is generated at each end of DMA buffer\n  * @retval None\n  */\nstatic void TransferComplete(DMA_HandleTypeDef *DmaHandle)\n{\n  uint32_t tmp_ct = 0;\n  uint32_t tmp_mar = 0;\n	\n  tmp_ct = ((TimHandlex.hdma[TIMx_DMA_ID]->Instance->CR) & DMA_SxCR_CT);\n  /* Update memory 0 address location */\n  if (tmp_ct != 0)\n  {\n    tmp_mar = TimHandlex.hdma[TIMx_DMA_ID]->Instance->M0AR;\n    HAL_DMAEx_ChangeMemory(TimHandlex.hdma[TIMx_DMA_ID], (tmp_mar + (2*DMA_MEM_BUFF_SIZE)), MEMORY0);\n  }\n  /* Update memory 1 address location */\n  else\n  {\n    tmp_mar = TimHandlex.hdma[TIMx_DMA_ID]->Instance->M1AR;\n    HAL_DMAEx_ChangeMemory(TimHandlex.hdma[TIMx_DMA_ID], (tmp_mar + (2*DMA_MEM_BUFF_SIZE)), MEMORY1);\n  }\n\n}\n\n/**\n  * @brief  DMA conversion complete callback\n  * @note   This function is executed when the transfer error interrupt\n  *         is generated during DMA transfer\n  * @retval None\n  */\nstatic void TransferError(DMA_HandleTypeDef *DmaHandle)\n{\n  EndTransmit = 2;\n}\n\n\n/**\n  * @brief  EXTI line detection callbacks.\n  * @param  GPIO_Pin: Specifies the pins connected EXTI line\n  * @retval None\n  */\nvoid HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)\n{\n  if (GPIO_Pin == KEY_BUTTON_PIN)\n  {\n    SendData = 1;\n  }\n}\n\n/**\n  * @brief  System Clock Configuration\n  *         The system Clock is configured as follow :\n  *            System Clock source            = PLL (HSE)\n  *            SYSCLK(Hz)                     = 180000000\n  *            HCLK(Hz)                       = 180000000\n  *            AHB Prescaler                  = 1\n  *            APB1 Prescaler                 = 1\n  *            APB2 Prescaler                 = 2\n  *            HSE Frequency(Hz)              = 8000000\n  *            PLL_M                          = 8\n  *            PLL_N                          = 360\n  *            PLL_P                          = 2\n  *            PLL_Q                          = 7\n  *            VDD(V)                         = 3.3\n  *            Main regulator output voltage  = Scale1 mode\n  *            Flash Latency(WS)              = 2\n  * @param  None\n  * @retval None\n  */\nvoid SystemClock_Config(void)\n{\n  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};\n  RCC_OscInitTypeDef RCC_OscInitStruct = {0};\n\n  /* Enable Power Control clock */\n  __HAL_RCC_PWR_CLK_ENABLE();\n\n  /* The voltage scaling allows optimizing the power consumption when the device is\n     clocked below the maximum system frequency, to update the voltage scaling value \n     regarding system frequency refer to product datasheet.  */\n  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);\n\n  /* Enable HSE Oscillator and activate PLL with HSE as source */\n  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;\n  RCC_OscInitStruct.HSEState = RCC_HSE_ON;\n  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;\n  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;\n  RCC_OscInitStruct.PLL.PLLM = 8;   /* 8 for 180MHz, 16 for 80MHz */\n  RCC_OscInitStruct.PLL.PLLN = 360;  /* 360 for 180MHz, 320 for 80MHz */\n  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;\n  RCC_OscInitStruct.PLL.PLLQ = 7;\n  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)\n  {\n    /* Initialization Error */\n    while (1);\n  }\n\n  /* Activate the Over-Drive mode */\n  HAL_PWREx_EnableOverDrive();\n\n  /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2\n     clocks dividers */\n  RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);\n  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;\n  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;\n  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;\n  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;\n  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK) /* 5 for 180MHz, 2 for 80MHz */\n  {\n    /* Initialization Error */\n    while (1);\n  }\n}\n\n/**\n  * @brief  Display main demo messages\n  * @param  None\n  * @retval None\n  */\nstatic void Display_DemoDescription(void)\n{\n\n  /* Set LCD Foreground Layer  */\n  BSP_LCD_SelectLayer(1);\n\n  BSP_LCD_SetFont(&LCD_DEFAULT_FONT);\n\n  /* Clear the LCD */\n  BSP_LCD_SetBackColor(LCD_COLOR_WHITE);\n  BSP_LCD_Clear(LCD_COLOR_WHITE);\n\n  /* Set the LCD Text Color */\n  BSP_LCD_SetTextColor(LCD_COLOR_DARKBLUE);\n\n  /* Display LCD messages */\n  BSP_LCD_DisplayStringAt(0, 10, (uint8_t*)\"STM32F429I\", CENTER_MODE);\n  BSP_LCD_SetFont(&Font16);\n  BSP_LCD_DisplayStringAt(0, 35, (uint8_t*)\"Transmission on GPIO\", CENTER_MODE);\n\n  /* Draw Bitmap */\n  BSP_LCD_DrawBitmap((BSP_LCD_GetXSize() - 80) / 2, 65, (uint8_t *)stlogo);\n\n  BSP_LCD_SetFont(&Font8);\n  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 20, (uint8_t*)\"Copyright (c) STMicroelectronics 2015\", CENTER_MODE);\n\n  BSP_LCD_SetFont(&Font12);\n  BSP_LCD_SetTextColor(LCD_COLOR_BLUE);\n  BSP_LCD_FillRect(0, BSP_LCD_GetYSize() / 2 + 15, BSP_LCD_GetXSize(), 60);\n  BSP_LCD_SetTextColor(LCD_COLOR_WHITE);\n  BSP_LCD_SetBackColor(LCD_COLOR_BLUE);\n\n  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() / 2 + 30, (uint8_t*)String1, CENTER_MODE);\n  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() / 2 + 45, (uint8_t *)String2, CENTER_MODE);\n}\n\n\n/**\n  * @brief  This function is executed in case of error occurrence.\n  * @param  None\n  * @retval None\n  */\nstatic void Error_Handler(void)\n{\n  while (1)\n  {\n    /* Toggle LED with a period of 1 s */\n    BSP_LED_Toggle(LED_RED);\n    HAL_Delay(1000);\n  }\n}\n\n#ifdef  USE_FULL_ASSERT\n/**\n  * @brief  Reports the name of the source file and the source line number\n  *         where the assert_param error has occurred.\n  * @param  file: pointer to the source file name\n  * @param  line: assert_param error line source number\n  * @retval None\n  */\nvoid assert_failed(uint8_t *file, uint32_t line)\n{\n  /* User can add his own implementation to report the file name and line number,\n     ex: printf(\"Wrong parameters value: file %s on line %d\\r\\n\", file, line) */\n\n  /* Infinite loop */\n  while (1)\n  {}\n}\n#endif\n/**\n  * @}\n  */\n\n/**\n  * @}\n  */\n\n/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/\n",
-			"file": "/home/steven/STM32Cube/Repository/STM32Cube_FW_F4_V1.12.0/Projects/STM32F429I-Discovery/Transmission/Src/main.c",
-			"file_size": 26136,
-			"file_write_time": 130965654370000000,
-			"settings":
-			{
-				"buffer_size": 25404,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Src/main.c",
-			"settings":
-			{
-				"buffer_size": 18893,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h",
 			"settings":
 			{
@@ -702,11 +745,19 @@
 			}
 		},
 		{
-			"file": "colors.c",
+			"file": "Src/tim.c",
 			"settings":
 			{
-				"buffer_size": 963,
-				"line_ending": "Unix"
+				"buffer_size": 12040,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Src/gpio.c",
+			"settings":
+			{
+				"buffer_size": 4273,
+				"line_ending": "Windows"
 			}
 		},
 		{
@@ -714,39 +765,6 @@
 			"settings":
 			{
 				"buffer_size": 3193,
-				"line_ending": "Unix",
-				"name": "// FrameBuffer.c"
-			}
-		},
-		{
-			"file": "Src/tim.c",
-			"settings":
-			{
-				"buffer_size": 14296,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h",
-			"settings":
-			{
-				"buffer_size": 44522,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c",
-			"settings":
-			{
-				"buffer_size": 61583,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Src/usart.c",
-			"settings":
-			{
-				"buffer_size": 5221,
 				"line_ending": "Unix"
 			}
 		},
@@ -754,39 +772,42 @@
 			"file": "/home/steven/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 			"settings":
 			{
-				"buffer_size": 265,
+				"buffer_size": 620,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Package Control Messages\n========================\n\nMaterial Theme\n--------------\n\n  Material Theme for Sublime Text 3\n  \n  For more information on the Material Theme: https://github.com/equinusocio/material-theme\n  \n  **********************************************************************************************\n  \n  Add the following to your Settings - User file and restart Sublime Text after:\n  \n  {\n    \"theme\": \"Material-Theme.sublime-theme\",\n    \"color_scheme\": \"Packages/Material Theme/schemes/Material-Theme.tmTheme\",\n  }\n  \n  **********************************************************************************************\n  \n  This theme includes a Darker and Lighter version:\n  \n  Darker version:\n  \n  {\n    \"theme\": \"Material-Theme-Darker.sublime-theme\",\n    \"color_scheme\": \"Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme\",\n  }\n  \n  Lighter version:\n  \n  {\n    \"theme\": \"Material-Theme-Lighter.sublime-theme\",\n    \"color_scheme\": \"Packages/Material Theme/schemes/Material-Theme-Lighter.tmTheme\",\n  }\n  \n  You can also use Material-Theme-OceanicNext and Material-Theme-Darker-OceanicNext as color_scheme.\n  \n  **********************************************************************************************\n  \n  Recommended UI and font settings for a better experience:\n  \n  {\n    \"overlay_scroll_bars\": \"enabled\",\n    \"line_padding_top\": 3,\n    \"line_padding_bottom\": 3,\n    \"always_show_minimap_viewport\": true,\n    \"bold_folder_labels\": true,\n    \"indent_guide_options\": [ \"draw_normal\", \"draw_active\" ],   // Highlight active indent\n    \"font_options\": [ \"gray_antialias\" ],                       // For retina Mac\n  }\n  \n  **********************************************************************************************\n  \n  Other available theme options:\n  \n  \"material_theme_small_tab\"                : true , // Set small tabs\n  \"material_theme_disable_fileicons\"        : true , // Hide sidebar file type icons\n  \"material_theme_disable_folder_animation\" : true , // Disable folder animation\n  \"material_theme_small_statusbar\"          : true , // Set small status bar\n  \"material_theme_compact_sidebar\"          : true , // Set compact side bar\n  \"material_theme_compact_panel\"            : true , // Set minimal padding for the search panel\n  \"material_theme_disable_tree_indicator\"   : true , // Disable sidebar file indicator\n  \"material_theme_bold_tab\"                 : true , // Make the tab labels bolder\n  \"material_theme_tabs_separator\"           : true , // Show tabs separator, this disables tab hover animation\n  \"material_theme_accent_lime\"              : true , // set green lime accent color\n  \"material_theme_accent_purple\"            : true , // set purple accent color\n  \"material_theme_accent_red\"               : true , // set pale red accent color\n  \"material_theme_accent_orange\"            : true , // set orange accent color\n  \"material_theme_accent_yellow\"            : true , // set yellow accent color\n  \"material_theme_accent_indigo\"            : true , // set indigo accent color\n  \"material_theme_accent_pink\"              : true , // set pink accent color\n  \"material_theme_accent_blue\"              : true , // set blue accent color\n  \"material_theme_accent_cyan\"              : true , // set cyan accent color\n  \"material_theme_panel_separator\"          : true , // show bottom panel separator\n  \"material_theme_tabs_autowidth\"           : true , // Enable autowidth for tabs\n  \"material_theme_contrast_mode\"            : true , // Enable sidebar and panels contrast mode\n  \n  // If you use Material Theme - Appbar addon you can use additional settings:\n  \"material_theme_tree_headings\"            : true , // Show sidebar headings\n\n\nMaterialize\n-----------\n\n   __  __       _            _       _   _\n  |  \\/  |     | |          (_)     | | (_)\n  | \\  / | __ _| |_ ___ _ __ _  __ _| |  _ _______\n  | |\\/| |/ _` | __/ _ \\ '__| |/ _` | | | |_  / _ \\\n  | |  | | (_| | ||  __/ |  | | (_| | | | |/ /  __/\n  \\_|  |_/\\__,_|\\__\\___|_|  |_|\\__,_|_| |_/___\\___|\n  \n  Materialize\n  https://github.com/saadq/Materialize\n  \n  Thanks for installing Materialize!\n  \n  Check out https://github.com/saadq/Materialize/screenshots.md for more visuals.\n  \n  ******************************************************************************\n  \n  Activation\n  -----------\n  Based on the theme you want to use, update your user preferences at  **(Preferences > Setting - User)** with the following:\n  \n  For example:\n  \n  Material Brogrammer\n  {\n      \"color_scheme\": \"Packages/Materialize/schemes/Material Brogrammer.tmTheme\",\n      \"theme\": \"Material Brogrammer.sublime-theme\"\n  }\n  \n  Contrast Mode\n  --------------\n  You can activate contrast mode by adding the following to your preferences:\n  {\n      \"material_theme_contrast_mode\": true\n  }\n  \n  MAKE SURE TO RESTART SUBLIME AFTER ACTIVATING THE THEME\n  ******************************************************************************\n  \n  Recommended UI and font settings:\n  I suggest that you use the following custom settings for a better experience with the theme:\n  \n  {\n      \"overlay_scroll_bars\": \"enabled\",\n      \"line_padding_top\": 3,\n      \"line_padding_bottom\": 3,\n      // On retina Mac\n      \"font_options\": [ \"gray_antialias\" ],\n      \"always_show_minimap_viewport\": true,\n      \"bold_folder_labels\": true,\n      // Highlight active indent\n      \"indent_guide_options\": [ \"draw_normal\", \"draw_active\" ]\n  }\n  \n  ******************************************************************************\n\n\nMaterialize-Appbar\n------------------\n\n  ___  ___      _            _       _  _\n  |  \\/  |     | |          (_)     | |(_)\n  | .  . | __ _| |_ ___ _ __ _  __ _| | _  _____  ___\n  | |\\/| |/ _` | __/ _ \\ '__| |/ _` | || ||/ / / / _ \\\n  | |  | | (_| | ||  __/ |  | | (_| | || |  / / |  __/\n  \\_|  |_/\\__,_|\\__\\___|_|  |_|\\__,_|_||_| //_|/ \\___|\n  \n  Materialize - Appbar Addon\n  https://github.com/saadq/Materialize-appbar\n  \n  ******************************************************************************\n  \n  With this addon you can add a tinted app bar to your Materialize themes.\n  This addon auto fits with all Materialize theme accent colors!\n  \n  ## Addon options\n  \n  ```json\n  \"material_theme_tree_headings\": true , // Show siderbar headings\n  ```\n",
+			"settings":
+			{
+				"buffer_size": 6259,
+				"line_ending": "Unix",
+				"name": "Package Control Messages",
+				"read_only": true,
+				"scratch": true
+			}
+		},
+		{
+			"file": "Src/usart.c",
+			"settings":
+			{
+				"buffer_size": 7958,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Src/syscalls.c",
+			"settings":
+			{
+				"buffer_size": 2888,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "Src/spi.c",
 			"settings":
 			{
-				"buffer_size": 8835,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Src/dma.c",
-			"settings":
-			{
-				"buffer_size": 3415,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c",
-			"settings":
-			{
-				"buffer_size": 86114,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h",
-			"settings":
-			{
-				"buffer_size": 23548,
+				"buffer_size": 8758,
 				"line_ending": "Windows"
 			}
 		}
@@ -930,21 +951,37 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 332.0,
-		"last_filter": "color",
+		"height": 354.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
-				"color",
-				"Colorsublime: Install Theme"
-			],
-			[
-				"add bo",
-				"SublimeBookmarks: Add Bookmark"
+				"ori",
+				"Origami: Destroy Current Pane"
 			],
 			[
 				"inst",
 				"Package Control: Install Package"
+			],
+			[
+				"isntal",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"color",
+				"Color Scheme Editor: Edit current color scheme"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"add bo",
+				"SublimeBookmarks: Add Bookmark"
 			],
 			[
 				"orig",
@@ -961,14 +998,6 @@
 			[
 				"Package Control: re",
 				"Package Control: Remove Package"
-			],
-			[
-				"install",
-				"Colorsublime: Install Theme"
-			],
-			[
-				"insta",
-				"Package Control: Install Package"
 			],
 			[
 				":w",
@@ -999,7 +1028,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 521.0
+		"width": 503.0
 	},
 	"console":
 	{
@@ -1026,37 +1055,56 @@
 	],
 	"file_history":
 	[
-		"/home/steven/projects/ledstrips_nucleo/STM32F401RETx_FLASH.ld",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Include/arm_const_structs.h",
+		"/home/steven/STM32Cube/Repository/STM32Cube_FW_F4_V1.12.0/Projects/STM32F429I-Discovery/Transmission/Src/main.c",
+		"/home/steven/projects/ledstrips_nucleo/Src/FrameBuffer.c",
+		"/home/steven/projects/ledstrips_nucleo/Src/printf.c",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Include/core_cm4.h",
 		"/home/steven/projects/ledstrips_nucleo/Inc/FrameBuffer.h",
-		"/home/steven/projects/ledstrips_nucleo/Src/dma.c",
+		"/home/steven/projects/ledstrips_nucleo/Inc/ControlRegisters.h",
+		"/home/steven/projects/ledstrips_nucleo/Src/ControlRegisters.c",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Include/arm_math.h",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c",
+		"/home/steven/projects/ledstrips_nucleo/Src/main.c",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32F401RE-Nucleo/Templates/SW4STM32/startup_stm32f401xe.s",
+		"/home/steven/.config/sublime-text-3/Packages/Colorsublime - Themes/Trixie.tmTheme",
+		"/home/steven/projects/ledstrips_nucleo/colors.c",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c",
+		"/home/steven/projects/ledstrips_nucleo/STM32F401RETx_FLASH.ld",
+		"/home/steven/projects/ledstrips_nucleo/Inc/mxconstants.h",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h",
 		"/home/steven/projects/ledstrips_nucleo/Inc/gpio.h",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h",
+		"/home/steven/projects/ledstrips_nucleo/Inc/usart.h",
+		"/home/steven/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h",
+		"/home/steven/projects/ledstrips_nucleo/Inc/stm32f4xx_it.h",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Projects/STM32469I-Discovery/Templates/Src/main.c",
+		"/home/steven/projects/ledstrips_nucleo/Makefile",
+		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Include/arm_const_structs.h",
+		"/home/steven/projects/ledstrips_nucleo/Src/dma.c",
 		"/home/steven/projects/ledstrips_nucleo/Src/gpio.c",
 		"/home/steven/projects/ledstrips_nucleo/Src/syscalls.c",
 		"/home/steven/projects/ledstrips_nucleo/Inc/tim.h",
-		"/home/steven/projects/ledstrips_nucleo/Inc/usart.h",
 		"/home/steven/projects/ledstrips_nucleo/Inc/stm32f4xx_hal_conf.h",
 		"/home/steven/STM32Cube/Repository/STM32Cube_FW_F4_V1.12.0/Projects/STM32F401-Discovery/Examples/SPI/SPI_FullDuplex_ComDMA/Src/main.c",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c",
 		"/home/steven/STM32Cube/Repository/STM32Cube_FW_F4_V1.12.0/Projects/STM32F401-Discovery/Examples/SPI/SPI_FullDuplex_ComDMA/Src/stm32f4xx_it.c",
 		"/home/steven/projects/ledstrips_nucleo/Src/usart.c",
 		"/home/steven/projects/ledstrips_nucleo/Lib/Middlewares/Third_Party/FreeRTOS/Source/tasks.c",
 		"/home/steven/foo",
 		"/home/steven/.config/sublime-text-3/Packages/User/make.sublime-build",
 		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s",
-		"/home/steven/projects/ledstrips_nucleo/Inc/ControlRegisters.h",
-		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/CMSIS/Include/arm_math.h",
 		"/usr/arm-none-eabi/include/stdio.h",
 		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c",
 		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h",
 		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h",
 		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_usart.c",
 		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h",
-		"/home/steven/projects/ledstrips_nucleo/Inc/mxconstants.h",
 		"/home/steven/projects/ledstrips_nucleo/usart.c",
 		"/home/steven/projects/ledstrips_nucleo/usart.h",
-		"/home/steven/projects/ledstrips_nucleo/Inc/stm32f4xx_it.h",
-		"/home/steven/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 		"/home/steven/projects/ledstrips_nucleo/ledstrips_nucleo.elf",
 		"/home/steven/.config/sublime-text-3/Packages/User/ClangAutoComplete.sublime-settings",
 		"/home/steven/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_wwdg.h",
@@ -1086,13 +1134,14 @@
 	],
 	"find":
 	{
-		"height": 37.0
+		"height": 72.0
 	},
 	"find_in_files":
 	{
 		"height": 90.0,
 		"where_history":
 		[
+			"<current file>",
 			"",
 			"<selection>",
 			"<open files>",
@@ -1111,6 +1160,19 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ampOffset",
+			"_SHP_IDX",
+			"HAL_NVIC_Get",
+			"_write",
+			"showPromp",
+			"ShowPrompt",
+			"'s'",
+			"66D9EF",
+			"HAL_ADC_Start_DMA",
+			"uaReplyChan",
+			"USART6",
+			"AF7",
+			"UART",
 			"CBlack",
 			"__HAL_TIM_ENABLE",
 			"IRQHA",
@@ -1225,13 +1287,7 @@
 			"dispCount",
 			"RED",
 			"TIM_TimeBaseInitTypeDef",
-			"//#",
-			"Julija.h",
-			"as",
-			"LCD_Set",
-			"rand",
-			"Pen_Point",
-			"Pen_Poinnt"
+			"//#"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1239,6 +1295,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"66FCE6",
+			"66D9EF",
 			"green",
 			"Pixel",
 			"hdma_timx_gpio_low",
@@ -1259,7 +1317,7 @@
 	"groups":
 	[
 		{
-			"selected": 20,
+			"selected": 26,
 			"sheets":
 			[
 				{
@@ -1268,7 +1326,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4786,
+						"buffer_size": 4856,
 						"regions":
 						{
 						},
@@ -1281,13 +1339,14 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 3.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 46,
@@ -1313,15 +1372,16 @@
 						"settings":
 						{
 							"auto_name": "// ControlRegisters.c",
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4248.0,
+						"translation.y": 5903.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 29,
+					"stack_index": 39,
 					"type": "text"
 				},
 				{
@@ -1344,24 +1404,25 @@
 						"settings":
 						{
 							"auto_name": "// ControlRegisters.c",
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 54.0,
+						"translation.y": 153.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 47,
+					"stack_index": 34,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s",
+					"file": "Src/startup_stm32f401xe.s",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 21561,
+						"buffer_size": 21627,
 						"regions":
 						{
 						},
@@ -1374,16 +1435,17 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
-							"syntax": "Packages/R/R.tmLanguage",
+							"syntax": "Packages/R/R.sublime-syntax",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3600.0,
+						"translation.y": 303.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 39,
+					"stack_index": 42,
 					"type": "text"
 				},
 				{
@@ -1405,15 +1467,16 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/C++/C++.sublime-syntax",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 702.0,
+						"translation.y": 978.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 40,
+					"stack_index": 43,
 					"type": "text"
 				},
 				{
@@ -1422,50 +1485,243 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4894,
+						"buffer_size": 8745,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4262,
-								4262
+								7356,
+								7356
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2718.0,
+						"translation.y": 5653.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "Inc/main.h",
+					"file": "Inc/stm32f4xx_it.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 792,
+						"buffer_size": 3165,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								591,
-								591
+								2962,
+								2962
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 452.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Inc/tim.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3205,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3093,
+								3093
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1832.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 27,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Src/stm32f4xx_it.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8745,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2899,
+								2899
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1104.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19153,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15240,
+								15240
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 8157.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "Lib/Drivers/CMSIS/Include/core_cm4.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 112561,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								103835,
+								103835
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 99.0,
+						"translation.y": 42432.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "Src/dma.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2824,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2656,
+								2656
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 753.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 32,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "Inc/main.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 745,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								102,
+								102
 							]
 						],
 						"settings":
 						{
 							"auto_name": "// main.h",
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
@@ -1473,71 +1729,70 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "Lib/Drivers/CMSIS/Include/arm_math.h",
+					"buffer": 11,
+					"file": "Inc/usart.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 245185,
+						"buffer_size": 850,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4095,
-								4095
+								454,
+								454
 							]
 						],
 						"settings":
 						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 7668.0,
+						"translation.y": 152.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 12,
 					"file": "Makefile",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3097,
+						"buffer_size": 3254,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1021,
-								1021
+								1081,
+								1081
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/Makefile/Makefile.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 432.0,
+						"translation.y": 704.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 24,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 13,
 					"file": "Inc/FrameBuffer.h",
 					"semi_transient": false,
 					"settings":
@@ -1549,55 +1804,123 @@
 						"selection":
 						[
 							[
-								1172,
-								1172
+								108,
+								108
 							]
 						],
 						"settings":
 						{
 							"auto_name": "// FrameBuffer.h",
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/C Improved/C Improved.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 559.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 14,
 					"file": "Src/adc.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5262,
+						"buffer_size": 5261,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2231,
-								2231
+								3219,
+								3219
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
 							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 486.0,
+						"translation.y": 2103.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 31,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 15,
+					"file": "Src/main.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 29840,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2185,
+								2185
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 527.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 44522,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								24829,
+								24829
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4558.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 33,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h",
 					"semi_transient": false,
 					"settings":
@@ -1615,20 +1938,21 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1466.0,
+						"translation.y": 2036.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 42,
+					"stack_index": 44,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 18,
 					"file": "colors.out",
 					"semi_transient": false,
 					"settings":
@@ -1646,17 +1970,18 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 9396.0,
+						"translation.y": 13053.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 48,
+					"stack_index": 47,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 19,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c",
 					"semi_transient": false,
 					"settings":
@@ -1668,26 +1993,27 @@
 						"selection":
 						[
 							[
-								60679,
-								60679
+								29594,
+								29594
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 21060.0,
+						"translation.y": 19507.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 49,
+					"stack_index": 25,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 20,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h",
 					"semi_transient": false,
 					"settings":
@@ -1699,25 +2025,27 @@
 						"selection":
 						[
 							[
-								14427,
-								14427
+								31815,
+								31815
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
 							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5508.0,
+						"translation.y": 15607.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 26,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 21,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c",
 					"semi_transient": false,
 					"settings":
@@ -1735,20 +2063,21 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1037.0,
+						"translation.y": 54139.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 43,
+					"stack_index": 45,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 22,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h",
 					"semi_transient": false,
 					"settings":
@@ -1766,19 +2095,21 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 144.0,
+						"translation.y": 4003.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 35,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 23,
 					"file": "Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h",
 					"semi_transient": false,
 					"settings":
@@ -1796,19 +2127,20 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1080.0,
+						"translation.y": 55853.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 36,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 24,
 					"file": "Lib/Projects/STM32469I_EVAL/Templates/Inc/main.h",
 					"semi_transient": false,
 					"settings":
@@ -1820,87 +2152,27 @@
 						"selection":
 						[
 							[
-								1099,
-								1099
+								777,
+								777
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
 							"syntax": "Packages/C++/C++.sublime-syntax",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 324.0,
+						"translation.y": 69.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
-					"file": "/home/steven/STM32Cube/Repository/STM32Cube_FW_F4_V1.12.0/Projects/STM32F429I-Discovery/Transmission/Src/main.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 25404,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6194,
-								6194
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2665.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 19,
-					"file": "Src/main.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 18893,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								14731,
-								14734
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"word_wrap": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 10486.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 20,
+					"buffer": 25,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h",
 					"semi_transient": false,
 					"settings":
@@ -1918,20 +2190,21 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 338886.0,
+						"translation.y": 541703.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 34,
+					"stack_index": 40,
 					"type": "text"
 				},
 				{
-					"buffer": 21,
+					"buffer": 26,
 					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c",
 					"semi_transient": false,
 					"settings":
@@ -1958,15 +2231,16 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 17689.0,
+						"translation.y": 50059.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 35,
+					"stack_index": 41,
 					"type": "text"
 				},
 				{
@@ -1975,34 +2249,35 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4786,
+						"buffer_size": 4856,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								80,
-								80
+								1223,
+								1223
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 153.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 24,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 6,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -2018,57 +2293,122 @@
 						"selection":
 						[
 							[
-								158,
-								158
+								157,
+								157
 							]
 						],
 						"settings":
 						{
 							"auto_name": "// ControlRegisters.c",
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 3.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 25,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 22,
-					"file": "colors.c",
+					"buffer": 27,
+					"file": "Src/tim.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 963,
+						"buffer_size": 12040,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								369,
-								369
+								10403,
+								10403
 							]
 						],
 						"settings":
 						{
-							"history_list_is_closing": true,
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6728.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				},
+				{
+					"buffer": 28,
+					"file": "Src/gpio.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4273,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3735,
+								3735
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1428.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 44,
+					"stack_index": 30,
 					"type": "text"
 				},
 				{
-					"buffer": 23,
+					"buffer": 15,
+					"file": "Src/main.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 29840,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12752,
+								12752
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 11927.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 29,
 					"file": "Src/FrameBuffer.c",
 					"semi_transient": false,
 					"settings":
@@ -2080,192 +2420,8 @@
 						"selection":
 						[
 							[
-								2299,
-								2299
-							]
-						],
-						"settings":
-						{
-							"auto_name": "// FrameBuffer.c",
-							"history_list_is_closing": true,
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1387.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 21,
-					"type": "text"
-				},
-				{
-					"buffer": 24,
-					"file": "Src/tim.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 14296,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3201,
-								3201
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5365.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 37,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 174367,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								92207,
-								92207
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 60436.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 41,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "Makefile",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3097,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								547,
-								547
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/Makefile/Makefile.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 19,
-					"file": "Src/main.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 18893,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3782,
-								3782
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"word_wrap": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1296.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 25,
-					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 44522,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								30590,
-								30590
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 9540.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 17,
-					"type": "text"
-				},
-				{
-					"buffer": 26,
-					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 61583,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								39225,
-								39225
+								2585,
+								2585
 							]
 						],
 						"settings":
@@ -2275,253 +2431,358 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 19307.0,
+						"translation.y": 1018.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 27,
-					"file": "Src/usart.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5221,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2844,
-								2844
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2000.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 45,
-					"type": "text"
-				},
-				{
-					"buffer": 28,
+					"buffer": 30,
 					"file": "/home/steven/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 265,
+						"buffer_size": 620,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								264,
-								264
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 38,
+					"stack_index": 28,
 					"type": "text"
 				},
 				{
-					"buffer": 29,
-					"file": "Src/spi.c",
+					"buffer": 31,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8835,
+						"buffer_size": 6259,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5103,
-								5103
+								4486,
+								4486
 							]
 						],
 						"settings":
 						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"auto_indent": false,
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"tab_width": 2,
+							"translate_tabs_to_spaces": true,
+							"word_wrap": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1406.0,
+						"translation.y": 2328.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 31,
+					"stack_index": 29,
 					"type": "text"
 				},
 				{
-					"buffer": 30,
-					"file": "Src/dma.c",
+					"buffer": 14,
+					"file": "Src/adc.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3415,
+						"buffer_size": 5261,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2655,
-								2655
+								2516,
+								2516
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 648.0,
+						"translation.y": 3153.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				},
+				{
+					"buffer": 32,
+					"file": "Src/usart.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7958,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4803,
+								4803
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5552.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 65373,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								24741,
+								24741
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 15232.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 33,
+					"file": "Src/syscalls.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2888,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								614,
+								614
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 317893,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								151121,
+								151121
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2735.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Src/startup_stm32f401xe.s",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21627,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								18764,
+								18764
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/R/R.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3827.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 31,
-					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c",
+					"buffer": 5,
+					"file": "Inc/stm32f4xx_it.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 86114,
+						"buffer_size": 3165,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								58387,
-								58387
+								2690,
+								2690
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 35930.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 32,
-					"type": "text"
-				},
-				{
-					"buffer": 32,
-					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 23548,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								18796,
-								18796
-							]
-						],
-						"settings":
-						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/C++/C++.sublime-syntax",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 7814.0,
+						"translation.y": 602.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 33,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 21,
-					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c",
+					"buffer": 34,
+					"file": "Src/spi.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 40436,
+						"buffer_size": 8758,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								19347,
-								19347
+								7940,
+								7940
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 9039.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 16,
-					"type": "text"
-				},
-				{
-					"buffer": 20,
-					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 37928,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								32855,
-								32855
-							]
-						],
-						"settings":
-						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2322.0,
+						"translation.y": 1955.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 22,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "Src/dma.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2824,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2657,
+								2657
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1203.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
@@ -2544,15 +2805,16 @@
 						"settings":
 						{
 							"auto_name": "// ControlRegisters.c",
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2142.0,
+						"translation.y": 2978.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 38,
 					"type": "text"
 				},
 				{
@@ -2561,250 +2823,29 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4786,
+						"buffer_size": 4856,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1939,
-								1939
+								2009,
+								2009
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 756.0,
+						"translation.y": 1128.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 3,
-			"sheets":
-			[
-				{
-					"buffer": 19,
-					"file": "Src/main.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 18893,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6329,
-								6329
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"word_wrap": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3710.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 26,
-					"type": "text"
-				},
-				{
-					"buffer": 31,
-					"file": "Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 86114,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								58345,
-								58345
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 31124.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 36,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "Lib/Drivers/CMSIS/Include/arm_math.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 245185,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								88689,
-								88689
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 49345.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 30,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Src/ControlRegisters.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9457,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								129,
-								129
-							]
-						],
-						"settings":
-						{
-							"auto_name": "// ControlRegisters.c",
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 22,
-					"type": "text"
-				},
-				{
-					"buffer": 0,
-					"file": "Inc/ControlRegisters.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4786,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1971,
-								1971
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 821.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 23,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "Inc/FrameBuffer.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1185,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								226,
-								226
-							]
-						],
-						"settings":
-						{
-							"auto_name": "// FrameBuffer.h",
-							"history_list_is_closing": true,
-							"syntax": "Packages/C Improved/C Improved.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 27,
-					"type": "text"
-				},
-				{
-					"buffer": 23,
-					"file": "Src/FrameBuffer.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3193,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								45,
-								45
-							]
-						],
-						"settings":
-						{
-							"auto_name": "// FrameBuffer.c",
-							"history_list_is_closing": true,
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 28,
+					"stack_index": 37,
 					"type": "text"
 				}
 			]
@@ -2812,7 +2853,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 29.0
+		"height": 34.0
 	},
 	"input":
 	{
@@ -2829,12 +2870,6 @@
 				1
 			],
 			[
-				2,
-				0,
-				3,
-				1
-			],
-			[
 				1,
 				0,
 				2,
@@ -2844,8 +2879,7 @@
 		"cols":
 		[
 			0.0,
-			0.55744470814,
-			0.621710188443,
+			0.409831234843,
 			1.0
 		],
 		"rows":
@@ -2854,10 +2888,10 @@
 			1.0
 		]
 	},
-	"menu_visible": true,
+	"menu_visible": false,
 	"output.exec":
 	{
-		"height": 197.0
+		"height": 376.0
 	},
 	"output.find_results":
 	{
@@ -2867,7 +2901,7 @@
 	"project": "ledstrips_nucleo.sublime-project",
 	"replace":
 	{
-		"height": 54.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -2877,28 +2911,116 @@
 		"selected_items":
 		[
 			[
-				"main.c",
-				"Src/main.c"
+				"control",
+				"Inc/ControlRegisters.h"
 			],
 			[
-				"main",
-				"Lib/Projects/STM32469I_EVAL/Templates/Inc/main.h"
+				"farm",
+				"Inc/FrameBuffer.h"
 			],
 			[
-				"",
-				"Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
+				"usar",
+				"Inc/usart.h"
 			],
 			[
-				"mak",
-				"Makefile"
+				"_it.h",
+				"Inc/stm32f4xx_it.h"
+			],
+			[
+				"tim.c",
+				"Src/tim.c"
 			],
 			[
 				"make",
 				"Makefile"
 			],
 			[
+				"",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+			],
+			[
+				"sys",
+				"Src/syscalls.c"
+			],
+			[
+				"main",
+				"Inc/main.h"
+			],
+			[
+				"40xe.s",
+				"Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f401xe.s"
+			],
+			[
+				"_it.c",
+				"Src/stm32f4xx_it.c"
+			],
+			[
+				"gpio.c",
+				"Src/gpio.c"
+			],
+			[
+				"adc.c",
+				"Src/adc.c"
+			],
+			[
+				"usart",
+				"Inc/usart.h"
+			],
+			[
+				"dma.c",
+				"Src/dma.c"
+			],
+			[
+				"tim.h",
+				"Inc/tim.h"
+			],
+			[
+				"_adc",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+			],
+			[
+				"startup",
+				"Lib/Projects/STM32F401RE-Nucleo/Templates/SW4STM32/startup_stm32f401xe.s"
+			],
+			[
+				"stm32f401x",
+				"Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
+			],
+			[
+				"_it",
+				"Src/stm32f4xx_it.c"
+			],
+			[
 				".ld",
 				"STM32F401RETx_FLASH.ld"
+			],
+			[
+				"stm32f401xe",
+				"Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
+			],
+			[
+				"_gpio",
+				"Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+			],
+			[
+				"gpio.h",
+				"Inc/gpio.h"
+			],
+			[
+				"usatr",
+				"Src/usart.c"
+			],
+			[
+				"m",
+				"Makefile"
+			],
+			[
+				"main.c",
+				"Src/main.c"
+			],
+			[
+				"mak",
+				"Makefile"
 			],
 			[
 				"frame",
@@ -2925,10 +3047,6 @@
 				"Src/adc.c"
 			],
 			[
-				"gpio.c",
-				"Src/gpio.c"
-			],
-			[
 				"gpio",
 				"Inc/gpio.h"
 			],
@@ -2951,10 +3069,6 @@
 			[
 				"main.h",
 				"Inc/main.h"
-			],
-			[
-				"control",
-				"Inc/ControlRegisters.h"
 			],
 			[
 				"_spi.h",
@@ -2985,14 +3099,6 @@
 				"~/projects/ledstrips_nucleo/Lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
 			],
 			[
-				"_it",
-				"~/projects/ledstrips_nucleo/Src/stm32f4xx_it.c"
-			],
-			[
-				"tim.c",
-				"~/projects/ledstrips_nucleo/Src/tim.c"
-			],
-			[
 				"mai",
 				"~/projects/ledstrips_nucleo/Src/main.c"
 			],
@@ -3021,10 +3127,6 @@
 				"Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_usart.c"
 			],
 			[
-				"usar",
-				"usart.h"
-			],
-			[
 				"color",
 				"colors.c"
 			],
@@ -3033,16 +3135,8 @@
 				"colors.out"
 			],
 			[
-				"dma.c",
-				"Src/dma.c"
-			],
-			[
 				"stm32f4xx_hal_tim",
 				"Lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c"
-			],
-			[
-				"stm32f401xe",
-				"Lib/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
 			],
 			[
 				"stm32",
@@ -3157,10 +3251,6 @@
 				"TouchScreen/touch_7846.h"
 			],
 			[
-				"m",
-				"Makefile"
-			],
-			[
 				"lcdd",
 				"lcddrawing.h"
 			],
@@ -3197,7 +3287,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
@@ -3205,7 +3295,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 86.0,
+	"side_bar_width": 267.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

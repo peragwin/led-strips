@@ -39,6 +39,8 @@
 #define DEMO1_MODUPDATE               0x140
 #define DEMO1_PERIOD                  0x180
 #define DEMO1_PHASE                   0x1c0
+#define DEMO_NUM_CHANNELS             0x200
+#define DEMO_DIRECTION                0x201
 
 
 #define DISPLAYMODE_RAW     0

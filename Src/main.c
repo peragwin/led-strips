@@ -43,7 +43,7 @@
 
 #include "stm32f4xx_it.h"
 
-
+#include "fastLog.h"
 
 
 // put these in memory so they can be copied via DMA
@@ -280,15 +280,36 @@ void frameDelay(void)
 
 #define FFT_RATIO 1
 #define FFT_LENGTH ADC_BUFFER_LENGTH*FFT_RATIO
-#define NUM_FFT_FILTERS 4 // only 4 channels connected right now
+#define NUM_FFT_FILTERS 10 // only 5 channels connected right now
 
 float fftIn[FFT_LENGTH];
 float fftOut[FFT_LENGTH];
 float fftFilter[FFT_LENGTH] = {0};
 
-int fftFilterLength[NUM_FFT_FILTERS] = { 4*FFT_RATIO, 6*FFT_RATIO, 8*FFT_RATIO,
-    FFT_LENGTH - 1 - 4*FFT_RATIO - 6*FFT_RATIO - 8*FFT_RATIO};
-float fftEqValue[NUM_FFT_FILTERS] = { 0.5, 0.8, 2.0, 4.5 };
+int fftFilterLength[NUM_FFT_FILTERS] = {
+    2*FFT_RATIO,
+    2*FFT_RATIO,
+    3*FFT_RATIO,
+    3*FFT_RATIO,
+    4*FFT_RATIO, 
+    4*FFT_RATIO, 
+    5*FFT_RATIO,
+    6*FFT_RATIO,
+    8*FFT_RATIO,
+    FFT_LENGTH - 1 - (4+6+8+5+6+8) * FFT_RATIO
+};
+float fftEqValue[NUM_FFT_FILTERS] = {
+  2.5,
+  2.0,
+  1.5,
+  1.2,
+  1.0,
+  1.0,
+  1.5,
+  2.0,
+  3.0,
+  4.5
+};
 
 
 float audioEffectScale = 0.5;
@@ -316,55 +337,29 @@ float confinedGaussian(float n) {
 }
 
 
-#define IIR_FILTER_ORDER 4
+#define IIR_FILTER_ORDER 2
 
 float audioEffect[NUM_FFT_FILTERS][IIR_FILTER_ORDER];
 float audioDiffEffect[NUM_FFT_FILTERS][1];
 
-float filterParams[NUM_FFT_FILTERS][IIR_FILTER_ORDER][2] = {
-  { 
-    { 0.5, 0.5 }, // first order
-    { -0.005, 0.995 }, // second order
-    { 0.0, 0.0 }, // third order
-    { 0.0, 0.0 } // fourth order
-  },
-  { 
-    { 0.8, 0.5 }, // first order
-    { -0.005, 0.995 }, // second order
-    { 0.0, 0.0 }, // third order
-    { 0.0, 0.0 } // fourth order
-  },
-  { 
-    { 1.2, 0.5 }, // first order
-    { -0.005, 0.995 }, // second order
-    { 0.0, 0.0 }, // third order
-    { 0.0, 0.0 } // fourth order
-  },
-  { 
-    { 10.0, 0.5 }, // first order
-    { -0.005, 0.995 }, // second order
-    { 0.0, 0.0 }, // third order
-    { 0.0, 0.0 } // fourth order
-  }
-};
-float diffFilterParams[NUM_FFT_FILTERS][1][2] = {
-  {
-    { 1.0, 0.5 }
-  },
-  {
-    { 1.0, 0.5 }
-  },
-  {
-    { 1.0, 0.5 }
-  },
-  {
-    { 1.0, 0.5 }
-  }
-};
+float filterParams[NUM_FFT_FILTERS][IIR_FILTER_ORDER][2];
+
+float diffFilterParams[NUM_FFT_FILTERS][1][2];
 
 void updateAudioFilters(void) {
+  int i;
+  for (i = 0; i < NUM_FFT_FILTERS; i++) {
+    filterParams[i][0][0] = fftEqValue[i];
+    filterParams[i][0][1] = 0.5;
+    filterParams[i][1][0] = -.005;
+    filterParams[i][1][1] = .995;
+  
+    diffFilterParams[i][0][0] = 1.0;
+    diffFilterParams[i][0][1] = 0.5;
+  }
+
   int filterOffset = 1; // ignore dc component
-  for (int i = 0; i < NUM_FFT_FILTERS; i++){
+  for (i = 0; i < NUM_FFT_FILTERS; i++){
     arm_fill_f32(1.0/fftFilterLength[i], fftFilter+filterOffset, fftFilterLength[i]);
     filterOffset += fftFilterLength[i];
   }
@@ -423,6 +418,10 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
     
     arm_rfft_fast_f32(&fftStruct, fftIn, fftOut, 0);
     arm_abs_f32(fftOut, fftOut, FFT_LENGTH);
+
+    for (i = 0; i < FFT_LENGTH; i++) {
+      fftOut[i] = log2_2521(fftOut[i]);
+    }
 
     filterOffset = 1; // ignore dc component
     for (i = 0; i < NUM_FFT_FILTERS; i++){
@@ -509,7 +508,7 @@ int setFilterSize(char *args){
 
   oldSize = fftFilterLength[fIdx];
   fftFilterLength[fIdx] = fSize;
-  newHighSize = FFT_LENGTH - fftFilterLength[0] - fftFilterLength[1] - fftFilterLength[2];
+  newHighSize = FFT_LENGTH - fftFilterLength[0] - fftFilterLength[1] - fftFilterLength[2] - fftFilterLength[3];
   
   if (newHighSize < 0) {
     fftFilterLength[fIdx] = oldSize;
@@ -630,6 +629,10 @@ float triangleWave(int period, float amplitude, int phase, int d)
 
 struct DemoOneConfig
 {
+  uint8_t numChannels;
+  uint8_t chanScale;
+  enum { FORWARD, REVERSE, CENTER } direction;
+
   uint16_t timeScale[MAX_NUM_CHANNELS];
   uint16_t timeIncrement[MAX_NUM_CHANNELS];
   //uint8_t modUpdate[MAX_NUM_CHANNELS];
@@ -650,6 +653,9 @@ void DisplayLedDemoOne(void)
   conf1 *newDemoOneConfig()
   {
     static conf1 conf;
+    conf.numChannels = 10;
+    conf.chanScale = 2;
+    conf.direction = FORWARD;
     for (int i = 0; i < MAX_NUM_CHANNELS; i++)
     {
       conf.timeScale[i] = 6000;
@@ -672,18 +678,19 @@ void DisplayLedDemoOne(void)
 
   static float d[MAX_NUM_CHANNELS] = {0};
   static int ucount = 0;
-  uint8_t nLedsPerCh = *gNumLedsPerChannel;
+  uint8_t nLedsPerCh;
   int buffsize;
 
   void iterateDemoOne(buf fb, conf1 *config, float (*iterFunc)(float)) {
-    int ch, px;
+    int ch, px, pxStart, pxEnd;
     float timeperiod, spaceperiod, br, wt, ws, wpx, red_, green_, blue_, s;
     float amp[MAX_NUM_CHANNELS];
     uint8_t red, green, blue;
     Pixel c;
-    PixelBlock pixelBlock;
-    uint8_t numChan = *gNumberOfChannels;
-    nLedsPerCh = *gNumLedsPerChannel;
+    PixelBlock pixelBlock0;
+    PixelBlock pixelBlock1;
+    uint8_t numChan = config->numChannels;
+    nLedsPerCh = *gNumLedsPerChannel / config->chanScale;
     uint16_t gBr = *gBrightness;
 
     ch = 0;
@@ -696,14 +703,24 @@ void DisplayLedDemoOne(void)
     
     ucount++;
 
-    for (ch = 3; ch < 7; ch++) {
-      d[ch] -= wt * audioDiffEffect[ch-3][0] * (float)config->timeIncrement[ch] / (float)config->timeScale[ch];
-      amp[ch] = (float)config->ampOffset[ch] + ((float)config->amp[ch] * audioEffect[ch-3][0]);
+    for (ch = 0; ch < numChan; ch++) {
+      d[ch] -= wt * audioDiffEffect[ch][0] * (float)config->timeIncrement[ch] / (float)config->timeScale[ch];
+      amp[ch] = (float)config->ampOffset[ch] + ((float)config->amp[ch] * audioEffect[ch][0]);
     }
 
-    for (px = 0; px < nLedsPerCh; px++) {
+    if (config->direction == CENTER) {
+      pxStart = - nLedsPerCh / 2;
+      pxEnd = nLedsPerCh / 2;
+    }
+    else {
+      pxStart = 0;
+      pxEnd = nLedsPerCh;
+    }
+
+    for (px = pxStart; px < pxEnd; px++) {
+      if (config->direction == REVERSE) px = nLedsPerCh - 1 - px;
       wpx = ws * px;
-      for (ch = 3; ch < 7; ch++) {
+      for (ch = 0; ch < numChan; ch++) {
 
         // todo: limit amp
         red_   = br + amp[ch] * iterFunc(  d[ch] + wpx  );
@@ -721,9 +738,13 @@ void DisplayLedDemoOne(void)
 
         c = (Pixel) { red, green, blue };
 
-        pixelBlock[ch] = c;
+        if (ch % 2 == 1)
+          pixelBlock0[ch/2+3] = c;
+        else
+          pixelBlock1[ch/2+3] = c;
       }
-      FB_FastSetPixel(fb, pixelBlock, px);
+      FB_FastSetPixel(fb, pixelBlock0, px);
+      FB_FastSetPixel(fb, pixelBlock1, config->chanScale*nLedsPerCh - 1 - px);
     }
 
   }
@@ -746,13 +767,13 @@ void DisplayLedDemoOne(void)
     wt = 2.0f * PI / timeperiod;
     ws = 2.0f * PI / spaceperiod * (ucount++);
 
-    for (ch = 3; ch < 7; ch++) {
+    for (ch = 3; ch < 8; ch++) {
       br[ch] = (float)config->brightness[ch];
       d[ch] -= wt * audioDiffEffect[ch-3][0] * (float)config->timeIncrement[ch] / (float)config->timeScale[ch];
       amp[ch] = (float)config->ampOffset[ch] + ((float)config->amp[ch] * audioEffect[ch-3][0]);
     }
 
-    for (ch = 3; ch < 7; ch++) {
+    for (ch = 3; ch < 8; ch++) {
         // todo: limit amp
         red_   = br[ch] + amp[ch] * iterFunc(  d[ch] + ws  );
         green_ = br[ch] + amp[ch] * iterFunc(  d[ch] + ws + 2.0*PI/3  );
@@ -779,6 +800,89 @@ void DisplayLedDemoOne(void)
   }
   
 
+  void iterateModeThree(buf fb, conf1 *config, float(*iterFunc)(float)) {
+    int px, ch = 1;
+    float timeperiod, spaceperiod, wt, ws, red_, green_, blue_, s, wavespeed;
+    float amp[MAX_NUM_CHANNELS];
+    float br[MAX_NUM_CHANNELS];
+    uint8_t red, green, blue;
+    Pixel c;
+    PixelBlock lastPixelBlock, newPixelBlock, pixelBlock0, pixelBlock1, pixelBlock2;
+    uint8_t numChan = *gNumberOfChannels;
+    nLedsPerCh = *gNumLedsPerChannel;
+    uint16_t gBr = *gBrightness;
+
+    timeperiod = (float)config->timePeriod[ch];
+    spaceperiod = (float)config->spacePeriod[ch];
+    wt = 2.0f * PI / timeperiod;
+    ws = 2.0f * PI / spaceperiod * (ucount++);
+
+    for (ch = 3; ch < 7; ch++) {
+      br[ch] = (float)config->brightness[ch];
+      d[ch] -= wt * audioDiffEffect[ch-3][0] * (float)config->timeIncrement[ch] / (float)config->timeScale[ch];
+      amp[ch] = (float)config->ampOffset[ch] + ((float)config->amp[ch] * audioEffect[ch-3][0]);
+    }
+
+    for (ch = 3; ch < 7; ch++) {
+        red_ = br[ch] + amp[ch] * iterFunc(  d[ch] + ws  );
+        green_ = br[ch] + amp[ch] * iterFunc(  d[ch] + ws + 2.0*PI/3  );
+        blue_  = br[ch] + amp[ch] * iterFunc(  d[ch] + ws - 2.0*PI/3  );
+
+        s = (float) gBr / (red_ + green_ + blue_);
+        red_ *= s;
+        green_ *= s;
+        blue_ *= s;
+
+        red = (uint8_t) round(  red_ > 255 ? 255 : ( red_ < 0 ? 0 : red_ )  );
+        blue = (uint8_t) round(  blue_ > 255 ? 255 : ( blue_ < 0 ? 0 : blue_ )  );
+        green = (uint8_t) round(  green_ > 255 ? 255 : ( green_ < 0 ? 0 : green_ )  );
+        c = (Pixel) { red, green, blue };
+        pixelBlock0[ch] = c;
+    }
+  
+    px = nLedsPerCh/2;
+    FB_FastSetPixel(fb, pixelBlock0, px);
+    FB_FastSetPixel(fb, pixelBlock0, px - 1);
+    
+    wavespeed = 128.0 / (float)config->spacePeriod[0];
+
+    // unroll first iteration for efficiency
+    // FB_FastGetPixel(fb, lastPixelBlock, px + 1 + nLedsPerCh);
+    // FB_FastGetPixel(fb, pixelBlock1, px + 1);
+    // FB_FastSetPixel(fb, pixelBlock1, px + 1 + nLedsPerCh); // save current value for next time
+    // FB_FastGetPixel(fb, pixelBlock2, px + 2);
+
+    for (px = nLedsPerCh/2; px < nLedsPerCh - 1; px++){
+      FB_FastGetPixel(fb, lastPixelBlock, px + 1 + nLedsPerCh);
+      FB_FastGetPixel(fb, pixelBlock1, px + 1);
+      FB_FastSetPixel(fb, pixelBlock1, px + 1 + nLedsPerCh); // save current value for next time
+      FB_FastGetPixel(fb, pixelBlock2, px + 2);
+
+      FB_FastSetPixel(fb, newPixelBlock, px);
+      FB_FastSetPixel(fb, newPixelBlock, nLedsPerCh - px - 1);
+
+      for (ch = 3; ch < 7; ch++) {
+        float r0, r1, r2;
+        float g0, g1, g2;
+        float b0, b1, b2;
+        r0 = pixelBlock0[ch].red;    g0 = pixelBlock0[ch].green;    b0 = pixelBlock0[ch].blue;
+        r1 = pixelBlock1[ch].red;    g1 = pixelBlock1[ch].green;    b1 = pixelBlock1[ch].blue;
+        r2 = pixelBlock2[ch].red;    g2 = pixelBlock2[ch].green;    b2 = pixelBlock2[ch].blue;
+
+        newPixelBlock[ch].red = (uint8_t) round( ( 2 - 4 * wavespeed ) * r1 + wavespeed * ( r0 + r2 ) - lastPixelBlock[ch].red );
+        newPixelBlock[ch].green = (uint8_t) round( ( 2 - 4 * wavespeed ) * g1 + wavespeed * ( g0 + g2 ) - lastPixelBlock[ch].green );
+        newPixelBlock[ch].blue = (uint8_t) round( (2 - 4 * wavespeed) * b1 + wavespeed * ( b0 + b2 ) - lastPixelBlock[ch].blue );
+      }
+
+      FB_FastGetPixel(fb, pixelBlock0, px + 1); // do this last so like it came first each iteration with px
+    }
+
+
+
+  
+
+  }
+
 
 // demo main
 
@@ -790,7 +894,7 @@ void DisplayLedDemoOne(void)
     callbacksPerFrame = 0;
     frameDelay();
 
-    buffsize = min(MAX_NUM_LEDS_PER_CHANNEL, nLedsPerCh)*24;
+    buffsize = min(MAX_NUM_LEDS_PER_CHANNEL, *gNumLedsPerChannel)*24;
 
     if (*gDisplayMode == 1) {
       frameBuffer = FrameBufferZero;
@@ -798,6 +902,10 @@ void DisplayLedDemoOne(void)
     }
     else if (*gDisplayMode == 2) {
       iterateDemoTwo(&frameBuffer, config, config->iterFunc);
+    }
+    else if (*gDisplayMode == 3) {
+      frameBuffer = FrameBufferZero;
+      iterateModeThree(frameBuffer, config, config->iterFunc);
     }
     
     DMA_IO_SendBuffer(frameBuffer, buffsize);
